@@ -28,7 +28,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#0f1d14] text-white min-h-[560px] lg:min-h-[640px] flex items-center"
+      className="relative overflow-hidden bg-[#0f1d14] text-white min-h-[440px] lg:min-h-[500px] flex items-center"
       aria-label="ACF Highlights Slider"
     >
       {/* 1. SLIDER BACKGROUND IMAGES (RIGHT & FULL BLEED) */}
@@ -80,17 +80,17 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       </svg>
 
       {/* 3. HERO CONTENT CONTAINER (POSITIONED WITHIN THE SOLID REGION) */}
-      <div className="container relative mx-auto px-4 py-20 lg:py-28 z-20">
-        <div className="max-w-xl lg:max-w-2xl space-y-6">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
-            Evidence-Based Dialogue for Zambia&apos;s Agricultural Transformation
+      <div className="container relative mx-auto px-4 py-12 lg:py-16 z-20">
+        <div className="max-w-xl lg:max-w-2xl space-y-5">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.15]">
+            Dialogue for Agricultural Transformation
           </h1>
 
-          <p className="text-lg sm:text-xl text-emerald-100/90 leading-relaxed font-normal max-w-xl">
+          <p className="text-base sm:text-lg text-emerald-100/90 leading-relaxed font-normal max-w-xl">
             Connecting smallholder farmers, policymakers, agribusinesses, and researchers to champion sustainable agriculture, climate resilience, and food security across Zambia.
           </p>
 
-          <div className="pt-4 flex flex-wrap items-center gap-4">
+          <div className="pt-2 flex flex-wrap items-center gap-4">
             <Link
               href="/our-work"
               className="px-8 py-4 bg-[#2da44e] hover:bg-[#34a853] text-[#0a140e] font-extrabold rounded-full transition-all flex items-center gap-2 shadow-lg shadow-[#2da44e]/25 hover:scale-105"
