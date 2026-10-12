@@ -11,7 +11,6 @@ import {
   BookOpen,
   Users,
   Briefcase,
-  FileText,
   Calendar,
   Shield,
   HelpCircle,
@@ -48,7 +47,6 @@ export default function Header() {
         { label: 'Climate Resilience', href: '/our-work/climate-resilience', desc: 'Sustainable smallholder systems' },
       ],
     },
-    { label: 'Publications', href: '/publications' },
     {
       label: 'News & Events',
       key: 'news-events',
@@ -162,14 +160,6 @@ export default function Header() {
             {/* Quick Actions (Desktop) */}
             <div className="hidden lg:flex items-center gap-3">
               <Link
-                href="/publications"
-                className="flex items-center gap-2 text-sm font-semibold text-[#175432] bg-[#f0f6f1] hover:bg-[#e2ebe4] px-4 py-2 rounded-full transition-colors border border-[#e2ebe4]"
-              >
-                <FileText size={16} />
-                <span>Publications</span>
-              </Link>
-
-              <Link
                 href="/membership/apply"
                 className="flex items-center gap-2 text-sm font-bold text-white bg-[#175432] hover:bg-[#114227] px-5 py-2.5 rounded-full shadow-md shadow-[#175432]/20 hover:shadow-lg transition-all"
               >
@@ -179,13 +169,6 @@ export default function Header() {
 
             {/* Mobile Hamburger Button */}
             <div className="flex lg:hidden items-center gap-2">
-              <Link
-                href="/publications"
-                className="p-2 text-[#175432] hover:bg-[#f0f6f1] rounded-lg"
-                aria-label="View publications"
-              >
-                <FileText size={20} />
-              </Link>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
