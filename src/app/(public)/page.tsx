@@ -12,7 +12,6 @@ import {
   Sprout,
   Users,
   ChevronRight,
-  Sparkles,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { getSiteSettings, getSiteStats } from '@/lib/supabase/settings'
@@ -178,11 +177,6 @@ export default async function HomePage() {
 
         <div className="container relative mx-auto px-4">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1e462f] border border-[#2da44e]/40 text-[#a3e635] text-xs font-bold uppercase tracking-wider shadow-inner">
-              <Sparkles size={13} />
-              <span>Multi-Stakeholder Agricultural Policy Forum</span>
-            </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
               Evidence-Based Dialogue for Zambia&apos;s Agricultural Transformation
             </h1>
