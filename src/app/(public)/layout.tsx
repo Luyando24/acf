@@ -13,7 +13,7 @@ export default async function PublicLayout({
   return (
     <div className="min-h-screen flex flex-col bg-[#fdfdfd] text-[#142018]">
       <TopBar settings={settings} />
-      <Header />
+      <Header settings={settings} />
       <main id="main-content" className="flex-grow">
         {children}
       </main>

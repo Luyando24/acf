@@ -155,13 +155,14 @@ export default function Footer({ settings }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Column 1: Institutional Brand & Mandate */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#175432] flex items-center justify-center text-white font-black text-lg border border-[#2da44e]/30">
-                <span className="text-[#a3e635]">A</span>CF
+            <Link href="/" className="inline-block py-1">
+              <div className="bg-white rounded-xl p-2.5 inline-block shadow-sm">
+                <img
+                  src={settings.logo_url || '/photos/logo.png'}
+                  alt={settings.site_name || 'ACF Zambia'}
+                  className="h-10 w-auto max-w-[190px] object-contain"
+                />
               </div>
-              <span className="font-extrabold text-xl text-white tracking-tight">
-                ACF ZAMBIA
-              </span>
             </Link>
 
             <p className="text-emerald-100/75 text-sm leading-relaxed max-w-sm">

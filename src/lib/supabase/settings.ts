@@ -8,6 +8,7 @@ export interface SiteSettings {
   phone: string
   address: string
   office_hours: string
+  logo_url?: string
   facebook_url?: string
   twitter_url?: string
   linkedin_url?: string
@@ -20,6 +21,14 @@ export interface SiteStat {
   order: number
 }
 
+export interface HeroSlide {
+  id?: string
+  image_url: string
+  title?: string
+  caption?: string
+  alt_text: string
+}
+
 const DEFAULT_SETTINGS: SiteSettings = {
   site_name: 'Agricultural Consultative Forum (ACF)',
   tagline: 'Multi-stakeholder dialogue & evidence-based policy for sustainable agriculture in Zambia',
@@ -29,6 +38,7 @@ const DEFAULT_SETTINGS: SiteSettings = {
   phone: '+260 95 4755071',
   address: '24 Elm Rd, Woodlands, Lusaka, Zambia',
   office_hours: 'Monday - Friday: 08:00 - 17:00 CAT',
+  logo_url: '/photos/logo.png',
   facebook_url: 'https://facebook.com/ACFZambia',
   twitter_url: 'https://twitter.com/ACFZambia',
   linkedin_url: 'https://linkedin.com/company/acfzambia',
@@ -39,6 +49,29 @@ const DEFAULT_STATS: SiteStat[] = [
   { label: 'Research Publications', value: '85+', order: 2 },
   { label: 'Farmer Groups Reached', value: '50,000+', order: 3 },
   { label: 'Stakeholder Partners', value: '40+', order: 4 },
+]
+
+export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
+  {
+    image_url: '/photos/fosta-stakeholders-dialogue.jpg',
+    alt_text: 'FoSTA Health Stakeholders Policy Dialogue in Lusaka',
+    caption: 'FoSTA Health Stakeholders Policy Dialogue',
+  },
+  {
+    image_url: '/photos/agricultural-budget-analysis.jpg',
+    alt_text: 'National Agricultural Budget Analysis and Validation Session',
+    caption: 'National Agricultural Budget Analysis',
+  },
+  {
+    image_url: '/photos/beef-report-workshop.jpg',
+    alt_text: 'Livestock and Beef Value Chain Report Dissemination Workshop',
+    caption: 'Livestock & Beef Value Chain Dissemination',
+  },
+  {
+    image_url: '/photos/budget-proposal-workshop.jpg',
+    alt_text: 'Agricultural Policy Budget Proposal Consultative Workshop',
+    caption: 'Agricultural Budget Proposal Consultative Forum',
+  },
 ]
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -76,5 +109,24 @@ export async function getSiteStats(): Promise<SiteStat[]> {
     return rawValue as unknown as SiteStat[]
   } catch {
     return DEFAULT_STATS
+  }
+}
+
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  try {
+    const supabase = await createClient()
+    const { data, error } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'hero_slides')
+      .single()
+
+    const rawValue = (data as any)?.value
+    if (error || !rawValue || !Array.isArray(rawValue) || rawValue.length === 0) {
+      return DEFAULT_HERO_SLIDES
+    }
+    return rawValue as HeroSlide[]
+  } catch {
+    return DEFAULT_HERO_SLIDES
   }
 }

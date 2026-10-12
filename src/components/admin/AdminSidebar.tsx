@@ -71,18 +71,17 @@ export default function AdminSidebar() {
   return (
     <aside className="w-64 bg-white border-r border-[#e2ebe4] flex flex-col h-screen sticky top-0 shrink-0">
       {/* Brand Header */}
-      <div className="p-5 border-b border-[#e2ebe4] flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[#175432] flex items-center justify-center text-white font-black text-lg shadow-sm border border-[#2da44e]/30">
-          <span className="text-[#a3e635]">A</span>CF
-        </div>
-        <div>
-          <h2 className="font-extrabold text-sm text-[#0f1d14] leading-tight">
-            ACF CMS
-          </h2>
-          <span className="text-[10px] text-[#5c6f62] uppercase tracking-wider font-bold">
-            Secretariat Admin
-          </span>
-        </div>
+      <div className="p-4 border-b border-[#e2ebe4] flex items-center justify-between">
+        <Link href="/admin" className="flex items-center gap-2">
+          <img
+            src="/photos/logo.png"
+            alt="ACF CMS"
+            className="h-10 w-auto max-w-[150px] object-contain"
+          />
+        </Link>
+        <span className="text-[10px] bg-[#f0f6f1] text-[#175432] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold border border-[#e2ebe4]">
+          CMS
+        </span>
       </div>
 
       {/* Navigation Groups */}

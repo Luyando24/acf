@@ -13,11 +13,35 @@ INSERT INTO public.site_settings (key, value, description) VALUES
     "phone": "+260 95 4755071",
     "address": "24 Elm Rd, Woodlands, Lusaka, Zambia",
     "office_hours": "Monday - Friday: 08:00 - 17:00 CAT",
+    "logo_url": "/photos/logo.png",
     "facebook_url": "https://facebook.com/ACFZambia",
     "twitter_url": "https://twitter.com/ACFZambia",
     "linkedin_url": "https://linkedin.com/company/acfzambia",
     "youtube_url": ""
-}'::jsonb, 'General contact information and social profiles'),
+}'::jsonb, 'General contact information, logo and social profiles'),
+
+('hero_slides', '[
+    {
+        "image_url": "/photos/fosta-stakeholders-dialogue.jpg",
+        "alt_text": "FoSTA Health Stakeholders Policy Dialogue in Lusaka",
+        "caption": "FoSTA Health Stakeholders Policy Dialogue"
+    },
+    {
+        "image_url": "/photos/agricultural-budget-analysis.jpg",
+        "alt_text": "National Agricultural Budget Analysis and Validation Session",
+        "caption": "National Agricultural Budget Analysis"
+    },
+    {
+        "image_url": "/photos/beef-report-workshop.jpg",
+        "alt_text": "Livestock and Beef Value Chain Report Dissemination Workshop",
+        "caption": "Livestock & Beef Value Chain Dissemination"
+    },
+    {
+        "image_url": "/photos/budget-proposal-workshop.jpg",
+        "alt_text": "Agricultural Policy Budget Proposal Consultative Workshop",
+        "caption": "Agricultural Budget Proposal Consultative Forum"
+    }
+]'::jsonb, 'Homepage hero background photography slides'),
 
 ('stats', '[
     {"label": "Policy Dialogues Held", "value": "120+", "order": 1},

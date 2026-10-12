@@ -14,14 +14,16 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { getSiteSettings, getSiteStats } from '@/lib/supabase/settings'
+import { getSiteSettings, getSiteStats, getHeroSlides } from '@/lib/supabase/settings'
 import { formatDate } from '@/lib/utils/formatters'
+import HeroSlider from '@/components/home/HeroSlider'
 
 export default async function HomePage() {
   const supabase = await createClient()
-  const [settings, stats] = await Promise.all([
+  const [settings, stats, heroSlides] = await Promise.all([
     getSiteSettings(),
     getSiteStats(),
+    getHeroSlides(),
   ])
 
   // Fetch dynamic content from database with graceful fallback handling
@@ -170,41 +172,8 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-0">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-[#0f1d14] text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#2da44e]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#175432]/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="container relative mx-auto px-4">
-          <div className="max-w-3xl space-y-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
-              Evidence-Based Dialogue for Zambia&apos;s Agricultural Transformation
-            </h1>
-
-            <p className="text-lg sm:text-xl text-emerald-100/80 leading-relaxed font-normal">
-              Connecting smallholder farmers, policymakers, agribusinesses, and researchers to champion sustainable agriculture, climate resilience, and food security across Zambia.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center gap-4">
-              <Link
-                href="/our-work"
-                className="px-8 py-4 bg-[#2da44e] hover:bg-[#34a853] text-[#0a140e] font-extrabold rounded-full transition-all flex items-center gap-2 shadow-lg shadow-[#2da44e]/25 hover:scale-105"
-              >
-                <span>Explore Our Work</span>
-                <ArrowRight size={18} />
-              </Link>
-
-              <Link
-                href="/publications"
-                className="px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/20 backdrop-blur-xs flex items-center gap-2"
-              >
-                <BookOpen size={18} />
-                <span>Publications & Research</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 1. HERO SECTION WITH PHOTO SLIDER & SOLID FADING OVERLAY */}
+      <HeroSlider slides={heroSlides} />
 
       {/* 2. STATS HIGHLIGHTS STRIP */}
       {stats && stats.length > 0 && (

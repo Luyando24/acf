@@ -44,9 +44,11 @@ function AdminLoginForm() {
   return (
     <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 shadow-2xl border border-[#1b3424] space-y-6">
       <div className="text-center space-y-2">
-        <div className="w-14 h-14 rounded-2xl bg-[#175432] text-white flex items-center justify-center font-black text-2xl mx-auto shadow-md border border-[#2da44e]/30">
-          <span className="text-[#a3e635]">A</span>CF
-        </div>
+        <img
+          src="/photos/logo.png"
+          alt="ACF Zambia"
+          className="h-14 w-auto mx-auto object-contain mb-3"
+        />
         <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
           Staff Portal Login
         </h1>

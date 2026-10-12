@@ -16,7 +16,13 @@ import {
   HelpCircle,
 } from 'lucide-react'
 
-export default function Header() {
+import { SiteSettings } from '@/lib/supabase/settings'
+
+interface HeaderProps {
+  settings?: SiteSettings
+}
+
+export default function Header({ settings }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const pathname = usePathname()
@@ -82,18 +88,12 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group focus:outline-hidden">
-              <div className="w-11 h-11 rounded-xl bg-[#175432] flex items-center justify-center text-white font-black text-xl shadow-md border border-[#2da44e]/30 group-hover:scale-105 transition-transform">
-                <span className="text-[#a3e635]">A</span>CF
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-lg text-[#0f1d14] tracking-tight leading-none group-hover:text-[#175432] transition-colors">
-                  ACF ZAMBIA
-                </span>
-                <span className="text-[11px] font-semibold text-[#5c6f62] tracking-wider uppercase">
-                  Agricultural Consultative Forum
-                </span>
-              </div>
+            <Link href="/" className="flex items-center gap-3 group focus:outline-hidden py-1">
+              <img
+                src={settings?.logo_url || '/photos/logo.png'}
+                alt={settings?.site_name || 'Agricultural Consultative Forum (ACF)'}
+                className="h-12 sm:h-14 w-auto max-w-[220px] object-contain group-hover:scale-105 transition-transform"
+              />
             </Link>
 
             {/* Desktop Navigation */}
