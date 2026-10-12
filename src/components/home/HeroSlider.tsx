@@ -82,8 +82,8 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       {/* 3. HERO CONTENT CONTAINER (POSITIONED WITHIN THE SOLID REGION) */}
       <div className="container relative mx-auto px-4 py-12 lg:py-16 z-20">
         <div className="max-w-xl lg:max-w-2xl space-y-5">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.15]">
-            Dialogue for Agricultural Transformation
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
+            Dialogue for Agricultural Transformation in Zambia
           </h1>
 
           <p className="text-base sm:text-lg text-emerald-100/90 leading-relaxed font-normal max-w-xl">
