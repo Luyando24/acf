@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, ChevronLeft, ChevronRight, Pause, Play, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen } from 'lucide-react'
 import { HeroSlide } from '@/lib/supabase/settings'
 
 interface HeroSliderProps {
@@ -11,39 +11,27 @@ interface HeroSliderProps {
 
 export default function HeroSlider({ slides }: HeroSliderProps) {
   const [current, setCurrent] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(true)
-  const [isHovered, setIsHovered] = useState(false)
-
   const slideCount = slides.length
 
-  const nextSlide = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % slideCount)
-  }, [slideCount])
-
-  const prevSlide = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + slideCount) % slideCount)
-  }, [slideCount])
-
+  // Fully automatic carousel cycling every 5 seconds
   useEffect(() => {
-    if (!isPlaying || isHovered || slideCount <= 1) return
-    const interval = setInterval(nextSlide, 6000)
+    if (slideCount <= 1) return
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % slideCount)
+    }, 5000)
     return () => clearInterval(interval)
-  }, [isPlaying, isHovered, slideCount, nextSlide])
+  }, [slideCount])
 
   if (!slides || slides.length === 0) {
     return null
   }
 
-  const activeSlide = slides[current]
-
   return (
     <section
-      className="relative overflow-hidden bg-[#0f1d14] text-white min-h-[580px] lg:min-h-[660px] flex items-center"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative overflow-hidden bg-[#0f1d14] text-white min-h-[560px] lg:min-h-[640px] flex items-center"
       aria-label="ACF Highlights Slider"
     >
-      {/* 1. SLIDER BACKGROUND IMAGES */}
+      {/* 1. SLIDER BACKGROUND IMAGES (RIGHT & FULL BLEED) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {slides.map((slide, index) => {
           const isActive = index === current
@@ -57,7 +45,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               <img
                 src={slide.image_url}
                 alt={slide.alt_text || 'ACF Agricultural Forum'}
-                className="w-full h-full object-cover object-center lg:object-[center_right] transform scale-100 transition-transform duration-7000 ease-out"
+                className="w-full h-full object-cover object-center lg:object-[75%_center]"
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
             </div>
@@ -65,24 +53,40 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         })}
       </div>
 
-      {/* 2. SOLID FADING OVERLAY FROM LEFT (HERO TEXT CONTAINER) */}
-      {/* Mobile: Top-to-bottom dark fade for 100% legibility */}
-      <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#0f1d14] via-[#0f1d14]/90 to-[#0f1d14]/75 pointer-events-none z-10" />
+      {/* 2. SOLID BACKGROUND LAYER WITH CRISP WHITE DIVIDER BORDER (NO FADE) */}
+      {/* Mobile: Solid #0f1d14 background for 100% legibility */}
+      <div className="md:hidden absolute inset-0 bg-[#0f1d14]/95 pointer-events-none z-10" />
 
-      {/* Desktop: Solid #0f1d14 on the left where text lives, fading to transparent on the right to show photos */}
-      <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#0f1d14] from-40% via-[#0f1d14]/90 via-60% via-[#0f1d14]/50 via-75% to-transparent to-100% pointer-events-none z-10" />
+      {/* Tablet & Desktop: Solid #0f1d14 on the left up to the dividing line, with a crisp white border */}
+      <svg
+        className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-10"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {/* Solid #0f1d14 left section without any fade */}
+        <path
+          d="M 0,0 L 610,0 C 580,350 510,650 460,1000 L 0,1000 Z"
+          fill="#0f1d14"
+        />
+        {/* Crisp white dividing border along the edge */}
+        <path
+          d="M 610,0 C 580,350 510,650 460,1000"
+          fill="none"
+          stroke="#ffffff"
+          strokeWidth="2.5"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
 
-      {/* Subtle top/bottom edge shadow for seamless integration */}
-      <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0f1d14] to-transparent pointer-events-none z-10" />
-
-      {/* 3. HERO CONTENT CONTAINER */}
+      {/* 3. HERO CONTENT CONTAINER (POSITIONED WITHIN THE SOLID REGION) */}
       <div className="container relative mx-auto px-4 py-20 lg:py-28 z-20">
-        <div className="max-w-3xl space-y-6">
+        <div className="max-w-xl lg:max-w-2xl space-y-6">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
             Evidence-Based Dialogue for Zambia&apos;s Agricultural Transformation
           </h1>
 
-          <p className="text-lg sm:text-xl text-emerald-100/90 leading-relaxed font-normal max-w-2xl">
+          <p className="text-lg sm:text-xl text-emerald-100/90 leading-relaxed font-normal max-w-xl">
             Connecting smallholder farmers, policymakers, agribusinesses, and researchers to champion sustainable agriculture, climate resilience, and food security across Zambia.
           </p>
 
@@ -102,65 +106,6 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               <BookOpen size={18} />
               <span>Publications & Research</span>
             </Link>
-          </div>
-        </div>
-
-        {/* 4. SLIDER CONTROLS & PHOTO CAPTION STRIP */}
-        <div className="mt-12 lg:mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-white/10">
-          {/* Active Photo Caption Badge */}
-          {activeSlide.caption && (
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0f1d14]/90 border border-white/15 text-xs text-emerald-200/90 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#a3e635] animate-pulse" />
-              <span className="font-semibold">{activeSlide.caption}</span>
-            </div>
-          )}
-
-          {/* Controls: Indicators + Navigation Buttons */}
-          <div className="flex items-center gap-3 ml-auto sm:ml-0">
-            {/* Slide Dots */}
-            <div className="flex items-center gap-1.5 bg-black/30 p-1.5 rounded-full backdrop-blur-md border border-white/10">
-              {slides.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => setCurrent(i)}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
-                    i === current
-                      ? 'w-6 bg-[#a3e635]'
-                      : 'w-2 bg-white/40 hover:bg-white/70'
-                  }`}
-                  aria-label={`Go to slide ${i + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Prev / Next Buttons */}
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                onClick={prevSlide}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Previous slide"
-              >
-                <ChevronLeft size={16} />
-              </button>
-              <button
-                type="button"
-                onClick={nextSlide}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white flex items-center justify-center transition-colors cursor-pointer"
-                aria-label="Next slide"
-              >
-                <ChevronRight size={16} />
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-emerald-200 flex items-center justify-center transition-colors cursor-pointer text-xs"
-                aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
-              >
-                {isPlaying ? <Pause size={12} /> : <Play size={12} />}
-              </button>
-            </div>
           </div>
         </div>
       </div>
