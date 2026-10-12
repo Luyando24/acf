@@ -17,7 +17,7 @@ export default function PersonCard({ person }: { person: Person }) {
     <div className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between">
       <div>
         {/* Photo or placeholder avatar */}
-        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#175432] to-[#0f1d14] text-white flex items-center justify-center font-bold text-2xl shadow-md border border-[#2da44e]/30 mb-5">
+        <div className="w-20 h-20 rounded-2xl bg-[#175432] text-white flex items-center justify-center font-bold text-2xl shadow-md border border-[#2da44e]/30 mb-5">
           {person.name.replace('[PLACEHOLDER] ', '').charAt(0)}
         </div>
 

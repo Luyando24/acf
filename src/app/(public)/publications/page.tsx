@@ -109,7 +109,7 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-gradient-to-r from-[#0f1d14] via-[#142d1f] to-[#175432] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
           <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15 inline-block">
             Knowledge Repository

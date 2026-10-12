@@ -172,11 +172,9 @@ export default async function HomePage() {
   return (
     <div className="space-y-0">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#0f1d14] via-[#142d1f] to-[#175432] text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
-        {/* Decorative Grid and Glow Background */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#a3e635_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
-        <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#2da44e]/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#a3e635]/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="relative overflow-hidden bg-[#0f1d14] text-white pt-16 pb-24 lg:pt-24 lg:pb-32">
+        <div className="absolute top-1/4 right-10 w-96 h-96 bg-[#2da44e]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#175432]/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="container relative mx-auto px-4">
           <div className="max-w-3xl space-y-6">
@@ -294,8 +292,8 @@ export default async function HomePage() {
             </div>
 
             <div className="lg:col-span-6">
-              <div className="relative rounded-3xl bg-gradient-to-br from-[#175432] to-[#0f1d14] p-8 text-white shadow-2xl border border-[#2da44e]/30 overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#a3e635]/10 rounded-full blur-2xl" />
+              <div className="relative rounded-3xl bg-[#175432] p-8 text-white shadow-2xl border border-[#2da44e]/30 overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-2xl" />
                 <h3 className="text-2xl font-bold mb-4 text-[#a3e635]">ACF Strategic Objectives</h3>
                 <ul className="space-y-4 text-sm text-emerald-100/90 leading-relaxed">
                   <li className="flex items-start gap-3">
@@ -561,7 +559,7 @@ export default async function HomePage() {
       </section>
 
       {/* 7. MEMBERSHIP CALL TO ACTION */}
-      <section className="py-20 bg-gradient-to-r from-[#175432] to-[#0f1d14] text-white">
+      <section className="py-20 bg-[#175432] text-white">
         <div className="container mx-auto px-4 text-center max-w-3xl space-y-6">
           <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3 py-1 rounded-full border border-white/15">
             Stakeholder Engagement

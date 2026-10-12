@@ -85,7 +85,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 group focus:outline-hidden">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#175432] to-[#0f1d14] flex items-center justify-center text-white font-black text-xl shadow-md border border-[#2da44e]/30 group-hover:scale-105 transition-transform">
+              <div className="w-11 h-11 rounded-xl bg-[#175432] flex items-center justify-center text-white font-black text-xl shadow-md border border-[#2da44e]/30 group-hover:scale-105 transition-transform">
                 <span className="text-[#a3e635]">A</span>CF
               </div>
               <div className="flex flex-col">

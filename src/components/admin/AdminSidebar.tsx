@@ -72,7 +72,7 @@ export default function AdminSidebar() {
     <aside className="w-64 bg-white border-r border-[#e2ebe4] flex flex-col h-screen sticky top-0 shrink-0">
       {/* Brand Header */}
       <div className="p-5 border-b border-[#e2ebe4] flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#175432] to-[#0f1d14] flex items-center justify-center text-white font-black text-lg shadow-sm border border-[#2da44e]/30">
+        <div className="w-10 h-10 rounded-xl bg-[#175432] flex items-center justify-center text-white font-black text-lg shadow-sm border border-[#2da44e]/30">
           <span className="text-[#a3e635]">A</span>CF
         </div>
         <div>

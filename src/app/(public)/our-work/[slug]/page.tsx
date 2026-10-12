@@ -86,7 +86,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-gradient-to-r from-[#0f1d14] via-[#142d1f] to-[#175432] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/our-work"
@@ -167,7 +167,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
 
           {/* Sidebar CTA & Related (4 cols) */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-gradient-to-br from-[#175432] to-[#0f1d14] text-white p-6 rounded-3xl shadow-lg border border-[#2da44e]/30 space-y-4">
+            <div className="bg-[#175432] text-white p-6 rounded-3xl shadow-lg border border-[#2da44e]/30 space-y-4">
               <span className="text-xs font-bold uppercase tracking-wider text-[#a3e635]">
                 Get Involved
               </span>

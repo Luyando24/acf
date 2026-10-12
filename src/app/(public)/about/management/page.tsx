@@ -41,7 +41,7 @@ export default async function ManagementPage() {
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
-      <section className="bg-gradient-to-r from-[#0f1d14] via-[#142d1f] to-[#175432] text-white py-16 border-b border-[#1b3424]">
+      <section className="bg-[#0f1d14] text-white py-16 border-b border-[#1b3424]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-3">
           <div className="flex items-center justify-center gap-2 text-xs font-bold text-emerald-300 uppercase tracking-widest">
             <Link href="/about" className="hover:underline">

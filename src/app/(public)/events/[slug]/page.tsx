@@ -64,7 +64,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-gradient-to-r from-[#0f1d14] via-[#142d1f] to-[#175432] text-white py-16 border-b border-[#1b3424]">
+      <section className="bg-[#0f1d14] text-white py-16 border-b border-[#1b3424]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/events"
