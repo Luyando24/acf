@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --color-acf-dark: #0f1d14;
+  --color-acf-primary: #175432;
+  --color-acf-primary-hover: #114227;
+  --color-acf-light: #2da44e;
+  --color-acf-accent: #65c466;
+  --color-acf-lime: #a3e635;
+  --color-acf-surface: #f6f9f6;
+  --color-acf-muted: #5c6f62;
+  --color-acf-border: #e2ebe4;
+
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-heading), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #142018;
+  --primary: #175432;
+  --primary-foreground: #ffffff;
+  --secondary: #f0f6f1;
+  --secondary-foreground: #175432;
+  --accent: #2da44e;
+  --accent-foreground: #ffffff;
+  --muted: #f4f7f4;
+  --muted-foreground: #5c6f62;
+  --card: #ffffff;
+  --card-foreground: #142018;
+  --border: #e2ebe4;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* Accessible focus outlines */
+:focus-visible {
+  outline: 2px solid #2da44e;
+  outline-offset: 2px;
+}
+
+/* Institutional Rich Text formatting */
+.prose-acf {
+  line-height: 1.8;
+  color: #2a3a30;
+}
+
+.prose-acf p {
+  margin-bottom: 1.25rem;
+}
+
+.prose-acf h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #0f1d14;
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2ebe4;
+}
+
+.prose-acf h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #175432;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-acf ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-acf ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.prose-acf li {
+  margin-bottom: 0.5rem;
+}
+
+.prose-acf blockquote {
+  border-left: 4px solid #175432;
+  background-color: #f6f9f6;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #234030;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose-acf a {
+  color: #175432;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose-acf a:hover {
+  color: #2da44e;
+}
