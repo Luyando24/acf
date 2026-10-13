@@ -17,6 +17,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getSiteSettings, getSiteStats, getHeroSlides } from '@/lib/supabase/settings'
 import { formatDate } from '@/lib/utils/formatters'
 import HeroSlider from '@/components/home/HeroSlider'
+import SocialHighlights from '@/components/home/SocialHighlights'
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -521,7 +522,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 7. MEMBERSHIP CALL TO ACTION */}
+      {/* 7. SOCIAL MEDIA HIGHLIGHTS (FACEBOOK INTEGRATION) */}
+      <SocialHighlights facebookUrl={settings.facebook_url} />
+
+      {/* 8. MEMBERSHIP CALL TO ACTION */}
       <section className="py-20 bg-[#175432] text-white">
         <div className="container mx-auto px-4 text-center max-w-3xl space-y-6">
           <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3 py-1 rounded-full border border-white/15">
@@ -550,7 +554,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 8. PARTNER HIGHLIGHTS LOGO STRIP */}
+      {/* 9. PARTNER HIGHLIGHTS LOGO STRIP */}
       {partners && partners.length > 0 && (
         <section className="py-12 bg-white border-b border-[#e2ebe4]">
           <div className="container mx-auto px-4">

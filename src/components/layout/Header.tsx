@@ -59,6 +59,7 @@ export default function Header({ settings }: HeaderProps) {
       dropdown: [
         { label: 'News & Sector Updates', href: '/news', desc: 'Latest articles and sector releases' },
         { label: 'Events & Forums', href: '/events', desc: 'Upcoming dialogues and past symposia' },
+        { label: 'Social Highlights', href: '/facebook-posts', desc: 'Live updates from our Facebook page' },
       ],
     },
     {
