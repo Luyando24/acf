@@ -22,7 +22,7 @@ import {
   Megaphone,
 } from 'lucide-react'
 import FileUpload from '@/components/admin/FileUpload'
-import { HomePageContent, HeroSlideItem, StatItem, StrategicObjectiveItem } from '@/lib/supabase/pageContent'
+import type { HomePageContent, HeroSlideItem, StatItem, StrategicObjectiveItem } from '@/types/pageContent'
 
 interface HomeSectionEditorProps {
   initialContent: HomePageContent

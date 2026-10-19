@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Save, CheckCircle2, AlertCircle } from 'lucide-react'
-import { SiteSettings } from '@/lib/supabase/settings'
+import type { SiteSettings } from '@/lib/supabase/settings'
 
 interface SettingsFormProps {
   initialSettings: SiteSettings

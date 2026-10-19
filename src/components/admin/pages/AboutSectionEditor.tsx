@@ -18,7 +18,7 @@ import {
   Layers,
 } from 'lucide-react'
 import FileUpload from '@/components/admin/FileUpload'
-import { AboutPageContent } from '@/lib/supabase/pageContent'
+import type { AboutPageContent } from '@/types/pageContent'
 
 interface AboutSectionEditorProps {
   initialContent: AboutPageContent

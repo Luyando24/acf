@@ -14,7 +14,7 @@ import {
   Trash2,
   Layers,
 } from 'lucide-react'
-import { MembershipPageContent } from '@/lib/supabase/pageContent'
+import type { MembershipPageContent } from '@/types/pageContent'
 
 interface MembershipSectionEditorProps {
   initialContent: MembershipPageContent

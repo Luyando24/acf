@@ -13,7 +13,7 @@ import {
   Shield,
 } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { SiteSettings } from '@/lib/supabase/settings'
+import type { SiteSettings } from '@/lib/supabase/settings'
 
 interface FooterProps {
   settings: SiteSettings

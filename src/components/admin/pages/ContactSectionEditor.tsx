@@ -16,7 +16,7 @@ import {
   Share2,
   Layers,
 } from 'lucide-react'
-import { ContactPageContent } from '@/lib/supabase/pageContent'
+import type { ContactPageContent } from '@/types/pageContent'
 
 interface ContactSectionEditorProps {
   initialContent: ContactPageContent

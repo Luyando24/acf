@@ -12,7 +12,7 @@ import {
   AlertCircle,
 } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/lib/supabase/pageContent'
+import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/types/pageContent'
 
 interface ContactClientViewProps {
   initialContent?: ContactPageContent

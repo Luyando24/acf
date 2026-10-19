@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight, BookOpen } from 'lucide-react'
-import { HeroSlide } from '@/lib/supabase/settings'
+import type { HeroSlide } from '@/lib/supabase/settings'
 
 interface HeroSliderProps {
   slides: HeroSlide[]

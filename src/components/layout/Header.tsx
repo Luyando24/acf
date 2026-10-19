@@ -16,7 +16,7 @@ import {
   HelpCircle,
 } from 'lucide-react'
 
-import { SiteSettings } from '@/lib/supabase/settings'
+import type { SiteSettings } from '@/lib/supabase/settings'
 
 interface HeaderProps {
   settings?: SiteSettings
