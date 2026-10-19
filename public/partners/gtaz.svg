@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gtaz-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffb300"/>
+      <stop offset="100%" stop-color="#e65100"/>
+    </linearGradient>
+    <linearGradient id="gtaz-green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1b5e20"/>
+      <stop offset="100%" stop-color="#0d3311"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Clean hexagonal badge with gold trim -->
+  <polygon points="80,10 144,45 144,115 80,150 16,115 16,45" fill="#ffffff" stroke="url(#gtaz-gold)" stroke-width="3"/>
+  <polygon points="80,16 138,48 138,112 80,144 22,112 22,48" fill="none" stroke="#2e7d32" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Silo and Wheat Grains Emblem -->
+  <g transform="translate(80, 56)">
+    <!-- Silo / Grain storage elevators -->
+    <path d="M-22 18 L-22 -8 C-22 -14 -10 -18 0 -18 C10 -18 22 -14 22 -8 L22 18 Z" fill="#eceff1" stroke="#37474f" stroke-width="2"/>
+    <line x1="-12" y1="-12" x2="-12" y2="18" stroke="#cfd8dc" stroke-width="1.5"/>
+    <line x1="0" y1="-14" x2="0" y2="18" stroke="#cfd8dc" stroke-width="1.5"/>
+    <line x1="12" y1="-12" x2="12" y2="18" stroke="#cfd8dc" stroke-width="1.5"/>
+    
+    <!-- Golden Wheat Ears flanking the silo -->
+    <path d="M-26 14 C-34 4 -32 -10 -22 -16 C-24 -4 -20 6 -26 14 Z" fill="url(#gtaz-gold)"/>
+    <path d="M26 14 C34 4 32 -10 22 -16 C24 -4 20 6 26 14 Z" fill="url(#gtaz-gold)"/>
+    <!-- Central golden grain -->
+    <ellipse cx="0" cy="0" rx="6" ry="10" fill="url(#gtaz-gold)"/>
+  </g>
+
+  <!-- GTAZ Typography -->
+  <text x="80" y="102" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="22" font-weight="900" fill="url(#gtaz-green)" text-anchor="middle" letter-spacing="3">GTAZ</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="117" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="6.8" font-weight="800" fill="#e65100" text-anchor="middle" letter-spacing="0.4">GRAIN TRADERS ASSOCIATION</text>
+  <text x="80" y="126" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="7" font-weight="800" fill="#2e7d32" text-anchor="middle" letter-spacing="1">OF ZAMBIA</text>
+</svg>

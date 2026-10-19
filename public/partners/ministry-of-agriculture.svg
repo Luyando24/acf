@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%">
+  <defs>
+    <linearGradient id="moa-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0a522c"/>
+      <stop offset="100%" stop-color="#06321b"/>
+    </linearGradient>
+    <linearGradient id="moa-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fbd24e"/>
+      <stop offset="100%" stop-color="#d99b16"/>
+    </linearGradient>
+    <linearGradient id="moa-shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e9f1eb"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer circular ring with national green and gold -->
+  <circle cx="80" cy="80" r="76" fill="url(#moa-bg)" stroke="url(#moa-gold)" stroke-width="3"/>
+  <circle cx="80" cy="80" r="70" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+
+  <!-- Zambia Fish Eagle silhouette at top -->
+  <path d="M80 25 C75 32 64 34 58 33 C64 37 72 39 80 44 C88 39 96 37 102 33 C96 34 85 32 80 25 Z" fill="url(#moa-gold)"/>
+  <circle cx="80" cy="30" r="3" fill="#ffffff"/>
+
+  <!-- Heraldic Shield -->
+  <path d="M54 50 L106 50 C106 78 80 96 80 96 C80 96 54 78 54 50 Z" fill="url(#moa-shield)" stroke="#06321b" stroke-width="2"/>
+
+  <!-- Zambia Flag tricolor stripes on shield -->
+  <rect x="71" y="52" width="6" height="30" fill="#ce1126"/>
+  <rect x="77" y="52" width="6" height="30" fill="#111111"/>
+  <rect x="83" y="52" width="6" height="30" fill="#de6328"/>
+
+  <!-- Crossed Maize & Wheat Sprigs -->
+  <path d="M60 82 Q70 70 80 66 Q68 76 60 82" stroke="#0a522c" stroke-width="2" fill="none"/>
+  <path d="M100 82 Q90 70 80 66 Q92 76 100 82" stroke="#0a522c" stroke-width="2" fill="none"/>
+  <circle cx="68" cy="74" r="2.5" fill="url(#moa-gold)"/>
+  <circle cx="92" cy="74" r="2.5" fill="url(#moa-gold)"/>
+
+  <!-- Institutional Typography Ribbon -->
+  <rect x="22" y="104" width="116" height="18" rx="4" fill="url(#moa-gold)"/>
+  <text x="80" y="116" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="8.5" font-weight="900" fill="#06321b" text-anchor="middle" letter-spacing="0.8">MINISTRY OF AGRICULTURE</text>
+  
+  <text x="80" y="134" font-family="system-ui, -apple-system, BlinkMacSystemFont, sans-serif" font-size="7.5" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">REPUBLIC OF ZAMBIA</text>
+</svg>

@@ -37,13 +37,16 @@ export async function updateSession(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname
 
+  const adminCookie = request.cookies.get('acf_admin_session')?.value
+  const isAuthenticated = !!user || !!adminCookie
+
   // Protect /admin routes (except login and auth callbacks)
   if (
     pathname.startsWith('/admin') &&
     !pathname.startsWith('/admin/login') &&
     !pathname.startsWith('/admin/auth')
   ) {
-    if (!user) {
+    if (!isAuthenticated) {
       const url = request.nextUrl.clone()
       url.pathname = '/admin/login'
       url.searchParams.set('redirect', pathname)
@@ -52,7 +55,7 @@ export async function updateSession(request: NextRequest) {
   }
 
   // Redirect logged-in admin from /admin/login to /admin
-  if (pathname === '/admin/login' && user) {
+  if (pathname === '/admin/login' && isAuthenticated) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin'
     return NextResponse.redirect(url)

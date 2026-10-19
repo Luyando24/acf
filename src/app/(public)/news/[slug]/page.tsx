@@ -63,6 +63,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
             <p>ACF will compile the complete technical proceedings into a forthcoming Policy Brief to be distributed to parliamentary committees and donor agricultural working groups.</p>
           `,
           category: 'Policy Dialogue',
+          image_url: '/photos/fosta-stakeholders-dialogue.jpg',
           published_at: '2026-03-01T07:00:00Z',
         }
       : null)
@@ -70,6 +71,9 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   if (!article) {
     notFound()
   }
+
+  const articleData = article as any
+  const featuredImg = articleData.image_url || articleData.featured_image || '/photos/fosta-stakeholders-dialogue.jpg'
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -100,7 +104,17 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
       </section>
 
       {/* Main Content Layout */}
-      <div className="container mx-auto px-4 max-w-4xl pt-16 space-y-10">
+      <div className="container mx-auto px-4 max-w-4xl pt-12 space-y-10">
+        {/* Featured Article Image */}
+        <div className="relative w-full aspect-21/9 sm:aspect-2/1 rounded-3xl overflow-hidden border border-[#e2ebe4] shadow-sm bg-neutral-100">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={featuredImg}
+            alt={article.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
         <div className="bg-white rounded-3xl border border-[#e2ebe4] p-8 sm:p-12 shadow-xs space-y-8">
           <div className="border-b border-[#e2ebe4] pb-6">
             <p className="text-base sm:text-lg text-[#175432] font-semibold leading-relaxed">

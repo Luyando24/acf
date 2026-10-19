@@ -53,22 +53,64 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         })}
       </div>
 
-      {/* 2. SOLID BACKGROUND LAYER WITH CRISP WHITE DIVIDER BORDER (NO FADE) */}
-      {/* Mobile: Solid #0f1d14 background for 100% legibility */}
-      <div className="md:hidden absolute inset-0 bg-[#0f1d14]/95 pointer-events-none z-10" />
+      {/* 2. SOLID BACKGROUND LAYER WITH PATTERN & CRISP WHITE DIVIDER BORDER */}
+      {/* Mobile: Solid #0f1d14 background with subtle pattern */}
+      <div className="md:hidden absolute inset-0 bg-[#0f1d14]/95 pointer-events-none z-10 overflow-hidden">
+        <svg className="w-full h-full opacity-60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <pattern id="mobile-hero-pattern" width="28" height="28" patternUnits="userSpaceOnUse">
+              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#2da44e" strokeWidth="0.75" strokeOpacity="0.09" />
+              <circle cx="0" cy="0" r="1.2" fill="#a3e635" fillOpacity="0.2" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#mobile-hero-pattern)" />
+        </svg>
+      </div>
 
-      {/* Tablet & Desktop: Solid #0f1d14 on the left up to the dividing line, with a crisp white border */}
+      {/* Tablet & Desktop: Solid #0f1d14 with bespoke pattern on the left, separated by crisp white border */}
       <svg
         className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-10"
         viewBox="0 0 1000 1000"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {/* Solid #0f1d14 left section without any fade */}
+        <defs>
+          {/* Subtle architectural dot-matrix & grid pattern */}
+          <pattern
+            id="hero-grid-pattern"
+            width="28"
+            height="28"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 28 0 L 0 0 0 28"
+              fill="none"
+              stroke="#2da44e"
+              strokeWidth="0.75"
+              strokeOpacity="0.09"
+            />
+            <circle
+              cx="0"
+              cy="0"
+              r="1.2"
+              fill="#a3e635"
+              fillOpacity="0.2"
+            />
+          </pattern>
+        </defs>
+
+        {/* Solid #0f1d14 base background */}
         <path
           d="M 0,0 L 610,0 C 580,350 510,650 460,1000 L 0,1000 Z"
           fill="#0f1d14"
         />
+
+        {/* Geometric pattern overlay clipped to the solid region */}
+        <path
+          d="M 0,0 L 610,0 C 580,350 510,650 460,1000 L 0,1000 Z"
+          fill="url(#hero-grid-pattern)"
+        />
+
         {/* Crisp white dividing border along the edge */}
         <path
           d="M 610,0 C 580,350 510,650 460,1000"

@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Clock, AlertCircle, Mail, Globe, CheckCircle2 } fr
 import { createClient } from '@/lib/supabase/server'
 import { formatDate, isOpportunityClosed } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import OpportunityApplicationForm from '@/components/opportunities/OpportunityApplicationForm'
 
 interface OpportunityDetailProps {
   params: Promise<{ slug: string }>
@@ -57,6 +58,12 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
           apply_url: null,
           contact_info: 'opportunities@acfzambia.org',
           status: 'published',
+          accepted_documents: [
+            'Curriculum Vitae (CV)',
+            'Technical Proposal',
+            'Financial Bid / Cost Quotation',
+            'Past Professional References',
+          ],
         }
       : null)
 
@@ -147,33 +154,47 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
 
           {/* Submission CTA Box */}
           {!isClosed && (
-            <div className="p-6 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-              <div className="space-y-1">
-                <h4 className="font-bold text-sm text-[#0f1d14]">Ready to Submit?</h4>
-                <p className="text-xs text-[#5c6f62]">
-                  Send your proposal or CV to the secretariat before the closing deadline.
-                </p>
-              </div>
+            <div className="space-y-6">
+              <OpportunityApplicationForm
+                opportunityId={opp.id}
+                opportunityTitle={opp.title}
+                opportunityType={opp.type}
+                acceptedDocuments={
+                  (opp as any).accepted_documents ||
+                  (opp.type === 'Tender'
+                    ? ['Company Profile', 'Technical Proposal', 'Financial Bid', 'Tax Clearance & PACRA Certificate']
+                    : ['Curriculum Vitae (CV)', 'Cover Letter', 'Relevant Qualifications & Certificates', 'National ID (NRC)'])
+                }
+              />
 
-              {opp.apply_url ? (
-                <a
-                  href={opp.apply_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2 transition-colors shrink-0"
-                >
-                  <Globe size={15} />
-                  <span>External Application Portal</span>
-                </a>
-              ) : (
-                <a
-                  href={`mailto:${opp.contact_info || 'opportunities@acfzambia.org'}?subject=Application: ${encodeURIComponent(opp.title)}`}
-                  className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2 transition-colors shrink-0"
-                >
-                  <Mail size={15} />
-                  <span>Submit via Email</span>
-                </a>
-              )}
+              <div className="p-6 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+                <div className="space-y-1">
+                  <h4 className="font-bold text-sm text-[#0f1d14]">Alternative Submission Options</h4>
+                  <p className="text-xs text-[#5c6f62]">
+                    You may also forward your dossier or inquiries directly to our recruitment secretariat.
+                  </p>
+                </div>
+
+                {opp.apply_url ? (
+                  <a
+                    href={opp.apply_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2 transition-colors shrink-0"
+                  >
+                    <Globe size={15} />
+                    <span>External Application Portal</span>
+                  </a>
+                ) : (
+                  <a
+                    href={`mailto:${opp.contact_info || 'opportunities@acfzambia.org'}?subject=Application: ${encodeURIComponent(opp.title)}`}
+                    className="px-6 py-3 bg-white hover:bg-neutral-50 text-[#175432] border border-[#175432] font-bold text-xs rounded-xl shadow-xs flex items-center gap-2 transition-colors shrink-0"
+                  >
+                    <Mail size={15} />
+                    <span>Submit via Email</span>
+                  </a>
+                )}
+              </div>
             </div>
           )}
         </div>

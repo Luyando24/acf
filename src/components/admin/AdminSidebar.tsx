@@ -19,6 +19,7 @@ import {
   PlusCircle,
   Shield,
   Layers,
+  LayoutTemplate,
 } from 'lucide-react'
 
 const navGroups = [
@@ -26,6 +27,7 @@ const navGroups = [
     title: 'Core Management',
     items: [
       { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+      { name: 'Website Pages & Content', href: '/admin/pages', icon: LayoutTemplate },
       { name: 'Publications & Briefs', href: '/admin/publications', icon: BookOpen },
       { name: 'News & Press', href: '/admin/news', icon: FileText },
       { name: 'Events & Forums', href: '/admin/events', icon: Calendar },
@@ -94,7 +96,7 @@ export default function AdminSidebar() {
 
             <div className="space-y-0.5 pt-1">
               {group.items.map((item) => {
-                const isActive = pathname === item.href
+                const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/'))
                 const Icon = item.icon
 
                 return (

@@ -82,7 +82,7 @@ export default async function FacebookPostsPage() {
                     </div>
                   </div>
 
-                  <p className="text-[#3b4d41] text-sm mb-8 leading-relaxed whitespace-pre-wrap font-normal">
+                  <p className="text-[#3b4d41] text-sm mb-6 leading-relaxed line-clamp-4 font-normal">
                     {post.message || 'View ACF post on Facebook.'}
                   </p>
 

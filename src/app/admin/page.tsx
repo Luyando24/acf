@@ -8,9 +8,11 @@ import {
   MessageSquare,
   Shield,
   PlusCircle,
-  Clock,
   ArrowRight,
-  TrendingUp,
+  Layers,
+  Handshake,
+  Mail,
+  Settings,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
@@ -26,6 +28,10 @@ export default async function AdminDashboardPage() {
     oppsRes,
     appsRes,
     contactsRes,
+    progRes,
+    peopleRes,
+    partnerRes,
+    subsRes,
   ] = await Promise.all([
     supabase.from('publications').select('*', { count: 'exact', head: true }),
     supabase.from('news_posts').select('*', { count: 'exact', head: true }),
@@ -33,6 +39,10 @@ export default async function AdminDashboardPage() {
     supabase.from('opportunities').select('*', { count: 'exact', head: true }),
     supabase.from('membership_applications').select('*', { count: 'exact', head: true }).eq('status', 'new'),
     supabase.from('contact_messages').select('*', { count: 'exact', head: true }).eq('is_read', false),
+    supabase.from('programmes').select('*', { count: 'exact', head: true }),
+    supabase.from('people').select('*', { count: 'exact', head: true }),
+    supabase.from('partners').select('*', { count: 'exact', head: true }),
+    supabase.from('newsletter_subscribers').select('*', { count: 'exact', head: true }),
   ])
 
   // Get recent applications
@@ -51,12 +61,16 @@ export default async function AdminDashboardPage() {
     .limit(5)
   const recentMessages = recentMessagesData as any[] | null
 
-  const pubCount = pubsRes.count ?? 4
+  const pubCount = pubsRes.count ?? 3
   const newsCount = newsRes.count ?? 2
-  const eventCount = eventsRes.count ?? 3
-  const oppCount = oppsRes.count ?? 2
-  const newAppCount = appsRes.count ?? 0
-  const unreadContactCount = contactsRes.count ?? 0
+  const eventCount = eventsRes.count ?? 2
+  const oppCount = oppsRes.count ?? 3
+  const newAppCount = appsRes.count ?? 1
+  const unreadContactCount = contactsRes.count ?? 1
+  const progCount = progRes.count ?? 5
+  const peopleCount = peopleRes.count ?? 4
+  const partnerCount = partnerRes.count ?? 3
+  const subsCount = subsRes.count ?? 3
 
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
@@ -77,37 +91,48 @@ export default async function AdminDashboardPage() {
         <div className="flex flex-wrap items-center gap-2">
           <Link
             href="/admin/publications"
-            className="px-4 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 shadow-xs"
+            className="px-3.5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5 shadow-xs"
           >
             <PlusCircle size={14} />
             <span>Add Publication</span>
           </Link>
           <Link
             href="/admin/news"
-            className="px-4 py-2 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
           >
             <PlusCircle size={14} />
             <span>Post News</span>
           </Link>
           <Link
             href="/admin/opportunities"
-            className="px-4 py-2 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
           >
             <PlusCircle size={14} />
-            <span>Add Opportunity</span>
+            <span>Add Vacancy</span>
+          </Link>
+          <Link
+            href="/admin/events"
+            className="px-3.5 py-2 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors flex items-center gap-1.5"
+          >
+            <PlusCircle size={14} />
+            <span>Post Event</span>
           </Link>
         </div>
       </div>
 
-      {/* Metrics Cards Strip */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {/* Metrics Cards Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
         {[
           { label: 'Publications', value: pubCount, icon: BookOpen, href: '/admin/publications', color: 'text-[#175432]' },
           { label: 'News Posts', value: newsCount, icon: FileText, href: '/admin/news', color: 'text-[#175432]' },
-          { label: 'Events', value: eventCount, icon: Calendar, href: '/admin/events', color: 'text-[#175432]' },
+          { label: 'Events & Forums', value: eventCount, icon: Calendar, href: '/admin/events', color: 'text-[#175432]' },
           { label: 'Opportunities', value: oppCount, icon: Briefcase, href: '/admin/opportunities', color: 'text-[#175432]' },
+          { label: 'Programmes', value: progCount, icon: Layers, href: '/admin/programmes', color: 'text-[#175432]' },
+          { label: 'Board & Staff', value: peopleCount, icon: Users, href: '/admin/people', color: 'text-[#175432]' },
+          { label: 'Partners', value: partnerCount, icon: Handshake, href: '/admin/partners', color: 'text-[#175432]' },
           { label: 'New Memberships', value: newAppCount, icon: Shield, href: '/admin/membership', color: newAppCount > 0 ? 'text-amber-600' : 'text-[#175432]' },
           { label: 'Unread Inquiries', value: unreadContactCount, icon: MessageSquare, href: '/admin/contacts', color: unreadContactCount > 0 ? 'text-amber-600' : 'text-[#175432]' },
+          { label: 'Newsletter', value: subsCount, icon: Mail, href: '/admin/newsletter', color: 'text-[#175432]' },
         ].map((item) => {
           const Icon = item.icon
           return (
@@ -143,7 +168,7 @@ export default async function AdminDashboardPage() {
               href="/admin/membership"
               className="text-xs font-bold text-[#175432] hover:underline flex items-center gap-1"
             >
-              <span>View All</span>
+              <span>Manage All</span>
               <ArrowRight size={13} />
             </Link>
           </div>
@@ -157,9 +182,15 @@ export default async function AdminDashboardPage() {
                 >
                   <div>
                     <h3 className="font-bold text-[#0f1d14]">{app.org_name || app.contact_name}</h3>
-                    <div className="text-[11px] text-[#5c6f62]">{app.email} • {app.location_province}</div>
+                    <div className="text-[11px] text-[#5c6f62]">{app.email} • {app.location_province || 'Zambia'}</div>
                   </div>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#f0f6f1] text-[#175432] uppercase">
+                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                    app.status === 'approved'
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : app.status === 'new'
+                      ? 'bg-amber-100 text-amber-800'
+                      : 'bg-gray-100 text-gray-700'
+                  }`}>
                     {app.status}
                   </span>
                 </div>

@@ -162,9 +162,9 @@ export default function Header({ settings }: HeaderProps) {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/membership/apply"
-                className="flex items-center gap-2 text-sm font-bold text-white bg-[#175432] hover:bg-[#114227] px-5 py-2.5 rounded-full shadow-md shadow-[#175432]/20 hover:shadow-lg transition-all"
+                className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#175432] hover:bg-[#114227] px-5 py-2.5 rounded-full shadow-md shadow-[#175432]/20 hover:shadow-lg transition-all"
               >
-                <span>Join ACF</span>
+                <span>GET INVOLVED</span>
               </Link>
             </div>
 
@@ -237,16 +237,9 @@ export default function Header({ settings }: HeaderProps) {
               <Link
                 href="/membership/apply"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#175432] text-white font-bold rounded-xl shadow-md text-center"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#175432] text-white font-bold rounded-xl shadow-md text-center text-sm uppercase tracking-wider"
               >
-                Join ACF / Membership
-              </Link>
-              <Link
-                href="/admin/login"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-2.5 border border-[#e2ebe4] text-[#175432] font-semibold rounded-xl text-center text-sm"
-              >
-                Staff Portal Login
+                GET INVOLVED
               </Link>
             </div>
           </div>

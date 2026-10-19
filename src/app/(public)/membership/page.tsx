@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { CheckCircle2, Users, Shield, ArrowRight, FileCheck, Layers } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { constructMetadata } from '@/lib/utils/seo'
+import { getPageContent, MembershipPageContent, DEFAULT_MEMBERSHIP_PAGE_CONTENT } from '@/lib/supabase/pageContent'
 
 export const metadata = constructMetadata({
   title: 'Membership & Stakeholder Caucuses | Overview & Benefits',
@@ -13,10 +14,15 @@ export const metadata = constructMetadata({
 export default async function MembershipOverviewPage() {
   const supabase = await createClient()
 
-  const { data: catData } = await supabase
-    .from('membership_categories')
-    .select('*')
-    .order('order_index', { ascending: true })
+  const [catRes, pageContent] = await Promise.all([
+    supabase
+      .from('membership_categories')
+      .select('*')
+      .order('order_index', { ascending: true }),
+    getPageContent<MembershipPageContent>('membership'),
+  ])
+
+  const catData = catRes.data
 
   const defaultCategories = [
     {
@@ -78,13 +84,14 @@ export default async function MembershipOverviewPage() {
       <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
           <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15 inline-block">
-            Multi-Stakeholder Forum
+            {pageContent?.header?.badge || 'Multi-Stakeholder Forum'}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-            ACF Membership Overview
+            {pageContent?.header?.title || 'ACF Membership Overview'}
           </h1>
           <p className="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Become an active voice in shaping national agricultural policies, market frameworks, and sustainable farming systems across Zambia.
+            {pageContent?.header?.description ||
+              'Become an active voice in shaping national agricultural policies, market frameworks, and sustainable farming systems across Zambia.'}
           </p>
 
           <div className="pt-2">
@@ -103,35 +110,22 @@ export default async function MembershipOverviewPage() {
       <div className="container mx-auto px-4 max-w-5xl pt-16 space-y-16">
         {/* Why Join Section */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
-              <Users size={20} />
-            </div>
-            <h2 className="text-lg font-bold text-[#0f1d14]">Policy Influence</h2>
-            <p className="text-xs text-[#5c6f62] leading-relaxed">
-              Participate directly in consultations with the Ministry of Agriculture and parliamentary standing committees on key legislative bills.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
-              <FileCheck size={20} />
-            </div>
-            <h2 className="text-lg font-bold text-[#0f1d14]">Credible Evidence</h2>
-            <p className="text-xs text-[#5c6f62] leading-relaxed">
-              Gain verified empirical data, market reports, and policy briefs to inform your institutional strategies and commercial investments.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
-            <div className="w-10 h-10 rounded-xl bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
-              <Shield size={20} />
-            </div>
-            <h2 className="text-lg font-bold text-[#0f1d14]">Collaborative Network</h2>
-            <p className="text-xs text-[#5c6f62] leading-relaxed">
-              Connect across our network spanning farmer federations, agro-dealers, grain traders, academic researchers, and donor working groups.
-            </p>
-          </div>
+          {(pageContent?.why_join?.benefits && pageContent.why_join.benefits.length > 0
+            ? pageContent.why_join.benefits
+            : DEFAULT_MEMBERSHIP_PAGE_CONTENT.why_join.benefits
+          ).map((b, idx) => {
+            const icons = [Users, FileCheck, Shield]
+            const Icon = icons[idx % icons.length]
+            return (
+              <div key={idx} className="bg-white p-6 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
+                  <Icon size={20} />
+                </div>
+                <h2 className="text-lg font-bold text-[#0f1d14]">{b.title}</h2>
+                <p className="text-xs text-[#5c6f62] leading-relaxed">{b.description}</p>
+              </div>
+            )
+          })}
         </section>
 
         {/* Categories & Criteria */}

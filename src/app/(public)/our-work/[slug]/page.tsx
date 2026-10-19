@@ -9,6 +9,106 @@ interface ProgrammePageProps {
   params: Promise<{ slug: string }>
 }
 
+const DEMO_PROGRAMMES: Record<
+  string,
+  {
+    id: string
+    slug: string
+    title: string
+    summary: string
+    body: string
+  }
+> = {
+  'policy-advocacy': {
+    id: '22222222-2222-2222-2222-222222222201',
+    slug: 'policy-advocacy',
+    title: 'Agricultural Policy Advocacy',
+    summary:
+      'Mobilising multi-stakeholder consultations and evidence to influence national agricultural policy formulation and implementation in Zambia.',
+    body: `
+      <p>The Agricultural Consultative Forum (ACF) facilitates high-level policy advocacy that connects grassroots smallholder farmer experiences with national policymakers in Lusaka.</p>
+      <p>Our advocacy actions include regular policy roundtables with the Ministry of Agriculture, parliamentary committee submissions on national budget allocations, and technical dialogue with cooperating donor agencies.</p>
+      <h3>Strategic Focus Areas</h3>
+      <ul>
+        <li>Monitoring and reform of public agricultural subsidies and electronic voucher distribution</li>
+        <li>Promoting transparent, predictable agricultural trade and grain export regulations</li>
+        <li>Enhancing public expenditure quality toward extension services and rural infrastructure</li>
+      </ul>
+    `,
+  },
+  'research-and-evidence': {
+    id: '22222222-2222-2222-2222-222222222202',
+    slug: 'research-and-evidence',
+    title: 'Research & Evidence Generation',
+    summary:
+      'Generating credible empirical data, analytical briefs, and sector performance reviews to guide agricultural investments.',
+    body: `
+      <p>ACF believes that sound policy starts with rigorous, unbiased evidence. We conduct and commission targeted empirical analyses to evaluate sector interventions, commodity pricing trends, and input subsidy effectiveness in Zambia.</p>
+      <p>Working alongside premier agricultural research bodies like IAPRI and the University of Zambia, ACF translates complex analytical findings into accessible policy advisory briefs for legislators, farming associations, and agribusinesses.</p>
+      <h3>Key Research Priorities</h3>
+      <ul>
+        <li>Annual agricultural budget reviews and tracking of public resource expenditure</li>
+        <li>Assessment of post-harvest loss reduction technologies and storage economics</li>
+        <li>Impact assessments of electronic voucher programmes on smallholder productivity</li>
+        <li>Regional commodity market integration and trade corridor competitiveness</li>
+      </ul>
+    `,
+  },
+  'climate-resilience': {
+    id: '22222222-2222-2222-2222-222222222203',
+    slug: 'climate-resilience',
+    title: 'Climate Resilience & Sustainable Systems',
+    summary:
+      'Advocating for climate-smart agriculture, soil health conservation, and resilient rural farming systems in Zambia.',
+    body: `
+      <p>With increasing climate variability, erratic rainfall, and recurring drought cycles confronting Zambian farming communities, ACF champions comprehensive policy frameworks that support climate-smart agriculture (CSA).</p>
+      <p>Our initiatives bridge scientific climate projections with practical farmer adaptation mechanisms, promoting sustainable land and water management across vulnerable agricultural districts.</p>
+      <h3>Key Pillars of Intervention</h3>
+      <ul>
+        <li>Accelerating adoption of drought-tolerant and early-maturing crop varieties</li>
+        <li>Expanding small-scale community irrigation systems and solar water harvesting</li>
+        <li>Promotion of conservation agriculture techniques, minimum tillage, and organic mulch cover</li>
+        <li>Scaling weather-index crop and livestock insurance mechanisms for smallholders</li>
+      </ul>
+    `,
+  },
+  'multi-stakeholder-dialogue': {
+    id: '22222222-2222-2222-2222-222222222204',
+    slug: 'multi-stakeholder-dialogue',
+    title: 'Multi-Stakeholder Dialogue',
+    summary:
+      'Providing a neutral, inclusive convening platform where government, agribusiness, donors, and smallholder farmer groups collaborate.',
+    body: `
+      <p>ACF serves as the premier neutral platform in Zambia where diverse agricultural stakeholders meet to resolve contentious policy bottlenecks and foster consensus.</p>
+      <p>By bringing together civil society, farmer unions, commercial agribusiness federations, and senior government officials, we ensure that agricultural policies reflect broad-based consensus rather than narrow interest groups.</p>
+      <h3>Our Dialogue Platforms</h3>
+      <ul>
+        <li>Quarterly National Agricultural Consultative Roundtables</li>
+        <li>Commodity-specific working groups (Maize, Soya, Livestock, Horticulture)</li>
+        <li>Pre-budget stakeholder consultative submissions to the Ministry of Finance</li>
+        <li>Annual Agricultural Policy Symposium</li>
+      </ul>
+    `,
+  },
+  'land-rights-tenure': {
+    id: '22222222-2222-2222-2222-222222222205',
+    slug: 'land-rights-tenure',
+    title: "Land Tenure & Women's Rights",
+    summary:
+      'Advocating for secure customary land tenure and equal rights for women and small-scale farming households.',
+    body: `
+      <p>Secure land rights are fundamental to agricultural investment and rural prosperity. ACF works with traditional leaders, local councils, and government ministries to promote transparent customary land governance.</p>
+      <p>Special focus is placed on eliminating barriers that prevent women smallholder farmers from securing documented tenure over the lands they cultivate.</p>
+      <h3>Key Initiatives</h3>
+      <ul>
+        <li>Customary land documentation and boundary dispute resolution mechanisms</li>
+        <li>Advocacy for gender-equitable land allocation guidelines in chiefdoms</li>
+        <li>Technical inputs into national land policy and land tenure legislative reviews</li>
+      </ul>
+    `,
+  },
+}
+
 export async function generateMetadata({ params }: ProgrammePageProps) {
   const { slug } = await params
   const supabase = await createClient()
@@ -18,7 +118,8 @@ export async function generateMetadata({ params }: ProgrammePageProps) {
     .eq('slug', slug)
     .single()
 
-  const progItem = prog as any
+  const fallback = DEMO_PROGRAMMES[slug]
+  const progItem = (prog as any) || fallback
   if (!progItem) {
     return constructMetadata({ title: 'Programme Detail' })
   }
@@ -41,27 +142,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
     .single()
 
   // Fallback demo data if database table is not yet populated
-  const prog =
-    progData ||
-    (slug === 'policy-advocacy'
-      ? {
-          id: '22222222-2222-2222-2222-222222222201',
-          slug: 'policy-advocacy',
-          title: 'Agricultural Policy Advocacy',
-          summary:
-            'Mobilising multi-stakeholder consultations and evidence to influence national agricultural policy formulation and implementation in Zambia.',
-          body: `
-            <p>The Agricultural Consultative Forum (ACF) facilitates high-level policy advocacy that connects grassroots smallholder farmer experiences with national policymakers in Lusaka.</p>
-            <p>Our advocacy actions include regular policy roundtables with the Ministry of Agriculture, parliamentary committee submissions on national budget allocations, and technical dialogue with cooperating donor agencies.</p>
-            <h3>Strategic Focus Areas</h3>
-            <ul>
-              <li>Monitoring and reform of public agricultural subsidies and electronic voucher distribution</li>
-              <li>Promoting transparent, predictable agricultural trade and grain export regulations</li>
-              <li>Enhancing public expenditure quality toward extension services and rural infrastructure</li>
-            </ul>
-          `,
-        }
-      : null)
+  const prog = progData || DEMO_PROGRAMMES[slug]
 
   if (!prog) {
     notFound()

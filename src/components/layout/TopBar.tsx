@@ -45,13 +45,6 @@ export default function TopBar({ settings }: TopBarProps) {
           >
             Opportunities & Tenders
           </Link>
-          <span className="text-emerald-800">|</span>
-          <Link
-            href="/admin/login"
-            className="text-emerald-300 hover:text-white font-medium transition-colors"
-          >
-            Staff Portal
-          </Link>
           <div className="flex items-center gap-2 pl-2 border-l border-emerald-900">
             {settings.facebook_url && (
               <a

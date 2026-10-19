@@ -28,6 +28,7 @@ export default async function NewsPage() {
       excerpt:
         'Key stakeholders from government, farmer federations, and agribusiness gathered in Lusaka to review post-drought recovery mechanisms.',
       category: 'Policy Dialogue',
+      image_url: '/photos/fosta-stakeholders-dialogue.jpg',
       published_at: '2026-03-01T07:00:00Z',
     },
     {
@@ -37,6 +38,7 @@ export default async function NewsPage() {
       excerpt:
         'ACF presents its comprehensive policy review on input distribution efficiency and transparent electronic vouchers.',
       category: 'Sector News',
+      image_url: '/photos/agricultural-budget-analysis.jpg',
       published_at: '2026-02-18T08:30:00Z',
     },
     {
@@ -46,6 +48,7 @@ export default async function NewsPage() {
       excerpt:
         'Community dialogues held with traditional authorities and rural farming families across Southern and Eastern Provinces.',
       category: 'Advocacy',
+      image_url: '/photos/beef-report-workshop.jpg',
       published_at: '2026-01-28T09:00:00Z',
     },
   ]
@@ -72,40 +75,59 @@ export default async function NewsPage() {
       {/* Main Content Layout */}
       <div className="container mx-auto px-4 max-w-5xl pt-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((item) => (
-            <article
-              key={item.slug}
-              className="bg-white rounded-3xl border border-[#e2ebe4] p-6 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
-            >
-              <div>
-                <div className="flex items-center gap-2 text-xs text-[#5c6f62] mb-3">
-                  <span className="px-2.5 py-0.5 rounded-md bg-[#f0f6f1] text-[#175432] font-bold">
-                    {item.category || 'Sector News'}
-                  </span>
-                  <span>•</span>
-                  <span>{formatDate(item.published_at)}</span>
+          {articles.map((item) => {
+            const itemData = item as any
+            const articleImg = itemData.image_url || itemData.featured_image || '/photos/fosta-stakeholders-dialogue.jpg'
+            return (
+              <article
+                key={item.slug}
+                className="bg-white rounded-3xl border border-[#e2ebe4] overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  {/* Article Feature Image */}
+                  <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={articleImg}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#175432] font-bold text-xs shadow-xs">
+                        {item.category || 'Sector News'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 text-xs text-[#5c6f62] mb-3">
+                      <Calendar size={13} className="text-[#175432]" />
+                      <span>{formatDate(item.published_at)}</span>
+                    </div>
+
+                    <h2 className="text-lg font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors leading-snug mb-3 line-clamp-2">
+                      <Link href={`/news/${item.slug}`}>{item.title}</Link>
+                    </h2>
+
+                    <p className="text-xs text-[#5c6f62] leading-relaxed line-clamp-3">
+                      {item.excerpt}
+                    </p>
+                  </div>
                 </div>
 
-                <h2 className="text-lg font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors leading-snug mb-3">
-                  <Link href={`/news/${item.slug}`}>{item.title}</Link>
-                </h2>
-
-                <p className="text-xs text-[#5c6f62] leading-relaxed line-clamp-3">
-                  {item.excerpt}
-                </p>
-              </div>
-
-              <div className="pt-6 border-t border-[#e2ebe4] mt-6 flex justify-end">
-                <Link
-                  href={`/news/${item.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#175432] group-hover:text-[#2da44e]"
-                >
-                  <span>Read Full Article</span>
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </article>
-          ))}
+                <div className="px-6 pb-6 pt-2 flex justify-end">
+                  <Link
+                    href={`/news/${item.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#175432] group-hover:text-[#2da44e]"
+                  >
+                    <span>Read Full Article</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </article>
+            )
+          })}
         </div>
       </div>
     </div>
