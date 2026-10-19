@@ -1,4 +1,4 @@
-import { createClient } from './server'
+import { createClient, isSupabaseConfigured } from './server'
 import { revalidatePath } from 'next/cache'
 import { readFile, writeFile, mkdir } from 'fs/promises'
 import { join } from 'path'
@@ -55,6 +55,27 @@ export async function getPageContent<T>(slug: string): Promise<T> {
   else if (slug === 'about') defaultContent = DEFAULT_ABOUT_PAGE_CONTENT
   else if (slug === 'contact') defaultContent = DEFAULT_CONTACT_PAGE_CONTENT
   else if (slug === 'membership') defaultContent = DEFAULT_MEMBERSHIP_PAGE_CONTENT
+
+  if (!isSupabaseConfigured()) {
+    if (process.env.NODE_ENV !== 'production') {
+      try {
+        const localStore = await readLocalStore()
+        const localVal = localStore[key]
+        if (localVal) {
+          if (typeof localVal === 'object' && !Array.isArray(localVal)) {
+            return {
+              ...defaultContent,
+              ...localVal,
+            } as T
+          }
+          return (localVal as T) || defaultContent
+        }
+      } catch {
+        // Fallback
+      }
+    }
+    return defaultContent as T
+  }
 
   try {
     const supabase = await createClient()

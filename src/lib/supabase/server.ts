@@ -2,12 +2,25 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { Database } from '@/types/database.types'
 
+export function isSupabaseConfigured(): boolean {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  return Boolean(
+    url &&
+    key &&
+    !url.includes('placeholder') &&
+    !key.includes('placeholder') &&
+    url.startsWith('https://')
+  )
+}
+
 export async function createClient() {
   const cookieStore = await cookies()
+  const isConfigured = isSupabaseConfigured()
 
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder-url.supabase.co',
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key',
+    isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_URL! : 'https://placeholder-url.supabase.co',
+    isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! : 'placeholder-anon-key',
     {
       cookies: {
         getAll() {
@@ -23,6 +36,17 @@ export async function createClient() {
           }
         },
       },
+      // Prevent network timeout delays when Supabase credentials are placeholders
+      global: isConfigured
+        ? undefined
+        : {
+            fetch: async () => {
+              return new Response(JSON.stringify([]), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+              })
+            },
+          },
     }
   )
 }

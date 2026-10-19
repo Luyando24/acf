@@ -7,13 +7,6 @@ import {
   Menu,
   X,
   ChevronDown,
-  Search,
-  BookOpen,
-  Users,
-  Briefcase,
-  Calendar,
-  Shield,
-  HelpCircle,
 } from 'lucide-react'
 
 import type { SiteSettings } from '@/lib/supabase/settings'
@@ -119,12 +112,17 @@ export default function Header({ settings }: HeaderProps) {
                         <ChevronDown size={15} className="group-hover:rotate-180 transition-transform duration-200" />
                       </button>
 
-                      <div className="absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl rounded-xl overflow-hidden z-50">
+                      <div
+                        className={`absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible ${
+                          openDropdown === item.key ? '!opacity-100 !visible' : ''
+                        } transition-all duration-200 shadow-xl rounded-xl overflow-hidden z-50`}
+                      >
                         <div className="bg-white border border-[#e2ebe4] rounded-xl p-2 shadow-2xl">
                           {item.dropdown.map((sub) => (
                             <Link
                               key={sub.href}
                               href={sub.href}
+                              onClick={() => setOpenDropdown(null)}
                               className="block p-2.5 rounded-lg hover:bg-[#f0f6f1] transition-colors group/item"
                             >
                               <div className="font-bold text-sm text-[#0f1d14] group-hover/item:text-[#175432]">

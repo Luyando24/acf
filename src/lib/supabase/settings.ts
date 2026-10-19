@@ -1,4 +1,4 @@
-import { createClient } from './server'
+import { createClient, isSupabaseConfigured } from './server'
 
 export interface SiteSettings {
   site_name: string
@@ -75,6 +75,10 @@ export const DEFAULT_HERO_SLIDES: HeroSlide[] = [
 ]
 
 export async function getSiteSettings(): Promise<SiteSettings> {
+  if (!isSupabaseConfigured()) {
+    return DEFAULT_SETTINGS
+  }
+
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
@@ -94,6 +98,10 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 }
 
 export async function getSiteStats(): Promise<SiteStat[]> {
+  if (!isSupabaseConfigured()) {
+    return DEFAULT_STATS
+  }
+
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
@@ -113,6 +121,10 @@ export async function getSiteStats(): Promise<SiteStat[]> {
 }
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
+  if (!isSupabaseConfigured()) {
+    return DEFAULT_HERO_SLIDES
+  }
+
   try {
     const supabase = await createClient()
     const { data, error } = await supabase
