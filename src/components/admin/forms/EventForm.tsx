@@ -26,7 +26,7 @@ export default function EventForm({ initialData }: EventFormProps) {
   const router = useRouter()
   const isEdit = Boolean(initialData)
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(() => ({
     title: initialData?.title || '',
     slug: initialData?.slug || '',
     description: initialData?.description || '',
@@ -41,7 +41,7 @@ export default function EventForm({ initialData }: EventFormProps) {
     registration_url: initialData?.registration_url || '',
     featured_image: initialData?.featured_image || '/photos/event1.jpg',
     status: initialData?.status || 'published',
-  })
+  }))
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSaving, setIsSaving] = useState(false)

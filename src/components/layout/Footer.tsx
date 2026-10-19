@@ -123,7 +123,7 @@ export default function Footer({ settings }: FooterProps) {
                     className="mt-1 h-4 w-4 rounded border-[#213f2a] bg-[#122419] text-[#2da44e] focus:ring-[#2da44e]"
                   />
                   <label htmlFor="newsletter-consent" className="text-xs text-emerald-200/70 leading-normal">
-                    I consent to ACF processing my email address in accordance with Zambia's{' '}
+                    I consent to ACF processing my email address in accordance with Zambia&apos;s{' '}
                     <Link href="/privacy-policy" className="underline hover:text-white">
                       Data Protection Act, 2021
                     </Link>

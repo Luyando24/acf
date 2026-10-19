@@ -40,7 +40,7 @@ export default function OpportunityForm({ initialData }: OpportunityFormProps) {
   const router = useRouter()
   const isEdit = Boolean(initialData)
 
-  const [formData, setFormData] = useState<Partial<OpportunityItem>>({
+  const [formData, setFormData] = useState<Partial<OpportunityItem>>(() => ({
     title: initialData?.title || '',
     slug: initialData?.slug || '',
     type: initialData?.type || 'Job',
@@ -57,7 +57,7 @@ export default function OpportunityForm({ initialData }: OpportunityFormProps) {
       'Cover Letter',
       'Academic & Professional Qualifications',
     ],
-  })
+  }))
 
   const [customDocInput, setCustomDocInput] = useState('')
   const [errors, setErrors] = useState<Record<string, string>>({})
