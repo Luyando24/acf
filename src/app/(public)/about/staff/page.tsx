@@ -19,43 +19,7 @@ export default async function StaffPage() {
     .eq('is_visible', true)
     .order('order_index', { ascending: true })
 
-  const members: Person[] =
-    peopleData && peopleData.length > 0
-      ? (peopleData as Person[])
-      : [
-          {
-            id: '1',
-            group_type: 'staff',
-            name: 'Chileshe Mulenga',
-            position: 'Communications & Knowledge Manager',
-            photo_url: '/people/staff-1.jpg',
-            email: 'cmulenga@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            twitter_url: 'https://x.com',
-            bio: 'Manages publications dissemination, media relations, digital platforms, and stakeholder outreach across Zambia.',
-          },
-          {
-            id: '2',
-            group_type: 'staff',
-            name: 'Kondwani Banda',
-            position: 'Finance & Administration Officer',
-            photo_url: '/people/staff-2.jpg',
-            email: 'kbanda@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            bio: 'Oversees financial management, grant compliance, and operational logistics for ACF dialogue programmes.',
-          },
-          {
-            id: '3',
-            group_type: 'staff',
-            name: 'Mwape Tembo',
-            position: 'Programme & M&E Officer',
-            photo_url: '/people/staff-3.jpg',
-            email: 'mtembo@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            twitter_url: 'https://x.com',
-            bio: 'Coordinates field performance indicators, stakeholder feedback surveys, and activity monitoring.',
-          },
-        ]
+  const members: Person[] = (peopleData as Person[]) || []
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -78,11 +42,18 @@ export default async function StaffPage() {
       </section>
 
       <div className="container mx-auto px-4 max-w-5xl pt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((person) => (
-            <PersonCard key={person.id} person={person} />
-          ))}
-        </div>
+        {members.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {members.map((person) => (
+              <PersonCard key={person.id} person={person} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#e2ebe4] p-8 max-w-md mx-auto">
+            <p className="text-base font-semibold text-[#0f1d14]">No staff profiles currently listed</p>
+            <p className="text-xs text-[#5c6f62] mt-1">Secretariat staff profiles will appear here once added in the administrative portal.</p>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookOpen, Download, FileText, Filter, Search, Tag } from 'lucide-react'
+import { BookOpen, Download, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate, formatFileSize } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
@@ -25,16 +25,7 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
     .select('*')
     .order('order_index', { ascending: true })
 
-  const categories =
-    categoriesData && categoriesData.length > 0
-      ? categoriesData
-      : [
-          { id: '1', slug: 'policy-briefs', name: 'Policy Briefs' },
-          { id: '2', slug: 'research-reports', name: 'Research Reports' },
-          { id: '3', slug: 'technical-reports', name: 'Technical Reports' },
-          { id: '4', slug: 'policy-advisory-notes', name: 'Policy Advisory Notes' },
-          { id: '5', slug: 'newsletters', name: 'Newsletters' },
-        ]
+  const categories = (categoriesData || []) as any[]
 
   // Query publications
   let query = supabase
@@ -44,7 +35,6 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
     .order('published_on', { ascending: false })
 
   if (category) {
-    // If category slug is provided, filter by category slug
     const matchingCat = categories.find((c) => c.slug === category)
     if (matchingCat) {
       query = query.eq('category_id', matchingCat.id)
@@ -56,55 +46,7 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
   }
 
   const { data: pubData } = await query
-
-  const defaultPubs = [
-    {
-      id: '33333333-3333-3333-3333-333333333301',
-      slug: 'zambia-agricultural-policy-brief-2026',
-      title: 'Zambia Agricultural Sector Policy Review 2025/2026',
-      summary:
-        'An evidence-based assessment of agricultural performance, input support programmes, and market policies in Zambia.',
-      published_on: '2026-02-15',
-      file_size: 2450000,
-      download_count: 142,
-      publication_categories: { name: 'Policy Briefs', slug: 'policy-briefs' },
-    },
-    {
-      id: '33333333-3333-3333-3333-333333333302',
-      slug: 'smallholder-drought-resilience-study',
-      title: 'Building Climate Resilience Among Smallholder Maize Farmers',
-      summary:
-        'Empirical study on drought mitigation strategies, crop diversification, and irrigation adoption in Southern and Eastern Provinces.',
-      published_on: '2026-01-20',
-      file_size: 3820000,
-      download_count: 98,
-      publication_categories: { name: 'Research Reports', slug: 'research-reports' },
-    },
-    {
-      id: '33333333-3333-3333-3333-333333333303',
-      slug: 'customary-land-rights-brief-women',
-      title: 'Securing Customary Land Rights for Women Farmers in Zambia',
-      summary:
-        'Policy advisory note detailing practical legal mechanisms to strengthen women smallholders land tenure security.',
-      published_on: '2025-11-10',
-      file_size: 1850000,
-      download_count: 76,
-      publication_categories: { name: 'Policy Advisory Notes', slug: 'policy-advisory-notes' },
-    },
-    {
-      id: '33333333-3333-3333-3333-333333333304',
-      slug: 'acf-newsletter-q4-2025',
-      title: 'ACF Quarterly Newsletter - Q4 2025',
-      summary:
-        'Highlights from national agricultural policy consultative forums, stakeholder submissions, and upcoming programmes.',
-      published_on: '2025-12-22',
-      file_size: 1240000,
-      download_count: 54,
-      publication_categories: { name: 'Newsletters', slug: 'newsletters' },
-    },
-  ]
-
-  const publications = pubData && pubData.length > 0 ? pubData : defaultPubs
+  const publications = (pubData || []) as any[]
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -180,14 +122,16 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
               <BookOpen size={40} className="mx-auto text-[#5c6f62]" />
               <h2 className="text-xl font-bold text-[#0f1d14]">No publications found</h2>
               <p className="text-sm text-[#5c6f62] max-w-md mx-auto">
-                No research documents match your criteria. Try adjusting your search keyword or selecting a different category.
+                No policy documents match your current filter criteria. Try clearing search filters.
               </p>
-              <Link
-                href="/publications"
-                className="inline-block mt-2 px-5 py-2 text-xs font-bold bg-[#175432] text-white rounded-full"
-              >
-                Clear Filters
-              </Link>
+              {(category || q) && (
+                <Link
+                  href="/publications"
+                  className="inline-block mt-2 px-5 py-2 text-xs font-bold bg-[#175432] text-white rounded-full"
+                >
+                  Clear Filters
+                </Link>
+              )}
             </div>
           ) : (
             publications.map((pub) => (
@@ -198,10 +142,10 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
                 <div className="space-y-2 flex-grow">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-[#5c6f62]">
                     <span className="px-3 py-1 rounded-md bg-[#f0f6f1] text-[#175432] font-bold">
-                      {(pub.publication_categories as any)?.name || 'Policy Brief'}
+                      {(pub.publication_categories as any)?.name || 'Policy Document'}
                     </span>
                     <span>•</span>
-                    <span>Published {formatDate(pub.published_on)}</span>
+                    <span>Published on {formatDate(pub.published_on)}</span>
                     {pub.file_size && (
                       <>
                         <span>•</span>
@@ -219,12 +163,12 @@ export default async function PublicationsPage({ searchParams }: PublicationsPag
                   </p>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0 w-full md:w-auto pt-2 md:pt-0">
+                <div className="shrink-0 w-full md:w-auto pt-2 md:pt-0 flex items-center gap-3">
                   <Link
                     href={`/publications/${pub.slug}`}
-                    className="flex-1 md:flex-initial px-5 py-3 rounded-xl bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
+                    className="w-full md:w-auto px-5 py-3 rounded-xl bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
                   >
-                    <Download size={14} />
+                    <Download size={15} />
                     <span>View & Download</span>
                   </Link>
                 </div>

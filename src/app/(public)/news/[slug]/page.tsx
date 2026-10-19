@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Calendar, Tag, Share2 } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
@@ -35,45 +35,18 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   const { slug } = await params
   const supabase = await createClient()
 
-  const { data: newsData } = await supabase
+  const { data: rawArticle } = await supabase
     .from('news_posts')
     .select('*')
     .eq('slug', slug)
     .single()
 
-  const article =
-    newsData ||
-    (slug === 'national-consultative-dialogue-food-security-2026'
-      ? {
-          id: '44444444-4444-4444-4444-444444444401',
-          slug: 'national-consultative-dialogue-food-security-2026',
-          title: 'ACF Convenes National Stakeholder Dialogue on Sustainable Food Security',
-          excerpt:
-            'Key stakeholders from government, farmer federations, and agribusiness gathered in Lusaka to review post-drought recovery mechanisms.',
-          body: `
-            <p>The Agricultural Consultative Forum (ACF) convened a high-level consultative dialogue in Lusaka, bringing together over 80 representatives from farmer unions, agribusiness associations, research bodies, and the Ministry of Agriculture.</p>
-            <p>Discussions centred on evidence-backed strategies for the upcoming cropping season, emergency irrigation expansion, and targeted support for smallholder farming families affected by climate shocks.</p>
-            <h2>Key Policy Resolutions</h2>
-            <p>Participants agreed on the following policy directions to be submitted to the Ministry of Agriculture and Parliament:</p>
-            <ul>
-              <li>Expansion of flexible electronic voucher mechanisms allowing farmers to procure drought-resilient legumes and certified seed varieties.</li>
-              <li>Public investment prioritisation for community-managed micro-irrigation infrastructure.</li>
-              <li>Establishment of a predictable grain marketing calendar with transparent grain reserve targets.</li>
-            </ul>
-            <p>ACF will compile the complete technical proceedings into a forthcoming Policy Brief to be distributed to parliamentary committees and donor agricultural working groups.</p>
-          `,
-          category: 'Policy Dialogue',
-          image_url: '/photos/fosta-stakeholders-dialogue.jpg',
-          published_at: '2026-03-01T07:00:00Z',
-        }
-      : null)
-
-  if (!article) {
+  if (!rawArticle) {
     notFound()
   }
 
-  const articleData = article as any
-  const featuredImg = articleData.image_url || articleData.featured_image || '/photos/fosta-stakeholders-dialogue.jpg'
+  const article = rawArticle as any
+  const featuredImg = article.image_url || article.featured_image || '/photos/fosta-stakeholders-dialogue.jpg'
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -124,7 +97,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
           <div
             className="prose-acf"
-            dangerouslySetInnerHTML={{ __html: article.body }}
+            dangerouslySetInnerHTML={{ __html: article.body || `<p>${article.excerpt}</p>` }}
           />
 
           <div className="pt-8 border-t border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

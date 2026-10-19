@@ -19,43 +19,7 @@ export default async function ManagementPage() {
     .eq('is_visible', true)
     .order('order_index', { ascending: true })
 
-  const members: Person[] =
-    peopleData && peopleData.length > 0
-      ? (peopleData as Person[])
-      : [
-          {
-            id: '1',
-            group_type: 'management',
-            name: 'Dr. Mizinga C. Kapelembe',
-            position: 'Executive Director',
-            photo_url: '/people/exec-director.jpg',
-            email: 'mkapelembe@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            twitter_url: 'https://x.com',
-            bio: 'Leads the ACF Secretariat in executing policy dialogues, stakeholder coordination, and institutional strategy across Zambia.',
-          },
-          {
-            id: '2',
-            group_type: 'management',
-            name: 'Dr. Lubinda Situmbeko',
-            position: 'Head of Policy & Research',
-            photo_url: '/people/head-research.jpg',
-            email: 'lsitumbeko@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            twitter_url: 'https://x.com',
-            bio: 'Coordinates empirical studies, policy briefs, and dialogue working groups connecting farmers with national policymakers.',
-          },
-          {
-            id: '3',
-            group_type: 'management',
-            name: 'Bupe Nanyangwe',
-            position: 'Head of Finance & Corporate Services',
-            photo_url: '/people/head-finance.jpg',
-            email: 'bnanyangwe@acf.org.zm',
-            linkedin_url: 'https://linkedin.com',
-            bio: 'Oversees institutional fiduciary stewardship, donor compliance, institutional audit integrity, and human capital.',
-          },
-        ]
+  const members: Person[] = (peopleData as Person[]) || []
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -78,11 +42,18 @@ export default async function ManagementPage() {
       </section>
 
       <div className="container mx-auto px-4 max-w-5xl pt-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((person) => (
-            <PersonCard key={person.id} person={person} />
-          ))}
-        </div>
+        {members.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {members.map((person) => (
+              <PersonCard key={person.id} person={person} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#e2ebe4] p-8 max-w-md mx-auto">
+            <p className="text-base font-semibold text-[#0f1d14]">No management profiles currently listed</p>
+            <p className="text-xs text-[#5c6f62] mt-1">Management team records will appear here once added in the administrative portal.</p>
+          </div>
+        )}
       </div>
     </div>
   )

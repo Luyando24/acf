@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ExternalLink, Handshake, Shield, Globe } from 'lucide-react'
+import { ExternalLink, Handshake } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { constructMetadata } from '@/lib/utils/seo'
 
@@ -29,55 +29,7 @@ export default async function PartnersPage() {
     'Food and Agriculture Organization (FAO)': '/partners/fao.svg',
   }
 
-  const defaultPartners = [
-    {
-      id: '1',
-      name: 'Ministry of Agriculture - Zambia',
-      type: 'Collaborating Institution',
-      logo_url: '/partners/ministry-of-agriculture.svg',
-      description:
-        'The primary governmental counterpart in national agricultural policy consultations, crop forecasts, and input support reviews.',
-      website_url: 'https://www.agriculture.gov.zm',
-    },
-    {
-      id: '2',
-      name: 'Zambia National Farmers Union (ZNFU)',
-      type: 'Partner',
-      logo_url: '/partners/znfu.svg',
-      description:
-        'Apex representative federation for smallholder, emergent, and large-scale commercial farming households in Zambia.',
-      website_url: 'https://www.znfu.org.zm',
-    },
-    {
-      id: '3',
-      name: 'Indaba Agricultural Policy Research Institute (IAPRI)',
-      type: 'Partner',
-      logo_url: '/partners/iapri.svg',
-      description:
-        'Premier collaborating research body undertaking rigorous empirical analyses of food security and rural economics.',
-      website_url: 'https://www.iapri.org.zm',
-    },
-    {
-      id: '4',
-      name: 'International Land Coalition (ILC)',
-      type: 'Network & Affiliation',
-      logo_url: '/partners/ilc.svg',
-      description:
-        'Global alliance collaborating with ACF on customary land tenure documentation and equitable women farmer rights.',
-      website_url: 'https://www.landcoalition.org',
-    },
-    {
-      id: '5',
-      name: 'Grain Traders Association of Zambia',
-      type: 'Partner',
-      logo_url: '/partners/gtaz.svg',
-      description:
-        'Key agribusiness association collaborating on regional grain marketing, trade tariffs, and strategic storage mechanisms.',
-      website_url: null,
-    },
-  ]
-
-  const partners = partnersData && partnersData.length > 0 ? partnersData : defaultPartners
+  const partners = (partnersData || []) as any[]
 
   // Group by partner type
   const types = ['Collaborating Institution', 'Partner', 'Network & Affiliation', 'Development Partner']
@@ -101,73 +53,80 @@ export default async function PartnersPage() {
 
       {/* Main Partners Listing */}
       <div className="container mx-auto px-4 max-w-5xl pt-16 space-y-16">
-        {types.map((t) => {
-          const group = partners.filter((p) => p.type === t)
-          if (group.length === 0) return null
+        {partners.length > 0 ? (
+          types.map((t) => {
+            const group = partners.filter((p) => p.type === t)
+            if (group.length === 0) return null
 
-          return (
-            <section key={t} className="space-y-6">
-              <div className="border-b border-[#e2ebe4] pb-3 flex items-center gap-2">
-                <Handshake size={20} className="text-[#175432]" />
-                <h2 className="text-xl font-bold text-[#0f1d14]">{t}s</h2>
-              </div>
+            return (
+              <section key={t} className="space-y-6">
+                <div className="border-b border-[#e2ebe4] pb-3 flex items-center gap-2">
+                  <Handshake size={20} className="text-[#175432]" />
+                  <h2 className="text-xl font-bold text-[#0f1d14]">{t}s</h2>
+                </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {group.map((partner) => {
-                  const logoSrc = partner.logo_url || PARTNER_LOGOS[partner.name] || '/photos/logo.png'
-                  return (
-                    <div
-                      key={partner.id}
-                      className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
-                    >
-                      <div className="space-y-4">
-                        <div className="flex items-start gap-4">
-                          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white border border-[#e2ebe4] p-2 flex items-center justify-center shrink-0 shadow-2xs overflow-hidden">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={logoSrc}
-                              alt={`${partner.name} logo`}
-                              className="w-full h-full object-contain"
-                              loading="lazy"
-                            />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {group.map((partner) => {
+                    const logoSrc = partner.logo_url || PARTNER_LOGOS[partner.name] || '/photos/logo.png'
+                    return (
+                      <div
+                        key={partner.id}
+                        className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                      >
+                        <div className="space-y-4">
+                          <div className="flex items-start gap-4">
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-white border border-[#e2ebe4] p-2 flex items-center justify-center shrink-0 shadow-2xs overflow-hidden">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={logoSrc}
+                                alt={`${partner.name} logo`}
+                                className="w-full h-full object-contain"
+                                loading="lazy"
+                              />
+                            </div>
+                            <div className="space-y-1 flex-1 min-w-0">
+                              <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-[#f0f6f1] text-[#175432] inline-block">
+                                {partner.type}
+                              </span>
+                              <h3 className="text-lg font-bold text-[#0f1d14] leading-snug">
+                                {partner.name}
+                              </h3>
+                            </div>
                           </div>
-                          <div className="space-y-1 flex-1 min-w-0">
-                            <span className="px-2.5 py-0.5 rounded text-[10px] font-bold bg-[#f0f6f1] text-[#175432] inline-block">
-                              {partner.type}
-                            </span>
-                            <h3 className="text-lg font-bold text-[#0f1d14] leading-snug">
-                              {partner.name}
-                            </h3>
-                          </div>
+
+                          {partner.description && (
+                            <p className="text-xs text-[#5c6f62] leading-relaxed">
+                              {partner.description}
+                            </p>
+                          )}
                         </div>
 
-                        {partner.description && (
-                          <p className="text-xs text-[#5c6f62] leading-relaxed">
-                            {partner.description}
-                          </p>
+                        {partner.website_url && (
+                          <div className="pt-4 border-t border-[#e2ebe4] mt-4 flex items-center justify-end">
+                            <a
+                              href={partner.website_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#175432] hover:text-[#2da44e] transition-colors"
+                            >
+                              <span>Visit Website</span>
+                              <ExternalLink size={13} />
+                            </a>
+                          </div>
                         )}
                       </div>
-
-                    {partner.website_url && (
-                      <div className="pt-4 border-t border-[#e2ebe4] mt-4 flex items-center justify-end">
-                        <a
-                          href={partner.website_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#175432] hover:text-[#2da44e] transition-colors"
-                        >
-                          <span>Visit Website</span>
-                          <ExternalLink size={13} />
-                        </a>
-                      </div>
-                    )}
-                  </div>
-                )
-              })}
-              </div>
-            </section>
-          )
-        })}
+                    )
+                  })}
+                </div>
+              </section>
+            )
+          })
+        ) : (
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#e2ebe4] p-8 max-w-md mx-auto">
+            <p className="text-base font-semibold text-[#0f1d14]">No partners currently listed</p>
+            <p className="text-xs text-[#5c6f62] mt-1">Partner and network listings will appear here once added in the administrative portal.</p>
+          </div>
+        )}
 
         {/* Partnership Enquiries CTA */}
         <section className="bg-[#175432] text-white p-8 sm:p-12 rounded-3xl shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">

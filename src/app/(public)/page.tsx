@@ -71,105 +71,11 @@ export default async function HomePage() {
         .order('order_index', { ascending: true }),
     ])
 
-  // Graceful fallbacks for local dev before database migrations are executed in remote DB
-  const programmes = programmesRes.data && programmesRes.data.length > 0 ? programmesRes.data : [
-    {
-      id: '1',
-      slug: 'policy-advocacy',
-      title: 'Agricultural Policy Advocacy',
-      summary: 'Mobilising multi-stakeholder consultations and evidence to influence national agricultural policy formulation and implementation in Zambia.',
-      icon: 'Scale',
-    },
-    {
-      id: '2',
-      slug: 'research-and-evidence',
-      title: 'Research & Evidence Generation',
-      summary: 'Generating credible empirical data, analytical briefs, and sector performance reviews to guide agricultural investments.',
-      icon: 'BookOpen',
-    },
-    {
-      id: '3',
-      slug: 'multi-stakeholder-dialogue',
-      title: 'Multi-Stakeholder Dialogue',
-      summary: 'Providing a neutral, inclusive convening platform where government, agribusiness, donors, and smallholder farmer groups collaborate.',
-      icon: 'Users',
-    },
-    {
-      id: '4',
-      slug: 'climate-resilience',
-      title: 'Climate Resilience & Sustainable Systems',
-      summary: 'Advocating for climate-smart agriculture, soil health conservation, and resilient rural farming systems in Zambia.',
-      icon: 'Sprout',
-    },
-  ]
-
-  const publications = publicationsRes.data && publicationsRes.data.length > 0 ? publicationsRes.data : [
-    {
-      id: '1',
-      slug: 'zambia-agricultural-policy-brief-2026',
-      title: 'Zambia Agricultural Sector Policy Review 2025/2026',
-      summary: 'An evidence-based assessment of agricultural performance, input support programmes, and market policies in Zambia.',
-      published_on: '2026-02-15',
-      publication_categories: { name: 'Policy Briefs' },
-      download_count: 142,
-    },
-    {
-      id: '2',
-      slug: 'smallholder-drought-resilience-study',
-      title: 'Building Climate Resilience Among Smallholder Maize Farmers',
-      summary: 'Empirical study on drought mitigation strategies, crop diversification, and irrigation adoption in Southern and Eastern Provinces.',
-      published_on: '2026-01-20',
-      publication_categories: { name: 'Research Reports' },
-      download_count: 98,
-    },
-    {
-      id: '3',
-      slug: 'customary-land-rights-brief-women',
-      title: 'Securing Customary Land Rights for Women Farmers in Zambia',
-      summary: 'Policy advisory note detailing practical legal mechanisms to strengthen women smallholders land tenure security.',
-      published_on: '2025-11-10',
-      publication_categories: { name: 'Policy Advisory Notes' },
-      download_count: 76,
-    },
-  ]
-
-  const newsList = newsRes.data && newsRes.data.length > 0 ? newsRes.data : [
-    {
-      id: '1',
-      slug: 'national-consultative-dialogue-food-security-2026',
-      title: 'ACF Convenes National Stakeholder Dialogue on Sustainable Food Security',
-      excerpt: 'Key stakeholders from government, farmer federations, and agribusiness gathered in Lusaka to review post-drought recovery mechanisms.',
-      category: 'Policy Dialogue',
-      published_at: '2026-03-01T07:00:00Z',
-    },
-    {
-      id: '2',
-      slug: 'evidence-based-review-fisp-reforms',
-      title: 'Stakeholder Submission on Agricultural Input Programme Modernisation',
-      excerpt: 'ACF presents its comprehensive policy review on input distribution efficiency and transparent electronic vouchers.',
-      category: 'Sector News',
-      published_at: '2026-02-18T08:30:00Z',
-    },
-  ]
-
-  const upcomingEvents = eventsRes.data && eventsRes.data.length > 0 ? eventsRes.data : [
-    {
-      id: '1',
-      slug: 'annual-agricultural-policy-symposium-2026',
-      title: 'Annual Zambia Agricultural Policy Symposium 2026',
-      description: 'A two-day national symposium gathering policymakers, agricultural economists, and farmer leaders.',
-      starts_at: '2026-11-18T06:30:00Z',
-      venue: 'Mulungushi International Conference Centre, Lusaka',
-    },
-    {
-      id: '2',
-      slug: 'workshop-land-tenure-governance-2026',
-      title: 'Multi-Stakeholder Workshop on Customary Land Tenure',
-      description: 'Deliberations on equitable land allocation and tenure documentation guidelines.',
-      starts_at: '2026-10-28T07:00:00Z',
-      venue: 'Golden Peacock Hotel, Lusaka',
-    },
-  ]
+  const programmes = (programmesRes.data || []) as any[]
+  const publications = (publicationsRes.data || []) as any[]
+  const newsList = (newsRes.data || []) as any[]
+  const upcomingEvents = (eventsRes.data || []) as any[]
+  const partners = (partnersRes.data || []) as any[]
 
   const PARTNER_LOGOS: Record<string, string> = {
     'Ministry of Agriculture': '/partners/ministry-of-agriculture.svg',
@@ -180,14 +86,6 @@ export default async function HomePage() {
     'Grain Traders Association of Zambia': '/partners/gtaz.svg',
     'Food and Agriculture Organization (FAO)': '/partners/fao.svg',
   }
-
-  const partners = partnersRes.data && partnersRes.data.length > 0 ? partnersRes.data : [
-    { id: '1', name: 'Ministry of Agriculture', logo_url: '/partners/ministry-of-agriculture.svg' },
-    { id: '2', name: 'Zambia National Farmers Union (ZNFU)', logo_url: '/partners/znfu.svg' },
-    { id: '3', name: 'Indaba Agricultural Policy Research Institute (IAPRI)', logo_url: '/partners/iapri.svg' },
-    { id: '4', name: 'International Land Coalition (ILC)', logo_url: '/partners/ilc.svg' },
-    { id: '5', name: 'Grain Traders Association of Zambia', logo_url: '/partners/gtaz.svg' },
-  ]
 
   return (
     <div className="space-y-0">
@@ -455,30 +353,36 @@ export default async function HomePage() {
               </div>
 
               <div className="space-y-4">
-                {upcomingEvents.map((evt) => (
-                  <div
-                    key={evt.slug}
-                    className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs flex items-start gap-4"
-                  >
-                    <div className="w-14 h-14 rounded-xl bg-[#0f1d14] text-[#a3e635] flex flex-col items-center justify-center shrink-0 border border-[#2da44e]/40">
-                      <Calendar size={18} />
-                      <span className="text-[10px] font-black uppercase mt-0.5">Forum</span>
-                    </div>
+                {upcomingEvents.length > 0 ? (
+                  upcomingEvents.map((evt) => (
+                    <div
+                      key={evt.slug}
+                      className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs flex items-start gap-4"
+                    >
+                      <div className="w-14 h-14 rounded-xl bg-[#0f1d14] text-[#a3e635] flex flex-col items-center justify-center shrink-0 border border-[#2da44e]/40">
+                        <Calendar size={18} />
+                        <span className="text-[10px] font-black uppercase mt-0.5">Forum</span>
+                      </div>
 
-                    <div className="space-y-1">
-                      <h3 className="text-sm font-bold text-[#0f1d14] hover:text-[#175432] transition-colors">
-                        <Link href={`/events/${evt.slug}`}>{evt.title}</Link>
-                      </h3>
-                      <p className="text-xs text-[#5c6f62] line-clamp-2">
-                        {evt.description}
-                      </p>
-                      <div className="flex items-center gap-1 text-[11px] text-[#175432] font-semibold pt-1">
-                        <MapPin size={12} />
-                        <span>{evt.venue}</span>
+                      <div className="space-y-1">
+                        <h3 className="text-sm font-bold text-[#0f1d14] hover:text-[#175432] transition-colors">
+                          <Link href={`/events/${evt.slug}`}>{evt.title}</Link>
+                        </h3>
+                        <p className="text-xs text-[#5c6f62] line-clamp-2">
+                          {evt.description}
+                        </p>
+                        <div className="flex items-center gap-1 text-[11px] text-[#175432] font-semibold pt-1">
+                          <MapPin size={12} />
+                          <span>{evt.venue}</span>
+                        </div>
                       </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="bg-white p-6 rounded-2xl border border-[#e2ebe4] text-center text-xs text-[#5c6f62]">
+                    No upcoming events scheduled at this time.
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Briefcase, ArrowLeft, Clock, Archive } from 'lucide-react'
+import { Briefcase, ArrowLeft } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
@@ -22,30 +22,7 @@ export default async function OpportunitiesArchivePage() {
     .lt('closes_on', todayLusaka)
     .order('closes_on', { ascending: false })
 
-  const defaultArchive = [
-    {
-      id: '66666666-6666-6666-6666-666666666603',
-      slug: 'consultancy-monitoring-evaluation-officer-expired',
-      title: 'Monitoring & Evaluation Specialist',
-      type: 'Job',
-      description:
-        'Full-time position to coordinate institutional monitoring and evaluation frameworks across all ACF dialogue programmes.',
-      opens_on: '2026-01-01',
-      closes_on: '2026-02-15',
-    },
-    {
-      id: '66666666-6666-6666-6666-666666666604',
-      slug: 'tender-it-network-infrastructure-2025',
-      title: 'Tender: Secretariat IT & Server Infrastructure Upgrade',
-      type: 'Tender',
-      description:
-        'Supply and installation of network equipment, secure firewall, and cloud backup setup for ACF Secretariat in Lusaka.',
-      opens_on: '2025-10-01',
-      closes_on: '2025-11-15',
-    },
-  ]
-
-  const archived = oppData && oppData.length > 0 ? oppData : defaultArchive
+  const archived = (oppData || []) as any[]
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -68,40 +45,45 @@ export default async function OpportunitiesArchivePage() {
         </div>
       </section>
 
-      {/* Main Content Layout */}
-      <div className="container mx-auto px-4 max-w-5xl pt-12">
-        <div className="space-y-4">
-          {archived.map((opp) => (
+      {/* Archive Listings */}
+      <div className="container mx-auto px-4 max-w-5xl pt-12 space-y-4">
+        {archived.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-3xl border border-[#e2ebe4] p-8 space-y-3">
+            <Briefcase size={36} className="mx-auto text-[#5c6f62]" />
+            <h2 className="text-lg font-bold text-[#0f1d14]">No archived opportunities</h2>
+            <p className="text-xs text-[#5c6f62]">Concluded vacancies and past tenders will be archived here.</p>
+          </div>
+        ) : (
+          archived.map((opp) => (
             <div
               key={opp.slug}
-              className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 opacity-85"
+              className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 opacity-75 hover:opacity-100 transition-opacity"
             >
-              <div className="space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded text-[11px] font-bold bg-gray-100 text-gray-700">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-xs text-[#5c6f62]">
+                  <span className="px-2 py-0.5 rounded bg-gray-100 font-semibold text-gray-700">
                     {opp.type}
                   </span>
-                  <span className="px-2.5 py-0.5 rounded text-[11px] font-bold bg-amber-100 text-amber-800">
-                    Closed on {formatDate(opp.closes_on)}
-                  </span>
+                  <span>•</span>
+                  <span>Closed on {formatDate(opp.closes_on)}</span>
                 </div>
-                <h2 className="text-lg font-bold text-[#0f1d14]">
+                <h3 className="text-base font-bold text-[#0f1d14]">
                   <Link href={`/opportunities/${opp.slug}`} className="hover:text-[#175432]">
                     {opp.title}
                   </Link>
-                </h2>
+                </h3>
                 <p className="text-xs text-[#5c6f62] line-clamp-1">{opp.description}</p>
               </div>
 
               <Link
                 href={`/opportunities/${opp.slug}`}
-                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-[#0f1d14] rounded-lg text-xs font-bold shrink-0 transition-colors"
+                className="px-4 py-2 border border-[#e2ebe4] hover:border-[#175432] text-xs font-bold text-[#0f1d14] rounded-lg transition-colors shrink-0"
               >
                 View Notice
               </Link>
             </div>
-          ))}
-        </div>
+          ))
+        )}
       </div>
     </div>
   )

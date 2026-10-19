@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Calendar, Clock, AlertCircle, Mail, Globe, CheckCircle2 } from 'lucide-react'
+import { ArrowLeft, Clock, AlertCircle, Mail, Globe, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate, isOpportunityClosed } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
@@ -35,42 +35,17 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
   const { slug } = await params
   const supabase = await createClient()
 
-  const { data: oppData } = await supabase
+  const { data: rawOpp } = await supabase
     .from('opportunities')
     .select('*')
     .eq('slug', slug)
     .single()
 
-  const opp =
-    oppData ||
-    (slug === 'consultancy-agricultural-policy-analyst'
-      ? {
-          id: '66666666-6666-6666-6666-666666666601',
-          slug: 'consultancy-agricultural-policy-analyst',
-          title: 'Senior Agricultural Policy Consultant',
-          type: 'Consultancy',
-          description:
-            'ACF seeks a qualified Agricultural Economist or Policy Analyst to lead an independent study on Zambian agricultural value chain competitiveness.',
-          opens_on: '2026-03-01',
-          closes_on: '2026-11-30',
-          application_instructions:
-            'Interested qualified candidates should submit: (1) A comprehensive technical and financial proposal, (2) Detailed CV highlighting previous agricultural policy assignments in Zambia, and (3) Three professional references.',
-          apply_url: null,
-          contact_info: 'opportunities@acfzambia.org',
-          status: 'published',
-          accepted_documents: [
-            'Curriculum Vitae (CV)',
-            'Technical Proposal',
-            'Financial Bid / Cost Quotation',
-            'Past Professional References',
-          ],
-        }
-      : null)
-
-  if (!opp) {
+  if (!rawOpp) {
     notFound()
   }
 
+  const opp = rawOpp as any
   const isClosed = isOpportunityClosed(opp.closes_on)
 
   return (

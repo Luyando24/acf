@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, BookOpen, Calendar, Download, FileText, Share2, Shield } from 'lucide-react'
+import { ArrowLeft, BookOpen, Download, FileText } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate, formatFileSize } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
@@ -34,33 +34,17 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
   const { slug } = await params
   const supabase = await createClient()
 
-  const { data: pubData } = await supabase
+  const { data: rawPub } = await supabase
     .from('publications')
     .select('*, publication_categories(name)')
     .eq('slug', slug)
     .single()
 
-  const pub =
-    pubData ||
-    (slug === 'zambia-agricultural-policy-brief-2026'
-      ? {
-          id: '33333333-3333-3333-3333-333333333301',
-          slug: 'zambia-agricultural-policy-brief-2026',
-          title: 'Zambia Agricultural Sector Policy Review 2025/2026',
-          summary:
-            'An evidence-based assessment of agricultural performance, input support programmes, and market policies in Zambia.',
-          published_on: '2026-02-15',
-          file_path: '/documents/acf-policy-review-2026.pdf',
-          file_size: 2450000,
-          mime: 'application/pdf',
-          download_count: 142,
-          publication_categories: { name: 'Policy Briefs' },
-        }
-      : null)
-
-  if (!pub) {
+  if (!rawPub) {
     notFound()
   }
+
+  const pub = rawPub as any
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -91,42 +75,40 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
       </section>
 
       {/* Main Content Layout */}
-      <div className="container mx-auto px-4 max-w-4xl pt-16">
+      <div className="container mx-auto px-4 max-w-4xl pt-12 space-y-8">
         <div className="bg-white rounded-3xl border border-[#e2ebe4] p-8 sm:p-12 shadow-xs space-y-8">
           <div>
-            <h2 className="text-xl font-bold text-[#0f1d14] mb-3">Executive Summary</h2>
+            <h2 className="text-xl font-bold text-[#0f1d14] mb-3">Executive Summary & Overview</h2>
             <p className="text-base sm:text-lg text-[#3b4d41] leading-relaxed">
               {pub.summary}
             </p>
           </div>
 
-          {/* Download Action Card */}
-          <div className="p-6 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          {/* Download & File Info Box */}
+          <div className="p-8 rounded-2xl bg-[#f0f6f1] border border-[#d2e3d6] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="space-y-1">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#175432] uppercase tracking-wider">
-                <FileText size={15} />
-                <span>Document Format: PDF</span>
+              <div className="flex items-center gap-2 text-sm font-bold text-[#0f1d14]">
+                <FileText size={18} className="text-[#175432]" />
+                <span>Download Policy Document</span>
               </div>
-              <div className="text-sm font-semibold text-[#0f1d14]">
-                File Size: {formatFileSize(pub.file_size)} • {pub.download_count} Verified Downloads
-              </div>
+              <p className="text-xs text-[#5c6f62]">
+                {pub.file_size ? `${formatFileSize(pub.file_size)} • ` : ''}Official PDF Publication
+              </p>
             </div>
 
             <a
               href={pub.file_path || '#'}
               download
-              className="px-6 py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-bold text-sm rounded-xl transition-all shadow-md flex items-center gap-2 shrink-0"
+              className="w-full sm:w-auto px-8 py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-full shadow-md flex items-center justify-center gap-2 transition-colors shrink-0"
             >
-              <Download size={16} />
-              <span>Download Official Report</span>
+              <Download size={15} />
+              <span>Download PDF</span>
             </a>
           </div>
 
-          <div className="border-t border-[#e2ebe4] pt-6 flex items-center justify-between text-xs text-[#5c6f62]">
-            <span>Agricultural Consultative Forum (ACF) Knowledge Archive</span>
-            <Link href="/publications" className="font-bold text-[#175432] hover:underline">
-              Browse More Publications
-            </Link>
+          <div className="pt-6 border-t border-[#e2ebe4] flex items-center justify-between text-xs text-[#5c6f62]">
+            <span>Downloads: {pub.download_count || 0} times</span>
+            <span>Agricultural Consultative Forum Policy Series</span>
           </div>
         </div>
       </div>

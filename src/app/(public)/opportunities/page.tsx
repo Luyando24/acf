@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { Briefcase, Calendar, Clock, Filter, AlertCircle, ArrowRight } from 'lucide-react'
+import { Briefcase, Clock, ArrowRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
-import { formatDate, isOpportunityClosed } from '@/lib/utils/formatters'
+import { formatDate } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
 
 export const metadata = constructMetadata({
@@ -34,34 +34,7 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
   }
 
   const { data: oppData } = await query
-
-  const defaultOpportunities = [
-    {
-      id: '66666666-6666-6666-6666-666666666601',
-      slug: 'consultancy-agricultural-policy-analyst',
-      title: 'Senior Agricultural Policy Consultant',
-      type: 'Consultancy',
-      description:
-        'ACF seeks a qualified Agricultural Economist or Policy Analyst to lead an independent study on Zambian agricultural value chain competitiveness.',
-      opens_on: '2026-03-01',
-      closes_on: '2026-11-30',
-      contact_info: 'opportunities@acfzambia.org',
-    },
-    {
-      id: '66666666-6666-6666-6666-666666666602',
-      slug: 'tender-annual-audit-services-2026',
-      title: 'Expression of Interest: External Audit Services',
-      type: 'Tender',
-      description:
-        'Provision of statutory external financial audit services for the Agricultural Consultative Forum for the 2026 fiscal year.',
-      opens_on: '2026-03-05',
-      closes_on: '2026-11-15',
-      contact_info: 'procurement@acfzambia.org',
-    },
-  ]
-
-  const activeOpportunities =
-    oppData && oppData.length > 0 ? oppData : defaultOpportunities
+  const activeOpportunities = (oppData || []) as any[]
 
   const types = ['All', 'Job', 'Consultancy', 'Tender', 'Procurement', 'Call for Proposals']
 
@@ -108,13 +81,13 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
 
           <Link
             href="/opportunities/archive"
-            className="text-xs font-bold text-[#5c6f62] hover:text-[#175432] underline"
+            className="text-xs font-bold text-[#175432] hover:underline shrink-0"
           >
-            View Closed & Archived Opportunities →
+            Browse Concluded Archive &rarr;
           </Link>
         </div>
 
-        {/* Active Opportunities List */}
+        {/* Opportunities List */}
         <div className="pt-8 space-y-6">
           {activeOpportunities.length === 0 ? (
             <div className="text-center py-16 bg-white rounded-3xl border border-[#e2ebe4] p-8 space-y-3">
