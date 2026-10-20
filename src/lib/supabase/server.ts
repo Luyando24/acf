@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
-import { Database } from '@/types/database.types'
+import { SupabaseDatabase } from '@/types/database.types'
 
 export function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -18,7 +18,7 @@ export async function createClient() {
   const cookieStore = await cookies()
   const isConfigured = isSupabaseConfigured()
 
-  return createServerClient<Database>(
+  return createServerClient<SupabaseDatabase>(
     isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_URL! : 'https://placeholder-url.supabase.co',
     isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! : 'placeholder-anon-key',
     {

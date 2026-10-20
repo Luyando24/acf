@@ -1,48 +1,45 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { canEditPages } from '@/lib/auth/permissions'
+import { requireStaff } from '@/lib/auth/session'
 import { getPageContent, savePageContent } from '@/lib/supabase/pageContent'
 
-async function verifyAuth(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (user) return true
-
-  const cookieHeader = request.headers.get('cookie') || ''
-  if (cookieHeader.includes('acf_admin_session')) return true
-
-  if (process.env.NODE_ENV !== 'production') return true
-
-  return false
-}
+const PAGE_SLUGS = new Set(['home', 'about', 'contact', 'membership'])
 
 export async function GET(request: Request) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
-    }
+    const auth = await requireStaff()
+    if (!auth.ok) return auth.response
 
     const { searchParams } = new URL(request.url)
     const slug = searchParams.get('slug') || 'home'
+    if (!PAGE_SLUGS.has(slug)) {
+      return NextResponse.json({ error: 'Unknown page.' }, { status: 400 })
+    }
 
     const content = await getPageContent(slug)
     return NextResponse.json({ success: true, slug, content })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to retrieve page content.' }, { status: 500 })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to retrieve page content.'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
+    const auth = await requireStaff()
+    if (!auth.ok) return auth.response
+    const session = auth.session
+    if (!canEditPages(session.role)) {
+      return NextResponse.json(
+        { error: 'You do not have permission for this action.' },
+        { status: 403 }
+      )
     }
 
     const body = await request.json()
     const { slug, content } = body
 
-    if (!slug || !content) {
+    if (!slug || !content || !PAGE_SLUGS.has(slug)) {
       return NextResponse.json({ error: 'Missing slug or content in request.' }, { status: 400 })
     }
 
@@ -53,7 +50,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true, message: `Successfully updated ${slug} page content.` })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to update page content.' }, { status: 500 })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Failed to update page content.'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }

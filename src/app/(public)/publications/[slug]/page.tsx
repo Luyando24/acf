@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: PublicationDetailProps) {
     .from('publications')
     .select('title, summary')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   const pubItem = pub as any
@@ -38,6 +39,7 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
     .from('publications')
     .select('*, publication_categories(name)')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   if (!rawPub) {

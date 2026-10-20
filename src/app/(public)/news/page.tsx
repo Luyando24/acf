@@ -3,6 +3,7 @@ import { Calendar, ArrowRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import ContentImage from '@/components/ui/ContentImage'
 
 export const metadata = constructMetadata({
   title: 'News & Updates | Sector Developments & Press Releases',
@@ -54,12 +55,10 @@ export default async function NewsPage() {
                   <div>
                     {/* Article Feature Image */}
                     <div className="relative aspect-video w-full overflow-hidden bg-neutral-100">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <ContentImage
                         src={articleImg}
                         alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
                         <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#175432] font-bold text-xs shadow-xs">

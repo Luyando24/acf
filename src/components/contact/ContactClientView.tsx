@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/types/pageContent'
+import TurnstileBox from '@/components/forms/TurnstileBox'
 
 interface ContactClientViewProps {
   initialContent?: ContactPageContent
@@ -31,6 +32,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
     honeypot: '',
   })
 
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
   const [feedback, setFeedback] = useState('')
 
@@ -51,7 +53,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstile_token: turnstileToken }),
       })
       const result = await res.json()
 
@@ -300,6 +302,8 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
                   className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
                 />
               </div>
+
+              <TurnstileBox onToken={setTurnstileToken} />
 
               {/* Consent Checkbox */}
               <div className="p-4 rounded-xl bg-[#f6f9f6] border border-[#e2ebe4] flex items-start gap-3">

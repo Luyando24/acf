@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: EventDetailProps) {
     .from('events')
     .select('title, description')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   const evtItem = evt as any
@@ -38,6 +39,7 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
     .from('events')
     .select('*')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   if (!rawEvt) {

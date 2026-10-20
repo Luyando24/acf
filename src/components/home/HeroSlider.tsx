@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import type { HeroSlide } from '@/lib/supabase/settings'
+import ContentImage from '@/components/ui/ContentImage'
 
 interface HeroSliderProps {
   slides: HeroSlide[]
@@ -42,11 +43,11 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 isActive ? 'opacity-100 z-0' : 'opacity-0 -z-10'
               }`}
             >
-              <img
+              <ContentImage
                 src={slide.image_url}
                 alt={slide.alt_text || 'ACF Agricultural Forum'}
-                className="w-full h-full object-cover object-center lg:object-[75%_center]"
-                loading={index === 0 ? 'eager' : 'lazy'}
+                priority={index === 0}
+                className="object-cover object-center lg:object-[75%_center]"
               />
             </div>
           )

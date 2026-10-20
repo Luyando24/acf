@@ -8,8 +8,9 @@ export async function POST() {
     const response = NextResponse.json({ success: true })
     response.cookies.delete('acf_admin_session')
     return response
-  } catch (err: any) {
-    const response = NextResponse.json({ success: false, error: err.message }, { status: 500 })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Sign out failed.'
+    const response = NextResponse.json({ success: false, error: message }, { status: 500 })
     response.cookies.delete('acf_admin_session')
     return response
   }

@@ -1,24 +1,26 @@
 import { revalidatePath } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
+import { safeRevalidatePath } from '@/lib/security/requests'
 
 export async function POST(request: NextRequest) {
+  const expectedSecret = process.env.REVALIDATE_SECRET
+  const secret = request.headers.get('x-revalidate-secret')
+
+  if (!expectedSecret || secret !== expectedSecret) {
+    return NextResponse.json({ message: 'Invalid revalidation secret' }, { status: 401 })
+  }
+
   try {
-    const secret = request.headers.get('x-revalidate-secret') || request.nextUrl.searchParams.get('secret')
-    const expectedSecret = process.env.REVALIDATE_SECRET || 'dev_revalidate_secret_key'
-
-    if (secret !== expectedSecret) {
-      return NextResponse.json({ message: 'Invalid revalidation secret' }, { status: 401 })
-    }
-
-    const { path } = await request.json()
+    const body = await request.json()
+    const path = safeRevalidatePath(body?.path)
 
     if (!path) {
-      return NextResponse.json({ message: 'Path is required' }, { status: 400 })
+      return NextResponse.json({ message: 'A site path is required' }, { status: 400 })
     }
 
     revalidatePath(path)
-    return NextResponse.json({ revalidated: true, path, now: Date.now() })
-  } catch (err: any) {
-    return NextResponse.json({ message: 'Error revalidating', error: err.message }, { status: 500 })
+    return NextResponse.json({ revalidated: true, path })
+  } catch {
+    return NextResponse.json({ message: 'Error revalidating' }, { status: 500 })
   }
 }

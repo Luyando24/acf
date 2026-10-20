@@ -12,9 +12,8 @@ export async function addSubscriber({ email, source = 'website' }: NewsletterSub
   const provider = process.env.NEWSLETTER_PROVIDER || 'mock'
 
   if (provider === 'mock') {
-    return { success: true, message: 'Subscribed successfully (dev mode).' }
+    return { success: false, message: 'Newsletter provider is not configured.' }
   }
 
-  // Extensible integration points for Brevo / Mailchimp
-  return { success: true }
+  return { success: false, message: 'Newsletter provider is not connected.' }
 }

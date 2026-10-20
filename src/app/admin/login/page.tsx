@@ -4,12 +4,14 @@ import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
+import { isStaffRole, safeAdminRedirect } from '@/lib/auth/permissions'
+import { createClient, isSupabaseConfigured } from '@/lib/supabase/client'
 
 function AdminLoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirect = searchParams.get('redirect') || '/admin'
+  const redirect = safeAdminRedirect(searchParams.get('redirect'))
+  const configured = isSupabaseConfigured()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,63 +30,34 @@ function AdminLoginForm() {
         password,
       })
 
-      if (!error && data?.session) {
-        router.push(redirect)
-        router.refresh()
+      if (error || !data?.session || !data.user) {
+        setStatus('error')
+        setErrorMessage(error?.message || 'Invalid credentials or authentication error.')
         return
       }
 
-      // Fallback for dev mode / offline Supabase
-      const res = await fetch('/api/admin/auth/dev-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
+      const { data: profileRow, error: profileError } = await supabase
+        .from('profiles')
+        .select('role, is_active')
+        .eq('id', data.user.id)
+        .maybeSingle()
 
-      if (res.ok) {
-        router.push(redirect)
-        router.refresh()
+      const profile = profileRow as { role: string; is_active: boolean } | null
+
+      if (profileError || !profile?.is_active || !isStaffRole(profile.role)) {
+        await supabase.auth.signOut()
+        setStatus('error')
+        setErrorMessage(
+          'This account is not an active ACF staff profile. Ask a super admin to grant access.'
+        )
         return
       }
 
-      setStatus('error')
-      setErrorMessage(error?.message || 'Invalid credentials or authentication error.')
+      router.push(redirect)
+      router.refresh()
     } catch {
-      const res = await fetch('/api/admin/auth/dev-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-
-      if (res.ok) {
-        router.push(redirect)
-        router.refresh()
-        return
-      }
-
       setStatus('error')
       setErrorMessage('Authentication failed. Please check credentials.')
-    }
-  }
-
-  const handleDemoLogin = async () => {
-    setStatus('loading')
-    try {
-      const res = await fetch('/api/admin/auth/dev-login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'admin@acfzambia.org' }),
-      })
-      if (res.ok) {
-        router.push(redirect)
-        router.refresh()
-      } else {
-        setStatus('error')
-        setErrorMessage('Failed to initialize demo session.')
-      }
-    } catch {
-      setStatus('error')
-      setErrorMessage('Demo session request failed.')
     }
   }
 
@@ -113,11 +86,15 @@ function AdminLoginForm() {
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div className="space-y-1.5">
-          <label className="text-xs font-bold text-[#0f1d14]">Official Email Address</label>
+          <label htmlFor="admin-email" className="text-xs font-bold text-[#0f1d14]">
+            Official Email Address
+          </label>
           <div className="relative">
             <Mail size={16} className="absolute left-3.5 top-3.5 text-[#5c6f62]" />
             <input
+              id="admin-email"
               type="email"
+              autoComplete="username"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -128,11 +105,15 @@ function AdminLoginForm() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-xs font-bold text-[#0f1d14]">Password</label>
+          <label htmlFor="admin-password" className="text-xs font-bold text-[#0f1d14]">
+            Password
+          </label>
           <div className="relative">
             <Lock size={16} className="absolute left-3.5 top-3.5 text-[#5c6f62]" />
             <input
+              id="admin-password"
               type="password"
+              autoComplete="current-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -144,27 +125,18 @@ function AdminLoginForm() {
 
         <button
           type="submit"
-          disabled={status === 'loading'}
+          disabled={status === 'loading' || !configured}
           className="w-full py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
         >
           <span>{status === 'loading' ? 'Authenticating...' : 'Sign In to Dashboard'}</span>
           <ArrowRight size={14} />
         </button>
 
-        <div className="relative flex py-1 items-center">
-          <div className="flex-grow border-t border-[#e2ebe4]"></div>
-          <span className="flex-shrink mx-3 text-[10px] uppercase font-bold text-[#5c6f62]">Or</span>
-          <div className="flex-grow border-t border-[#e2ebe4]"></div>
-        </div>
-
-        <button
-          type="button"
-          onClick={handleDemoLogin}
-          disabled={status === 'loading'}
-          className="w-full py-3 bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] font-bold text-xs rounded-xl border border-[#cde0d1] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-        >
-          <span>One-Click Staff Demo Access</span>
-        </button>
+        {!configured && (
+          <p className="text-xs text-rose-800 bg-rose-50 border border-rose-200 rounded-xl p-3">
+            Staff sign-in is not configured. Set the Supabase URL and anon key before using this portal.
+          </p>
+        )}
       </form>
 
       <div className="pt-4 border-t border-[#e2ebe4] text-center text-xs text-[#5c6f62]">

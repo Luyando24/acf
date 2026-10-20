@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { membershipFormSchema } from '@/lib/validations/forms'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email/mailer'
+import { escapeHtml } from '@/lib/content/richText'
+import { allowRequest, clientIp, verifyTurnstile } from '@/lib/security/requests'
 
 export async function POST(request: Request) {
   try {
@@ -27,10 +29,20 @@ export async function POST(request: Request) {
       message,
       consent_given,
       honeypot,
+      turnstile_token,
     } = validation.data
 
     if (honeypot) {
       return NextResponse.json({ success: true, message: 'Application submitted' })
+    }
+
+    if (!allowRequest(`membership:${clientIp(request)}`)) {
+      return NextResponse.json({ error: 'Too many applications. Please try again later.' }, { status: 429 })
+    }
+
+    const turnstileError = await verifyTurnstile(turnstile_token, clientIp(request))
+    if (turnstileError) {
+      return NextResponse.json({ error: turnstileError }, { status: 400 })
     }
 
     const supabase = await createClient()
@@ -55,6 +67,10 @@ export async function POST(request: Request) {
 
     if (dbError) {
       console.error('Membership application database error:', dbError)
+      return NextResponse.json(
+        { error: 'Your application could not be saved. Please try again.' },
+        { status: 500 }
+      )
     }
 
     // 2. Dispatch email notification to ACF membership officers
@@ -69,16 +85,16 @@ export async function POST(request: Request) {
       subject: `[ACF New Membership Application] ${org_name || contact_name}`,
       html: `
         <h2>New Membership Application Received</h2>
-        <p><strong>Applicant Type:</strong> ${applicant_type}</p>
-        <p><strong>Organization Name:</strong> ${org_name || 'N/A'}</p>
-        <p><strong>Contact Person:</strong> ${contact_name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Province / Location:</strong> ${location_province}</p>
-        <p><strong>Area of Sector Interest:</strong> ${sector_interest}</p>
+        <p><strong>Applicant Type:</strong> ${escapeHtml(applicant_type)}</p>
+        <p><strong>Organization Name:</strong> ${escapeHtml(org_name || 'N/A')}</p>
+        <p><strong>Contact Person:</strong> ${escapeHtml(contact_name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>Province / Location:</strong> ${escapeHtml(location_province)}</p>
+        <p><strong>Area of Sector Interest:</strong> ${escapeHtml(sector_interest)}</p>
         <p><strong>Statement / Message:</strong></p>
         <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #175432;">
-          ${(message || 'No additional message provided.').replace(/\n/g, '<br/>')}
+          ${escapeHtml(message || 'No additional message provided.').replace(/\n/g, '<br/>')}
         </blockquote>
       `,
     })

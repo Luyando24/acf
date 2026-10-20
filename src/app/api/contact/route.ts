@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { contactFormSchema } from '@/lib/validations/forms'
 import { createClient } from '@/lib/supabase/server'
 import { sendEmail } from '@/lib/email/mailer'
+import { escapeHtml } from '@/lib/content/richText'
+import { allowRequest, clientIp, verifyTurnstile } from '@/lib/security/requests'
 
 export async function POST(request: Request) {
   try {
@@ -15,11 +17,20 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, email, phone, subject, message, consent_given, honeypot } =
+    const { name, email, phone, subject, message, consent_given, honeypot, turnstile_token } =
       validation.data
 
     if (honeypot) {
       return NextResponse.json({ success: true, message: 'Message sent' })
+    }
+
+    if (!allowRequest(`contact:${clientIp(request)}`)) {
+      return NextResponse.json({ error: 'Too many messages. Please try again later.' }, { status: 429 })
+    }
+
+    const turnstileError = await verifyTurnstile(turnstile_token, clientIp(request))
+    if (turnstileError) {
+      return NextResponse.json({ error: turnstileError }, { status: 400 })
     }
 
     const supabase = await createClient()
@@ -37,6 +48,10 @@ export async function POST(request: Request) {
 
     if (dbError) {
       console.error('Contact message database error:', dbError)
+      return NextResponse.json(
+        { error: 'Your message could not be saved. Please try again.' },
+        { status: 500 }
+      )
     }
 
     // 2. Dispatch email to ACF staff mailboxes
@@ -50,13 +65,13 @@ export async function POST(request: Request) {
       subject: `[ACF Website Enquiry] ${subject}`,
       html: `
         <h2>New Contact Enquiry from ACF Website</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone || 'Not provided')}</p>
+        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
         <p><strong>Message:</strong></p>
         <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #175432;">
-          ${message.replace(/\n/g, '<br/>')}
+          ${escapeHtml(message).replace(/\n/g, '<br/>')}
         </blockquote>
         <p><small>Submitted at: ${new Date().toUTCString()} (Consent verified under Zambian Data Protection Act)</small></p>
       `,

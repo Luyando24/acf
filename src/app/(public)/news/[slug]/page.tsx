@@ -5,6 +5,8 @@ import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialI
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { renderRichText } from '@/lib/content/richText'
+import ContentImage from '@/components/ui/ContentImage'
 
 interface NewsDetailProps {
   params: Promise<{ slug: string }>
@@ -17,6 +19,7 @@ export async function generateMetadata({ params }: NewsDetailProps) {
     .from('news_posts')
     .select('title, excerpt')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   const newsItem = news as any
@@ -39,6 +42,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
     .from('news_posts')
     .select('*')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   if (!rawArticle) {
@@ -80,12 +84,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
       <div className="container mx-auto px-4 max-w-4xl pt-12 space-y-10">
         {/* Featured Article Image */}
         <div className="relative w-full aspect-21/9 sm:aspect-2/1 rounded-3xl overflow-hidden border border-[#e2ebe4] shadow-sm bg-neutral-100">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={featuredImg}
-            alt={article.title}
-            className="w-full h-full object-cover"
-          />
+          <ContentImage src={featuredImg} alt={article.title} className="object-cover" />
         </div>
 
         <div className="bg-white rounded-3xl border border-[#e2ebe4] p-8 sm:p-12 shadow-xs space-y-8">
@@ -97,7 +96,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
           <div
             className="prose-acf"
-            dangerouslySetInnerHTML={{ __html: article.body || `<p>${article.excerpt}</p>` }}
+            dangerouslySetInnerHTML={{ __html: renderRichText(article.body || article.excerpt || '') }}
           />
 
           <div className="pt-8 border-t border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

@@ -1,95 +1,83 @@
 import { NextResponse } from 'next/server'
-import { writeFile, mkdir } from 'fs/promises'
-import { join } from 'path'
-import { existsSync } from 'fs'
-import { createClient } from '@/lib/supabase/server'
+import { canUpload } from '@/lib/auth/permissions'
+import { requireStaff } from '@/lib/auth/session'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { PUBLIC_MEDIA_BUCKET, validateUpload } from '@/lib/uploads/policy'
 
-async function verifyAuth(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (user) return true
+async function ensureBucket(bucket: string, isPublic: boolean) {
+  const admin = createAdminClient()
+  const existing = await admin.storage.getBucket(bucket)
+  if (existing.data) return admin
 
-  const cookieHeader = request.headers.get('cookie') || ''
-  if (cookieHeader.includes('acf_admin_session')) return true
-
-  if (process.env.NODE_ENV !== 'production') return true
-
-  return false
+  const created = await admin.storage.createBucket(bucket, {
+    public: isPublic,
+    fileSizeLimit: bucket === PUBLIC_MEDIA_BUCKET ? 15 * 1024 * 1024 : 50 * 1024 * 1024,
+  })
+  if (created.error && !/already exists/i.test(created.error.message)) {
+    throw new Error(created.error.message)
+  }
+  return admin
 }
-
-// Max 50 MB
-const MAX_FILE_SIZE = 50 * 1024 * 1024
-
-const ALLOWED_EXTENSIONS = new Set([
-  'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx',
-  'png', 'jpg', 'jpeg', 'webp', 'svg', 'gif',
-])
 
 export async function POST(request: Request) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
+    const auth = await requireStaff()
+    if (!auth.ok) return auth.response
+    if (!canUpload(auth.session.role)) {
+      return NextResponse.json(
+        { error: 'You do not have permission for this action.' },
+        { status: 403 }
+      )
     }
 
     const formData = await request.formData()
-    const file = formData.get('file') as File | null
+    const file = formData.get('file')
+    const requestedKind = formData.get('kind')
 
-    if (!file || typeof file === 'string') {
+    if (!(file instanceof File)) {
       return NextResponse.json({ error: 'No file was provided in the upload request.' }, { status: 400 })
     }
 
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { error: `File size exceeds maximum allowed threshold of 50MB (received ${(file.size / (1024 * 1024)).toFixed(1)}MB).` },
-        { status: 400 }
-      )
+    const bytes = new Uint8Array(await file.arrayBuffer())
+    const checked = validateUpload({
+      filename: file.name || '',
+      declaredMime: file.type || '',
+      size: file.size,
+      bytes,
+      requestedKind: typeof requestedKind === 'string' ? requestedKind : undefined,
+    })
+
+    if (!checked.ok) {
+      return NextResponse.json({ error: checked.error }, { status: 400 })
     }
 
-    const originalName = file.name || 'uploaded-file'
-    const ext = originalName.split('.').pop()?.toLowerCase() || ''
+    const admin = await ensureBucket(checked.bucket, checked.kind === 'image')
+    const uploaded = await admin.storage.from(checked.bucket).upload(checked.objectName, bytes, {
+      contentType: checked.mimeType,
+      upsert: false,
+    })
 
-    if (!ALLOWED_EXTENSIONS.has(ext)) {
-      return NextResponse.json(
-        { error: `File type .${ext} is not supported. Allowed formats: PDF, Word, Excel, PNG, JPG, WebP, SVG.` },
-        { status: 400 }
-      )
+    if (uploaded.error) {
+      return NextResponse.json({ error: 'The file could not be stored.' }, { status: 500 })
     }
 
-    // Convert file to Buffer
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    // Ensure public/uploads directory exists
-    const uploadsDir = join(process.cwd(), 'public', 'uploads')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
-    // Clean, unique filename
-    const sanitizedBase = originalName
-      .replace(/\.[^/.]+$/, '')
-      .replace(/[^a-zA-Z0-9_-]/g, '_')
-      .slice(0, 50)
-    const uniqueFileName = `${Date.now()}-${sanitizedBase}.${ext}`
-    const filePath = join(uploadsDir, uniqueFileName)
-
-    await writeFile(filePath, buffer)
-
-    const publicUrl = `/uploads/${uniqueFileName}`
+    const url =
+      checked.kind === 'image'
+        ? admin.storage.from(checked.bucket).getPublicUrl(checked.objectName).data.publicUrl
+        : `/api/files/${checked.bucket}/${checked.objectName}`
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      fileName: originalName,
+      url,
+      fileName: checked.objectName,
       size: file.size,
-      mimeType: file.type || `application/${ext}`,
+      mimeType: checked.mimeType,
     })
-  } catch (error: any) {
-    console.error('File upload error:', error)
-    return NextResponse.json(
-      { error: error?.message || 'Internal server error processing file upload.' },
-      { status: 500 }
-    )
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Internal server error processing file upload.'
+    if (message.includes('SUPABASE_SERVICE_ROLE_KEY')) {
+      return NextResponse.json({ error: 'File storage is not configured.' }, { status: 503 })
+    }
+    return NextResponse.json({ error: 'Internal server error processing file upload.' }, { status: 500 })
   }
 }

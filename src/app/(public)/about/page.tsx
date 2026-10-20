@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { CheckCircle2, Target, Eye, History, Shield, Users, ArrowRight } from 'lucide-react'
 import { constructMetadata } from '@/lib/utils/seo'
 import { getPageContent, AboutPageContent, DEFAULT_ABOUT_PAGE_CONTENT } from '@/lib/supabase/pageContent'
+import ContentImage from '@/components/ui/ContentImage'
 
 export const metadata = constructMetadata({
   title: 'About Us | Mandate, History, Vision & Mission',
@@ -76,10 +77,10 @@ export default async function AboutPage() {
           {/* Featured Picture */}
           <div className="relative rounded-2xl overflow-hidden border border-[#e2ebe4] shadow-md group">
             <div className="aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden bg-neutral-900">
-              <img
+              <ContentImage
                 src={history.image_url || '/photos/fosta-stakeholders-dialogue.jpg'}
                 alt={history.image_alt || 'ACF Stakeholders Policy Dialogue in Lusaka'}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6 sm:p-8">

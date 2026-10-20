@@ -1,8 +1,20 @@
 import { NextResponse } from 'next/server'
+import { canExportSubmissions } from '@/lib/auth/permissions'
+import { requireStaff } from '@/lib/auth/session'
 import { createClient } from '@/lib/supabase/server'
 
 export async function GET() {
   try {
+    const auth = await requireStaff()
+    if (!auth.ok) return auth.response
+    const session = auth.session
+    if (!canExportSubmissions(session.role)) {
+      return NextResponse.json(
+        { error: 'You do not have permission for this action.' },
+        { status: 403 }
+      )
+    }
+
     const supabase = await createClient()
     const { data: apps } = await supabase
       .from('membership_applications')

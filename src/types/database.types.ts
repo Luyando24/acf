@@ -388,6 +388,7 @@ export interface Database {
           application_instructions: string | null
           apply_url: string | null
           contact_info: string | null
+          attachment_url: string | null
           status: ContentStatus
           created_at: string
           updated_at: string
@@ -403,6 +404,7 @@ export interface Database {
           application_instructions?: string | null
           apply_url?: string | null
           contact_info?: string | null
+          attachment_url?: string | null
           status?: ContentStatus
           created_at?: string
           updated_at?: string
@@ -418,6 +420,7 @@ export interface Database {
           application_instructions?: string | null
           apply_url?: string | null
           contact_info?: string | null
+          attachment_url?: string | null
           status?: ContentStatus
           created_at?: string
           updated_at?: string
@@ -643,5 +646,26 @@ export interface Database {
         }
       }
     }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+  }
+}
+
+type WithRelationships<T> = {
+  [K in keyof T]: T[K] extends { Row: infer R; Insert: infer I; Update: infer U }
+    ? { Row: R; Insert: I; Update: U; Relationships: [] }
+    : T[K]
+}
+
+/** Schema shape expected by supabase-js. Source tables stay above; this adds empty relationships. */
+export interface SupabaseDatabase {
+  public: {
+    Tables: WithRelationships<Database['public']['Tables']>
+    Views: Database['public']['Views']
+    Functions: Database['public']['Functions']
   }
 }

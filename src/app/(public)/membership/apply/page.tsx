@@ -12,6 +12,7 @@ import {
   Shield,
   FileCheck,
 } from 'lucide-react'
+import TurnstileBox from '@/components/forms/TurnstileBox'
 
 export default function MembershipApplyPage() {
   const [formData, setFormData] = useState({
@@ -45,6 +46,8 @@ export default function MembershipApplyPage() {
     'International / Regional',
   ]
 
+  const [turnstileToken, setTurnstileToken] = useState('')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.honeypot) return // Bot trap
@@ -62,7 +65,7 @@ export default function MembershipApplyPage() {
       const res = await fetch('/api/membership', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, turnstile_token: turnstileToken }),
       })
       const result = await res.json()
 
@@ -282,6 +285,8 @@ export default function MembershipApplyPage() {
                 />
               </div>
             </div>
+
+            <TurnstileBox onToken={setTurnstileToken} />
 
             {/* Consent Checkbox complying with Data Protection Act 2021 */}
             <div className="p-4 rounded-xl bg-[#f6f9f6] border border-[#e2ebe4] flex items-start gap-3">

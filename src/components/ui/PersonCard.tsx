@@ -1,4 +1,5 @@
 import { Mail } from 'lucide-react'
+import ContentImage from '@/components/ui/ContentImage'
 import { LinkedinIcon, TwitterIcon, FacebookIcon } from '@/components/ui/SocialIcons'
 
 export interface Person {
@@ -25,11 +26,10 @@ export default function PersonCard({ person }: { person: Person }) {
         {/* Photo ID or Initials Avatar */}
         {person.photo_url ? (
           <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-neutral-100 border border-[#ccd9cf] shadow-sm mb-5 group-hover:scale-105 transition-transform duration-300">
-            <img
+            <ContentImage
               src={person.photo_url}
               alt={displayName}
-              className="w-full h-full object-cover object-top"
-              loading="lazy"
+              className="object-cover object-top"
             />
           </div>
         ) : (

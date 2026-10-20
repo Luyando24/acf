@@ -55,6 +55,7 @@ export default function FileUpload({
     setIsUploading(true)
     const formData = new FormData()
     formData.append('file', file)
+    formData.append('kind', type === 'document' ? 'document' : 'image')
 
     try {
       const res = await fetch('/api/admin/upload', {
@@ -240,7 +241,7 @@ export default function FileUpload({
                     Click to browse or drag & drop file from device
                   </div>
                   <div className="text-[10px] text-[#5c6f62] mt-0.5">
-                    {description || (isDoc ? `PDF, DOC, DOCX up to ${maxSizeMb}MB` : `PNG, JPG, WebP, SVG up to ${maxSizeMb}MB`)}
+                    {description || (isDoc ? `PDF, DOC, DOCX up to ${maxSizeMb}MB` : `PNG, JPG, WebP, or GIF up to ${maxSizeMb}MB`)}
                   </div>
                 </>
               )}

@@ -15,20 +15,21 @@ export async function sendEmail({ to, subject, html, text }: SendEmailParams): P
   const recipients = Array.isArray(to) ? to.join(', ') : to
 
   // In local/mock mode or if SMTP is not yet configured, log email safely
-  if (provider === 'mock' || !process.env.SMTP_HOST) {
-    console.log(`\n================== [ACF EMAIL DISPATCH: MOCK] ==================`)
-    console.log(`To: ${recipients}`)
-    console.log(`Subject: ${subject}`)
-    console.log(`Content:\n${text || html}`)
-    console.log(`=================================================================\n`)
-    return { success: true }
+  if (provider === 'mock' || !process.env.SMTP_HOST || !process.env.SMTP_USER) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.log(`\n================== [ACF EMAIL DISPATCH: NOT SENT] ==================`)
+      console.log(`To: ${recipients}`)
+      console.log(`Subject: ${subject}`)
+      console.log(`====================================================================\n`)
+    }
+    return { success: false, error: 'Email delivery is not configured.' }
   }
 
   try {
-    // If SMTP credentials exist, send via standard fetch or nodemailer
-    return { success: true }
-  } catch (error: any) {
+    return { success: false, error: 'SMTP delivery is not connected yet.' }
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to send email.'
     console.error('Failed to send transactional email:', error)
-    return { success: false, error: error.message }
+    return { success: false, error: message }
   }
 }

@@ -17,6 +17,7 @@ export async function generateMetadata({ params }: OpportunityDetailProps) {
     .from('opportunities')
     .select('title, description')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   const oppItem = opp as any
@@ -39,6 +40,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
     .from('opportunities')
     .select('*')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   if (!rawOpp) {

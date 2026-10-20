@@ -7,7 +7,7 @@ This guide is for ACF Secretariat personnel, Editors, and Administrators managin
 ## 1. Accessing the Admin CMS
 
 - **Portal URL:** `/admin` (or direct login at `/admin/login`)
-- **Credentials:** Provided by the System Administrator or created during Supabase authentication provisioning.
+- **Credentials:** Email and password for a Supabase Auth user that has an active row in `profiles`. There is no demo or passwordless login.
 - **Roles:**
   - **Super Admin / Admin:** Complete control over site settings, users, permissions, publications, and submissions.
   - **Editor:** Can manage publications, news, events, programmes, and opportunities.
@@ -32,7 +32,7 @@ Upon signing in, the dashboard displays:
 ACF's primary asset is its policy research. Publications can be organized, featured, and searched.
 - **Title & Slug:** Clean, human-readable URLs (e.g. `national-fertiliser-subsidy-review-2025`).
 - **Category:** Categorized into Policy Briefs, Research Reports, Annual Reports, Parliamentary Submissions, Workshop Reports, or Strategic Plans.
-- **File Upload:** PDF, DOCX, or XLSX formats up to 50MB. Securely stored in Supabase Storage.
+- **File Upload:** PDF, Word, Excel, or PowerPoint up to 50MB, and PNG, JPG, WebP, or GIF up to 15MB. Files are stored in Supabase Storage under a random name. SVG is not accepted. Document files stay private until the record is published.
 - **Featured Flag:** Highlighting top papers on the website homepage and publications header.
 - **Publication Date:** Recorded in `DD Month YYYY` Zambian format.
 

@@ -46,7 +46,7 @@ export default function Footer({ settings }: FooterProps) {
       const data = await res.json()
       if (res.ok) {
         setStatus('success')
-        setMessage('Thank you for subscribing to ACF quarterly briefs & updates!')
+        setMessage(data.message || 'Your address has been recorded.')
         setEmail('')
         setConsent(false)
       } else {

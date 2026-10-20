@@ -65,6 +65,7 @@ export default function Header({ settings }: HeaderProps) {
         { label: 'Opportunities & Tenders', href: '/opportunities', desc: 'Jobs, tenders, and consultancies' },
       ],
     },
+    { label: 'Search', href: '/search' },
     { label: 'Contact', href: '/contact' },
   ]
 

@@ -4,6 +4,7 @@ import { ArrowLeft, BookOpen, Calendar, FileText, Scale, ArrowRight, Download } 
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { renderRichText } from '@/lib/content/richText'
 
 interface ProgrammePageProps {
   params: Promise<{ slug: string }>
@@ -16,6 +17,7 @@ export async function generateMetadata({ params }: ProgrammePageProps) {
     .from('programmes')
     .select('title, summary')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   const progItem = prog as any
@@ -38,6 +40,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
     .from('programmes')
     .select('*')
     .eq('slug', slug)
+    .eq('status', 'published')
     .single()
 
   if (!progData) {
@@ -92,7 +95,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
           <div className="lg:col-span-8 space-y-12">
             <div
               className="prose-acf text-base sm:text-lg leading-relaxed text-[#3b4d41] space-y-6"
-              dangerouslySetInnerHTML={{ __html: prog.body || `<p>${prog.summary}</p>` }}
+              dangerouslySetInnerHTML={{ __html: renderRichText(prog.body || prog.summary || '') }}
             />
 
             {/* Contextual CTA */}

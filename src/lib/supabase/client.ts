@@ -1,5 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr'
-import { Database } from '@/types/database.types'
+import { SupabaseDatabase } from '@/types/database.types'
 
 export function isSupabaseConfigured(): boolean {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -16,7 +16,7 @@ export function isSupabaseConfigured(): boolean {
 export function createClient() {
   const isConfigured = isSupabaseConfigured()
 
-  return createBrowserClient<Database>(
+  return createBrowserClient<SupabaseDatabase>(
     isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_URL! : 'https://placeholder-url.supabase.co',
     isConfigured ? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY! : 'placeholder-anon-key',
     {

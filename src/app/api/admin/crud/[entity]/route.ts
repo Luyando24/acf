@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { canAccessEntity } from '@/lib/auth/permissions'
+import { requireStaff } from '@/lib/auth/session'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 const TABLE_MAP: Record<string, string> = {
@@ -19,19 +20,27 @@ const TABLE_MAP: Record<string, string> = {
   newsletter_subscribers: 'newsletter_subscribers',
 }
 
-async function verifyAuth(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (user) return true
+function failure(error: unknown, fallback: string) {
+  const message = error instanceof Error ? error.message : fallback
+  if (message.includes('SUPABASE_SERVICE_ROLE_KEY')) {
+    return NextResponse.json({ error: 'Staff data store is not configured.' }, { status: 503 })
+  }
+  return NextResponse.json({ error: message || fallback }, { status: 500 })
+}
 
-  // Check dev session cookie
-  const cookieHeader = request.headers.get('cookie') || ''
-  if (cookieHeader.includes('acf_admin_session')) return true
-
-  // Allow in development mode
-  if (process.env.NODE_ENV !== 'production') return true
-
-  return false
+async function authorize(entity: string, method: 'GET' | 'POST' | 'PATCH' | 'DELETE') {
+  const auth = await requireStaff()
+  if (!auth.ok) return { response: auth.response }
+  const session = auth.session
+  if (!canAccessEntity(session.role, entity, method)) {
+    return {
+      response: NextResponse.json(
+        { error: 'You do not have permission for this action.' },
+        { status: 403 }
+      ),
+    }
+  }
+  return { response: null }
 }
 
 export async function GET(
@@ -39,12 +48,10 @@ export async function GET(
   { params }: { params: Promise<{ entity: string }> }
 ) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
-    }
-
     const { entity } = await params
+    const denied = await authorize(entity.toLowerCase(), 'GET')
+    if (denied.response) return denied.response
+
     const table = TABLE_MAP[entity.toLowerCase()]
 
     if (!table) {
@@ -52,32 +59,32 @@ export async function GET(
     }
 
     const adminClient = createAdminClient()
-    let query = adminClient.from(table).select('*')
+    const fromTable = (name: string) => (adminClient.from as (table: string) => any)(name)
+    let query = fromTable(table).select('*')
 
-    // Apply relations or default orders
     if (table === 'publications') {
-      query = adminClient.from(table).select('*, publication_categories(name)').order('published_on', { ascending: false })
+      query = fromTable(table).select('*, publication_categories(name)').order('published_on', { ascending: false })
     } else if (table === 'membership_applications') {
-      query = adminClient.from(table).select('*, membership_categories(name)').order('created_at', { ascending: false })
+      query = fromTable(table).select('*, membership_categories(name)').order('created_at', { ascending: false })
     } else if (table === 'people' || table === 'partners' || table === 'programmes') {
-      query = adminClient.from(table).select('*').order('order_index', { ascending: true })
+      query = fromTable(table).select('*').order('order_index', { ascending: true })
     } else if (table === 'events') {
-      query = adminClient.from(table).select('*').order('starts_at', { ascending: false })
+      query = fromTable(table).select('*').order('starts_at', { ascending: false })
     } else if (table === 'opportunities') {
-      query = adminClient.from(table).select('*').order('closes_on', { ascending: false })
+      query = fromTable(table).select('*').order('closes_on', { ascending: false })
     } else {
-      query = adminClient.from(table).select('*').order('created_at', { ascending: false })
+      query = fromTable(table).select('*').order('created_at', { ascending: false })
     }
 
     const { data, error } = await query
 
     if (error) {
-      return NextResponse.json({ success: false, error: error.message, data: [] }, { status: 200 })
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 })
     }
 
     return NextResponse.json({ success: true, data: data || [] })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 })
+  } catch (err) {
+    return failure(err, 'Server error')
   }
 }
 
@@ -86,12 +93,10 @@ export async function POST(
   { params }: { params: Promise<{ entity: string }> }
 ) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
-    }
-
     const { entity } = await params
+    const denied = await authorize(entity.toLowerCase(), 'POST')
+    if (denied.response) return denied.response
+
     const table = TABLE_MAP[entity.toLowerCase()]
 
     if (!table) {
@@ -108,19 +113,18 @@ export async function POST(
     }
     itemData.updated_at = new Date().toISOString()
 
-    const { data, error } = await (adminClient.from(table) as any)
+    const fromTable = (name: string) => (adminClient.from as (table: string) => any)(name)
+    const { data, error } = await fromTable(table)
       .upsert(itemData, { onConflict: 'id' })
       .select()
 
     if (error) {
-      console.warn(`Supabase upsert warning on ${table}:`, error.message)
-      // Return success with item payload so frontend is not blocked
-      return NextResponse.json({ success: true, item: itemData, persisted: false, warning: error.message })
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true, item: data?.[0] || itemData, persisted: true })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to save entity.' }, { status: 500 })
+    return NextResponse.json({ success: true, item: data?.[0] || itemData })
+  } catch (err) {
+    return failure(err, 'Failed to save entity.')
   }
 }
 
@@ -129,12 +133,10 @@ export async function PATCH(
   { params }: { params: Promise<{ entity: string }> }
 ) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
-    }
-
     const { entity } = await params
+    const denied = await authorize(entity.toLowerCase(), 'PATCH')
+    if (denied.response) return denied.response
+
     const table = TABLE_MAP[entity.toLowerCase()]
 
     if (!table) {
@@ -149,19 +151,19 @@ export async function PATCH(
     }
 
     const adminClient = createAdminClient()
-    const { data, error } = await (adminClient.from(table) as any)
+    const fromTable = (name: string) => (adminClient.from as (table: string) => any)(name)
+    const { data, error } = await fromTable(table)
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
 
     if (error) {
-      console.warn(`Supabase patch warning on ${table}:`, error.message)
-      return NextResponse.json({ success: true, item: payload, persisted: false, warning: error.message })
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true, item: data?.[0] || payload, persisted: true })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to update entity.' }, { status: 500 })
+    return NextResponse.json({ success: true, item: data?.[0] || payload })
+  } catch (err) {
+    return failure(err, 'Failed to update entity.')
   }
 }
 
@@ -170,12 +172,10 @@ export async function DELETE(
   { params }: { params: Promise<{ entity: string }> }
 ) {
   try {
-    const isAuthed = await verifyAuth(request)
-    if (!isAuthed) {
-      return NextResponse.json({ error: 'Unauthorized staff access.' }, { status: 401 })
-    }
-
     const { entity } = await params
+    const denied = await authorize(entity.toLowerCase(), 'DELETE')
+    if (denied.response) return denied.response
+
     const table = TABLE_MAP[entity.toLowerCase()]
 
     if (!table) {
@@ -194,15 +194,15 @@ export async function DELETE(
     }
 
     const adminClient = createAdminClient()
-    const { error } = await (adminClient.from(table) as any).delete().eq('id', id)
+    const fromTable = (name: string) => (adminClient.from as (table: string) => any)(name)
+    const { error } = await fromTable(table).delete().eq('id', id)
 
     if (error) {
-      console.warn(`Supabase delete warning on ${table}:`, error.message)
-      return NextResponse.json({ success: true, id, persisted: false, warning: error.message })
+      return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
-    return NextResponse.json({ success: true, id, persisted: true })
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Failed to delete entity.' }, { status: 500 })
+    return NextResponse.json({ success: true, id })
+  } catch (err) {
+    return failure(err, 'Failed to delete entity.')
   }
 }
