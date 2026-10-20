@@ -69,7 +69,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
         <div>
           <Link
             href="/admin/pages"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Back to All Pages</span>
@@ -77,7 +77,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
           <h1 className="text-2xl sm:text-3xl font-black text-[#0f1d14] tracking-tight">
             Contact &amp; Secretariat Content Editor
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Modify office locations, official hotlines, support emails, business hours, and social media links.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
             href="/contact"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
+            className="px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
           >
             <span>Preview Live</span>
             <ExternalLink size={14} />
@@ -96,7 +96,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-6 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-6 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             <span>{isSaving ? 'Publishing...' : 'Save & Publish'}</span>
@@ -106,15 +106,15 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
 
       {/* Floating Sticky Alert if Unsaved */}
       {hasUnsavedChanges && (
-        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
-          <div className="flex items-center gap-2 text-xs font-bold">
+        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-lg shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-sm font-bold">
             <AlertCircle size={16} className="text-amber-600 shrink-0" />
             <span>You have unsaved changes on the Contact Page. Click &quot;Save &amp; Publish&quot; to apply them.</span>
           </div>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shrink-0"
+            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold transition-colors shrink-0"
           >
             Save Now
           </button>
@@ -124,7 +124,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
       {/* Status Notifications */}
       {message && (
         <div
-          className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2.5 ${
+          className={`p-4 rounded-lg text-sm font-semibold flex items-center gap-2.5 ${
             message.type === 'success'
               ? 'bg-[#f0f6f1] text-[#175432] border border-[#2da44e]/30'
               : 'bg-red-50 text-red-700 border border-red-200'
@@ -140,7 +140,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
       )}
 
       {/* Section 1: Top Hero Banner */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
             <Layers size={18} />
@@ -150,7 +150,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Badge
             </label>
             <input
@@ -163,12 +163,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   header: { ...prev.header, badge: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Page Title (H1)
             </label>
             <input
@@ -181,13 +181,13 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   header: { ...prev.header, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+          <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
             Subtitle Description
           </label>
           <textarea
@@ -200,13 +200,13 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                 header: { ...prev.header, description: val },
               }))
             }}
-            className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+            className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
           />
         </div>
       </div>
 
       {/* Section 2: Secretariat Office Details */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
             <MapPin size={18} />
@@ -216,7 +216,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Section Title
             </label>
             <input
@@ -229,12 +229,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Section Subtitle
             </label>
             <input
@@ -247,14 +247,14 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, subtitle: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Physical Address
             </label>
             <input
@@ -267,12 +267,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, address: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Primary Phone / Hotline
             </label>
             <input
@@ -285,14 +285,14 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, phone: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Official Email
             </label>
             <input
@@ -305,12 +305,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, email: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Working Hours
             </label>
             <input
@@ -323,14 +323,14 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                   details: { ...prev.details, working_hours: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>
       </div>
 
       {/* Section 3: Social Media Channels */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
             <Share2 size={18} />
@@ -340,7 +340,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Facebook URL
             </label>
             <input
@@ -354,12 +354,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                 }))
               }}
               placeholder="https://facebook.com/..."
-              className="w-full px-4 py-2 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Twitter / X URL
             </label>
             <input
@@ -373,12 +373,12 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                 }))
               }}
               placeholder="https://twitter.com/..."
-              className="w-full px-4 py-2 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               LinkedIn URL
             </label>
             <input
@@ -392,7 +392,7 @@ export default function ContactSectionEditor({ initialContent }: ContactSectionE
                 }))
               }}
               placeholder="https://linkedin.com/..."
-              className="w-full px-4 py-2 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>

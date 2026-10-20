@@ -2,64 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {
-  LayoutDashboard,
-  FileText,
-  BookOpen,
-  Calendar,
-  Briefcase,
-  Users,
-  Handshake,
-  MessageSquare,
-  Mail,
-  Settings,
-  LogOut,
-  ChevronRight,
-  Globe,
-  PlusCircle,
-  Shield,
-  Layers,
-  LayoutTemplate,
-} from 'lucide-react'
+import { LogOut, Globe, ChevronRight } from 'lucide-react'
+import { navGroups, isAdminActive, type AdminNavItem } from './navConfig'
 
-const navGroups = [
-  {
-    title: 'Core Management',
-    items: [
-      { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-      { name: 'Website Pages & Content', href: '/admin/pages', icon: LayoutTemplate },
-      { name: 'Publications & Briefs', href: '/admin/publications', icon: BookOpen },
-      { name: 'News & Press', href: '/admin/news', icon: FileText },
-      { name: 'Events & Forums', href: '/admin/events', icon: Calendar },
-      { name: 'Opportunities & Tenders', href: '/admin/opportunities', icon: Briefcase },
-    ],
-  },
-  {
-    title: 'Organisation & People',
-    items: [
-      { name: 'Thematic Programmes', href: '/admin/programmes', icon: Layers },
-      { name: 'Board & Staff Profiles', href: '/admin/people', icon: Users },
-      { name: 'Partners & Affiliations', href: '/admin/partners', icon: Handshake },
-    ],
-  },
-  {
-    title: 'Stakeholder Inquiries',
-    items: [
-      { name: 'Membership Applications', href: '/admin/membership', icon: Shield },
-      { name: 'Contact Inquiries', href: '/admin/contacts', icon: MessageSquare },
-      { name: 'Newsletter Subscribers', href: '/admin/newsletter', icon: Mail },
-    ],
-  },
-  {
-    title: 'Configuration',
-    items: [
-      { name: 'Site Settings & Contacts', href: '/admin/settings', icon: Settings },
-    ],
-  },
-]
-
-export default function AdminSidebar() {
+export default function AdminSidebar({ role }: { role?: string }) {
   const pathname = usePathname()
+  const canManageStaff = role === 'super_admin'
 
   const handleSignOut = async () => {
     try {
@@ -71,67 +19,75 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-64 bg-white border-r border-[#e2ebe4] flex flex-col h-screen sticky top-0 shrink-0">
+    <aside className="w-64 bg-white border-r border-[#e4e8e6] flex flex-col h-screen sticky top-0 shrink-0">
       {/* Brand Header */}
-      <div className="p-4 border-b border-[#e2ebe4] flex items-center justify-between">
+      <div className="px-4 py-3.5 border-b border-[#e4e8e6] flex items-center justify-between">
         <Link href="/admin" className="flex items-center gap-2">
           <img
             src="/photos/logo.png"
             alt="ACF CMS"
-            className="h-10 w-auto max-w-[150px] object-contain"
+            className="h-9 w-auto max-w-[140px] object-contain"
           />
         </Link>
-        <span className="text-[10px] bg-[#f0f6f1] text-[#175432] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold border border-[#e2ebe4]">
+        <span className="text-[11px] bg-[#f0f6f1] text-[#175432] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold border border-[#e4e8e6]">
           CMS
         </span>
       </div>
 
       {/* Navigation Groups */}
       <nav className="flex-grow overflow-y-auto py-4 px-3 space-y-5">
-        {navGroups.map((group) => (
+        {navGroups.map((group) => {
+          const items = group.items.filter(
+            (item: AdminNavItem) => !item.superAdminOnly || canManageStaff
+          )
+          if (items.length === 0) return null
+
+          return (
           <div key={group.title} className="space-y-1">
-            <div className="px-3 text-[10px] font-black uppercase tracking-widest text-[#5c6f62]/80">
+            <div className="px-3 text-[11px] font-bold uppercase tracking-widest text-[#8a9a8f]">
               {group.title}
             </div>
 
             <div className="space-y-0.5 pt-1">
-              {group.items.map((item) => {
-                const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href + '/'))
+              {items.map((item) => {
+                const isActive = isAdminActive(pathname, item.href)
                 const Icon = item.icon
 
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group ${
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-semibold transition-colors group ${
                       isActive
-                        ? 'bg-[#175432] text-white shadow-xs'
-                        : 'text-[#3b4d41] hover:bg-[#f6f9f6] hover:text-[#175432]'
+                        ? 'bg-[#eef6ef] text-[#175432] border border-[#d9e8dc]'
+                        : 'text-[#3b4d41] border border-transparent hover:bg-[#f5f8f5] hover:text-[#175432]'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon
-                        size={17}
-                        className={isActive ? 'text-[#a3e635]' : 'text-[#5c6f62] group-hover:text-[#175432]'}
+                        size={16}
+                        className={isActive ? 'text-[#175432]' : 'text-[#7a8b80] group-hover:text-[#175432]'}
                       />
                       <span>{item.name}</span>
                     </div>
 
-                    {isActive && <ChevronRight size={13} className="text-[#a3e635]" />}
+                    {isActive && <ChevronRight size={13} className="text-[#175432]/60" />}
                   </Link>
                 )
               })}
             </div>
           </div>
-        ))}
+          )
+        })}
       </nav>
 
       {/* Footer / Sign Out */}
-      <div className="p-3 border-t border-[#e2ebe4] space-y-1">
+      <div className="p-3 border-t border-[#e4e8e6] space-y-0.5">
         <Link
           href="/"
           target="_blank"
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-[#5c6f62] hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-[#5c6f62] hover:bg-[#f5f8f5] hover:text-[#175432] transition-colors"
         >
           <Globe size={15} />
           <span>View Public Website</span>
@@ -140,7 +96,7 @@ export default function AdminSidebar() {
         <button
           type="button"
           onClick={handleSignOut}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
         >
           <LogOut size={15} />
           <span>Sign Out</span>

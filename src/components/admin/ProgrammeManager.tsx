@@ -89,7 +89,7 @@ export default function ProgrammeManager({
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -101,19 +101,19 @@ export default function ProgrammeManager({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div>
           <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
             Thematic Programmes (Our Work)
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Manage institutional strategic programmes, thematic pillars, and research agendas.
           </p>
         </div>
 
         <Link
           href="/admin/programmes/new"
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2"
+          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2"
         >
           <Plus size={16} />
           <span>Add Programme Area</span>
@@ -121,7 +121,7 @@ export default function ProgrammeManager({
       </div>
 
       {/* Search & Filters */}
-      <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+      <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3.5 top-3 text-[#5c6f62]" />
           <input
@@ -129,14 +129,14 @@ export default function ProgrammeManager({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search programme pillars..."
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+          className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
         >
           <option value="ALL">All Statuses</option>
           <option value="published">Published</option>
@@ -146,9 +146,9 @@ export default function ProgrammeManager({
       </div>
 
       {/* Programmes Table */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-sm">
             <thead className="bg-[#f6f9f6] text-[#5c6f62] uppercase tracking-wider font-bold border-b border-[#e2ebe4]">
               <tr>
                 <th className="py-4 px-6">Order</th>
@@ -175,18 +175,18 @@ export default function ProgrammeManager({
                       <div className="font-bold text-[#0f1d14]">
                         {item.title}
                       </div>
-                      <div className="text-[11px] text-[#5c6f62] line-clamp-1 mt-0.5">
+                      <div className="text-xs text-[#5c6f62] line-clamp-1 mt-0.5">
                         {item.summary}
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="p-2 bg-[#f0f6f1] rounded-xl w-fit">
+                      <div className="p-2 bg-[#f0f6f1] rounded-md w-fit">
                         {renderIcon(item.icon)}
                       </div>
                     </td>
                     <td className="py-4 px-6 whitespace-nowrap">
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
                           item.status === 'published'
                             ? 'bg-[#f0f6f1] text-[#175432]'
                             : item.status === 'draft'

@@ -27,7 +27,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans text-[#142018] bg-[#fdfdfd]">
+      {/* suppressHydrationWarning: browser extensions (e.g. Grammarly) inject attributes onto <body> before hydration */}
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col font-sans text-[#142018] bg-[#fdfdfd]"
+      >
         {children}
       </body>
     </html>

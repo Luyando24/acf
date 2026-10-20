@@ -115,13 +115,13 @@ export default function RichTextEditor({
         )
       } else if (line.startsWith('- ') || line.startsWith('* ')) {
         elements.push(
-          <li key={idx} className="list-disc ml-5 text-xs text-[#3b4d41] my-0.5">
+          <li key={idx} className="list-disc ml-5 text-sm text-[#3b4d41] my-0.5">
             {line.replace(/^[-*]\s+/, '')}
           </li>
         )
       } else if (/^\d+\.\s+/.test(line)) {
         elements.push(
-          <li key={idx} className="list-decimal ml-5 text-xs text-[#3b4d41] my-0.5">
+          <li key={idx} className="list-decimal ml-5 text-sm text-[#3b4d41] my-0.5">
             {line.replace(/^\d+\.\s+/, '')}
           </li>
         )
@@ -131,7 +131,7 @@ export default function RichTextEditor({
         elements.push(<div key={idx} className="h-2" />)
       } else {
         elements.push(
-          <p key={idx} className="text-xs text-[#3b4d41] leading-relaxed my-1">
+          <p key={idx} className="text-sm text-[#3b4d41] leading-relaxed my-1">
             {line}
           </p>
         )
@@ -145,14 +145,14 @@ export default function RichTextEditor({
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
         <div>
-          <label className="text-xs font-bold text-[#0f1d14]">
+          <label className="text-sm font-bold text-[#0f1d14]">
             {label} {required && <span className="text-rose-600">*</span>}
           </label>
-          {description && <p className="text-[11px] text-[#5c6f62]">{description}</p>}
+          {description && <p className="text-xs text-[#5c6f62]">{description}</p>}
         </div>
 
         {/* View Mode Tabs */}
-        <div className="flex items-center gap-1 text-[10px] bg-[#f6f9f6] p-0.5 rounded-lg border border-[#e2ebe4]">
+        <div className="flex items-center gap-1 text-[11px] bg-[#f6f9f6] p-0.5 rounded-lg border border-[#e2ebe4]">
           <button
             type="button"
             onClick={() => setViewMode('write')}
@@ -194,7 +194,7 @@ export default function RichTextEditor({
 
       {/* Editor Container */}
       <div
-        className={`rounded-2xl border transition-all overflow-hidden ${
+        className={`rounded-lg border transition-all overflow-hidden ${
           error
             ? 'border-rose-400 focus-within:ring-2 focus-within:ring-rose-500 bg-rose-50/20'
             : 'border-[#e2ebe4] focus-within:ring-2 focus-within:ring-[#175432] bg-white'
@@ -295,7 +295,7 @@ export default function RichTextEditor({
             <button
               type="button"
               onClick={() => insertFormatting('\n---\n')}
-              className="px-2 py-1 hover:bg-white rounded-lg text-[10px] font-bold text-[#5c6f62] hover:text-[#0f1d14] transition-colors cursor-pointer"
+              className="px-2 py-1 hover:bg-white rounded-lg text-[11px] font-bold text-[#5c6f62] hover:text-[#0f1d14] transition-colors cursor-pointer"
               title="Horizontal Divider"
             >
               Divider
@@ -311,7 +311,7 @@ export default function RichTextEditor({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className="w-full p-4 text-xs font-sans leading-relaxed focus:outline-none resize-y bg-transparent"
+            className="w-full p-4 text-sm font-sans leading-relaxed focus:outline-none resize-y bg-transparent"
           />
         )}
 
@@ -329,7 +329,7 @@ export default function RichTextEditor({
               value={value}
               onChange={(e) => onChange(e.target.value)}
               placeholder={placeholder}
-              className="p-4 text-xs font-sans leading-relaxed focus:outline-none resize-none bg-transparent"
+              className="p-4 text-sm font-sans leading-relaxed focus:outline-none resize-none bg-transparent"
             />
             <div className="p-4 bg-[#fafcfa] overflow-y-auto max-h-[400px]">
               {renderPreview(value)}
@@ -338,7 +338,7 @@ export default function RichTextEditor({
         )}
 
         {/* Footer with Word Count */}
-        <div className="px-4 py-2 bg-[#f6f9f6] border-t border-[#e2ebe4] flex items-center justify-between text-[10px] text-[#5c6f62]">
+        <div className="px-4 py-2 bg-[#f6f9f6] border-t border-[#e2ebe4] flex items-center justify-between text-[11px] text-[#5c6f62]">
           <div className="flex items-center gap-3">
             <span>{wordCount} words</span>
             <span>•</span>
@@ -346,14 +346,14 @@ export default function RichTextEditor({
             <span>•</span>
             <span>{value.length} characters</span>
           </div>
-          <div className="flex items-center gap-1 text-[10px] text-[#175432] font-semibold">
+          <div className="flex items-center gap-1 text-[11px] text-[#175432] font-semibold">
             <span>Markdown supported</span>
           </div>
         </div>
       </div>
 
       {error && (
-        <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+        <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
           <AlertCircle size={13} className="shrink-0" />
           <span>{error}</span>
         </p>

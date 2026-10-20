@@ -62,7 +62,7 @@ function AdminLoginForm() {
   }
 
   return (
-    <div className="w-full max-w-md bg-white rounded-3xl p-8 sm:p-10 shadow-2xl border border-[#1b3424] space-y-6">
+    <div className="w-full max-w-md bg-white rounded-lg p-8 sm:p-10 shadow-2xl border border-[#1b3424] space-y-6">
       <div className="text-center space-y-2">
         <img
           src="/photos/logo.png"
@@ -72,13 +72,13 @@ function AdminLoginForm() {
         <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
           Staff Portal Login
         </h1>
-        <p className="text-xs text-[#5c6f62]">
+        <p className="text-sm text-[#5c6f62]">
           Authorised Agricultural Consultative Forum personnel only
         </p>
       </div>
 
       {errorMessage && (
-        <div className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2.5">
+        <div className="p-3.5 rounded-md bg-rose-50 border border-rose-200 text-rose-800 text-sm flex items-start gap-2.5">
           <AlertCircle size={16} className="shrink-0 mt-0.5" />
           <span>{errorMessage}</span>
         </div>
@@ -86,7 +86,7 @@ function AdminLoginForm() {
 
       <form onSubmit={handleLogin} className="space-y-4">
         <div className="space-y-1.5">
-          <label htmlFor="admin-email" className="text-xs font-bold text-[#0f1d14]">
+          <label htmlFor="admin-email" className="text-sm font-bold text-[#0f1d14]">
             Official Email Address
           </label>
           <div className="relative">
@@ -99,13 +99,13 @@ function AdminLoginForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="staff@acfzambia.org"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full pl-10 pr-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
         </div>
 
         <div className="space-y-1.5">
-          <label htmlFor="admin-password" className="text-xs font-bold text-[#0f1d14]">
+          <label htmlFor="admin-password" className="text-sm font-bold text-[#0f1d14]">
             Password
           </label>
           <div className="relative">
@@ -118,7 +118,7 @@ function AdminLoginForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full pl-10 pr-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
         </div>
@@ -126,20 +126,20 @@ function AdminLoginForm() {
         <button
           type="submit"
           disabled={status === 'loading' || !configured}
-          className="w-full py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-extrabold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          className="w-full py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-extrabold text-sm rounded-md shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
         >
           <span>{status === 'loading' ? 'Authenticating...' : 'Sign In to Dashboard'}</span>
           <ArrowRight size={14} />
         </button>
 
         {!configured && (
-          <p className="text-xs text-rose-800 bg-rose-50 border border-rose-200 rounded-xl p-3">
+          <p className="text-sm text-rose-800 bg-rose-50 border border-rose-200 rounded-md p-3">
             Staff sign-in is not configured. Set the Supabase URL and anon key before using this portal.
           </p>
         )}
       </form>
 
-      <div className="pt-4 border-t border-[#e2ebe4] text-center text-xs text-[#5c6f62]">
+      <div className="pt-4 border-t border-[#e2ebe4] text-center text-sm text-[#5c6f62]">
         <Link href="/" className="hover:text-[#175432] font-semibold transition-colors">
           ← Return to Public Website
         </Link>
@@ -151,7 +151,7 @@ function AdminLoginForm() {
 export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0a140e] p-4 text-[#142018]">
-      <Suspense fallback={<div className="text-white text-xs">Loading portal...</div>}>
+      <Suspense fallback={<div className="text-white text-sm">Loading portal...</div>}>
         <AdminLoginForm />
       </Suspense>
     </div>

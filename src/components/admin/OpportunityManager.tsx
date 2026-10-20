@@ -80,7 +80,7 @@ export default function OpportunityManager({
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -92,19 +92,19 @@ export default function OpportunityManager({
       )}
 
       {/* Top Banner & Action */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div>
           <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
             Opportunities, Jobs & Tenders
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Manage vacancies, consultancies and specify required submission documents.
           </p>
         </div>
 
         <Link
           href="/admin/opportunities/new"
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
         >
           <Plus size={16} />
           <span>Post New Opportunity</span>
@@ -113,18 +113,18 @@ export default function OpportunityManager({
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Total Notices</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Total Notices</div>
           <div className="text-2xl font-black text-[#0f1d14] mt-1">{opportunities.length}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Active Openings</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Active Openings</div>
           <div className="text-2xl font-black text-[#175432] mt-1">
             {opportunities.filter((o) => !isOpportunityClosed(o.closes_on)).length}
           </div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Archived / Closed</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Archived / Closed</div>
           <div className="text-2xl font-black text-[#5c6f62] mt-1">
             {opportunities.filter((o) => isOpportunityClosed(o.closes_on)).length}
           </div>
@@ -132,7 +132,7 @@ export default function OpportunityManager({
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3.5 top-3 text-[#5c6f62]" />
           <input
@@ -140,7 +140,7 @@ export default function OpportunityManager({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search opportunity notices..."
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
           />
         </div>
 
@@ -148,7 +148,7 @@ export default function OpportunityManager({
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Types</option>
             <option value="Job">Jobs</option>
@@ -161,7 +161,7 @@ export default function OpportunityManager({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Deadlines</option>
             <option value="active">Active Only</option>
@@ -173,7 +173,7 @@ export default function OpportunityManager({
       {/* Opportunities List Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filtered.length === 0 ? (
-          <div className="col-span-2 bg-white p-12 rounded-3xl border border-[#e2ebe4] text-center text-xs text-[#5c6f62]">
+          <div className="col-span-2 bg-white p-12 rounded-lg border border-[#e2ebe4] text-center text-sm text-[#5c6f62]">
             No opportunity notices match your filter.
           </div>
         ) : (
@@ -182,15 +182,15 @@ export default function OpportunityManager({
             return (
               <div
                 key={item.id}
-                className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs flex flex-col justify-between hover:border-[#175432] transition-colors"
+                className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col justify-between hover:border-[#175432] transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-[#f0f6f1] text-[#175432]">
+                    <span className="text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-[#f0f6f1] text-[#175432]">
                       {item.type}
                     </span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
+                      className={`text-[11px] font-bold px-2 py-0.5 rounded-full uppercase ${
                         closed
                           ? 'bg-rose-50 text-rose-700'
                           : 'bg-emerald-50 text-emerald-800'
@@ -205,12 +205,12 @@ export default function OpportunityManager({
                   </h2>
 
                   {item.description && (
-                    <p className="text-xs text-[#5c6f62] line-clamp-2 mb-4">
+                    <p className="text-sm text-[#5c6f62] line-clamp-2 mb-4">
                       {item.description}
                     </p>
                   )}
 
-                  <div className="space-y-1.5 text-xs text-[#5c6f62] pt-3 border-t border-[#e2ebe4]">
+                  <div className="space-y-1.5 text-sm text-[#5c6f62] pt-3 border-t border-[#e2ebe4]">
                     <div className="flex items-center gap-2">
                       <Clock size={13} className="text-[#175432]" />
                       <span>
@@ -222,7 +222,7 @@ export default function OpportunityManager({
                     </div>
 
                     {item.accepted_documents && item.accepted_documents.length > 0 && (
-                      <div className="text-[11px] text-[#5c6f62] pt-1">
+                      <div className="text-xs text-[#5c6f62] pt-1">
                         Required:{' '}
                         <span className="font-semibold text-[#0f1d14]">
                           {item.accepted_documents.length} document types
@@ -236,7 +236,7 @@ export default function OpportunityManager({
                   <Link
                     href={`/opportunities/${item.slug}`}
                     target="_blank"
-                    className="text-xs text-[#175432] font-bold hover:underline flex items-center gap-1"
+                    className="text-sm text-[#175432] font-bold hover:underline flex items-center gap-1"
                   >
                     <span>View Notice</span>
                     <ExternalLink size={12} />
@@ -245,7 +245,7 @@ export default function OpportunityManager({
                   <div className="flex items-center gap-1">
                     <Link
                       href={`/admin/opportunities/${item.id}/edit`}
-                      className="p-2 text-[#175432] hover:bg-[#f0f6f1] rounded-xl transition-colors inline-flex items-center"
+                      className="p-2 text-[#175432] hover:bg-[#f0f6f1] rounded-md transition-colors inline-flex items-center"
                       title="Edit Opportunity"
                     >
                       <Edit size={14} />
@@ -253,7 +253,7 @@ export default function OpportunityManager({
                     <button
                       type="button"
                       onClick={() => handleDelete(item.id)}
-                      className="p-2 text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer inline-flex items-center"
+                      className="p-2 text-rose-600 hover:bg-rose-50 rounded-md transition-colors cursor-pointer inline-flex items-center"
                       title="Delete Opportunity"
                     >
                       <Trash2 size={14} />

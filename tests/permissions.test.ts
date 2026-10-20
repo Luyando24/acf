@@ -5,9 +5,11 @@ import {
   canEditPages,
   canExportSubmissions,
   canManageSettings,
+  canManageStaff,
   canUpload,
   safeAdminRedirect,
 } from '../src/lib/auth/permissions'
+import { generateTempPassword } from '../src/lib/auth/passwords'
 
 test('safeAdminRedirect stays inside the admin area', () => {
   assert.equal(safeAdminRedirect('/admin/news'), '/admin/news')
@@ -40,4 +42,23 @@ test('admins manage submissions and only super admins manage settings', () => {
   assert.equal(canManageSettings('super_admin'), true)
   assert.equal(canAccessEntity('contributor', 'publications', 'POST'), true)
   assert.equal(canAccessEntity('contributor', 'publications', 'DELETE'), false)
+})
+
+test('only super admins manage staff accounts', () => {
+  assert.equal(canManageStaff('super_admin'), true)
+  assert.equal(canManageStaff('admin'), false)
+  assert.equal(canManageStaff('editor'), false)
+  assert.equal(canManageStaff('contributor'), false)
+  assert.equal(canManageStaff('viewer'), false)
+})
+
+test('temporary passwords are strong and unique per call', () => {
+  const a = generateTempPassword()
+  const b = generateTempPassword()
+  assert.equal(a.length, 16)
+  assert.notEqual(a, b)
+  assert.match(a, /[a-z]/)
+  assert.match(a, /[A-Z]/)
+  assert.match(a, /[0-9]/)
+  assert.match(a, /[!@#$%^&*]/)
 })

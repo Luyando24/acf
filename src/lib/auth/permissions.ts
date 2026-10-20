@@ -60,6 +60,19 @@ export function canManageSettings(role: UserRole): boolean {
   return role === 'super_admin'
 }
 
+/** Only super admins may create staff accounts or change roles/activation. */
+export function canManageStaff(role: UserRole): boolean {
+  return role === 'super_admin'
+}
+
+export const STAFF_ROLE_LABELS: Record<UserRole, string> = {
+  super_admin: 'Super Admin',
+  admin: 'Administrator',
+  editor: 'Editor',
+  contributor: 'Contributor',
+  viewer: 'Viewer',
+}
+
 export function canEditPages(role: UserRole): boolean {
   return role === 'super_admin' || role === 'admin' || role === 'editor'
 }

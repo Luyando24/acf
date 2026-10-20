@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
+import { createClient } from '@/lib/supabase/server'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://acfzambia.org'
 
   const routes = [
@@ -10,10 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/about/management',
     '/about/staff',
     '/our-work',
-    '/our-work/policy-advocacy',
-    '/our-work/research-and-evidence',
-    '/our-work/multi-stakeholder-dialogue',
-    '/our-work/climate-resilience',
     '/publications',
     '/news',
     '/events',
@@ -26,7 +23,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/privacy-policy',
   ]
 
-  return routes.map((route) => ({
+  const supabase = await createClient()
+  const { data: progData } = await supabase
+    .from('programmes')
+    .select('slug')
+    .eq('status', 'published')
+
+  const programmeRoutes = (progData || []).map((p) => `/our-work/${p.slug}`)
+
+  return [...routes, ...programmeRoutes].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,

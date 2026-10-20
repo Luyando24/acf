@@ -91,7 +91,7 @@ export default function PublicationManager({
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -103,19 +103,19 @@ export default function PublicationManager({
       )}
 
       {/* Top Banner & Action */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div>
           <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
             Publications & Knowledge Repository
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Manage institutional research reports, policy advisory notes, and track downloads.
           </p>
         </div>
 
         <Link
           href="/admin/publications/new"
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
         >
           <Plus size={16} />
           <span>Upload Publication</span>
@@ -124,22 +124,22 @@ export default function PublicationManager({
 
       {/* Quick Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Total Publications</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Total Publications</div>
           <div className="text-2xl font-black text-[#0f1d14] mt-1">{publications.length}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Total Policy Downloads</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Total Policy Downloads</div>
           <div className="text-2xl font-black text-[#175432] mt-1">{totalDownloads}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Featured on Home</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Featured on Home</div>
           <div className="text-2xl font-black text-amber-600 mt-1">{featuredCount}</div>
         </div>
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3.5 top-3 text-[#5c6f62]" />
           <input
@@ -147,7 +147,7 @@ export default function PublicationManager({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by title, keyword, or summary..."
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
           />
         </div>
 
@@ -155,7 +155,7 @@ export default function PublicationManager({
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Categories</option>
             {CATEGORIES.map((c) => (
@@ -166,7 +166,7 @@ export default function PublicationManager({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Statuses</option>
             <option value="published">Published</option>
@@ -177,9 +177,9 @@ export default function PublicationManager({
       </div>
 
       {/* Publications Table */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-sm">
             <thead className="bg-[#f6f9f6] text-[#5c6f62] uppercase tracking-wider font-bold border-b border-[#e2ebe4]">
               <tr>
                 <th className="py-4 px-6">Document Title</th>
@@ -212,7 +212,7 @@ export default function PublicationManager({
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] text-[#5c6f62] line-clamp-1 mt-0.5">
+                        <div className="text-xs text-[#5c6f62] line-clamp-1 mt-0.5">
                           {pub.summary}
                         </div>
                       </td>
@@ -230,7 +230,7 @@ export default function PublicationManager({
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap">
                         <span
-                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                          className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
                             pub.status === 'published'
                               ? 'bg-[#f0f6f1] text-[#175432]'
                               : pub.status === 'draft'

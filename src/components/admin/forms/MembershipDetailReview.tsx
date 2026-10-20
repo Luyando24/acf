@@ -107,17 +107,17 @@ export default function MembershipDetailReview({ application }: MembershipDetail
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16">
       {/* Top Breadcrumb & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/membership"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to Applications"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/membership" className="hover:underline">
                 Membership Inquiries
               </Link>
@@ -133,14 +133,14 @@ export default function MembershipDetailReview({ application }: MembershipDetail
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/membership"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Back to List
           </Link>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Saving...' : 'Save Assessment'}</span>
@@ -150,7 +150,7 @@ export default function MembershipDetailReview({ application }: MembershipDetail
 
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -166,14 +166,14 @@ export default function MembershipDetailReview({ application }: MembershipDetail
         {/* Left Column (2 cols): Detailed Applicant Profile & Assessment Form */}
         <div className="lg:col-span-2 space-y-6">
           {/* Detailed Profile Card */}
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div className="flex items-center justify-between border-b border-[#e2ebe4] pb-4">
               <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
                 <Building2 size={16} className="text-[#175432]" />
                 Applicant Entity Profile
               </h2>
               <span
-                className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${
+                className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${
                   status === 'approved'
                     ? 'bg-emerald-100 text-emerald-800'
                     : status === 'in_review'
@@ -187,15 +187,15 @@ export default function MembershipDetailReview({ application }: MembershipDetail
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs">
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Organization / Entity Name:</span>
                 <span className="text-sm font-bold text-[#0f1d14]">
                   {application.org_name || 'Individual Applicant'}
                 </span>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Primary Representative:</span>
                 <span className="text-sm font-bold text-[#0f1d14] flex items-center gap-1.5">
                   <User size={14} className="text-[#175432]" />
@@ -203,53 +203,53 @@ export default function MembershipDetailReview({ application }: MembershipDetail
                 </span>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Target Category Caucus:</span>
-                <span className="text-xs font-bold text-[#175432]">
+                <span className="text-sm font-bold text-[#175432]">
                   {application.membership_categories?.name || 'Producer Association'}
                 </span>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Applicant Classification:</span>
-                <span className="text-xs font-bold text-[#0f1d14] capitalize">
+                <span className="text-sm font-bold text-[#0f1d14] capitalize">
                   {application.applicant_type} Member
                 </span>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Email Address:</span>
                 <a
                   href={`mailto:${application.email}`}
-                  className="text-xs font-bold text-[#175432] hover:underline flex items-center gap-1.5"
+                  className="text-sm font-bold text-[#175432] hover:underline flex items-center gap-1.5"
                 >
                   <Mail size={14} />
                   <span>{application.email}</span>
                 </a>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Telephone / WhatsApp:</span>
                 <a
                   href={`tel:${application.phone}`}
-                  className="text-xs font-bold text-[#0f1d14] hover:text-[#175432] flex items-center gap-1.5"
+                  className="text-sm font-bold text-[#0f1d14] hover:text-[#175432] flex items-center gap-1.5"
                 >
                   <Phone size={14} />
                   <span>{application.phone}</span>
                 </a>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Geographic Location / Province:</span>
-                <span className="text-xs font-bold text-[#0f1d14] flex items-center gap-1.5">
+                <span className="text-sm font-bold text-[#0f1d14] flex items-center gap-1.5">
                   <MapPin size={14} className="text-[#175432]" />
                   <span>{application.location_province || 'Not specified'}</span>
                 </span>
               </div>
 
-              <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] space-y-1">
+              <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] space-y-1">
                 <span className="text-[#5c6f62] font-semibold block">Commodity & Value Chain Interest:</span>
-                <span className="text-xs font-bold text-[#0f1d14]">
+                <span className="text-sm font-bold text-[#0f1d14]">
                   {application.sector_interest || 'General Agriculture'}
                 </span>
               </div>
@@ -257,8 +257,8 @@ export default function MembershipDetailReview({ application }: MembershipDetail
 
             {application.details && Object.keys(application.details).length > 0 && (
               <div className="pt-4 border-t border-[#e2ebe4] space-y-2">
-                <span className="text-xs font-bold text-[#0f1d14] block">Additional Submission Metadata</span>
-                <pre className="p-4 bg-gray-50 rounded-xl text-[11px] font-mono text-[#5c6f62] overflow-x-auto border border-[#e2ebe4]">
+                <span className="text-sm font-bold text-[#0f1d14] block">Additional Submission Metadata</span>
+                <pre className="p-4 bg-gray-50 rounded-md text-xs font-mono text-[#5c6f62] overflow-x-auto border border-[#e2ebe4]">
                   {JSON.stringify(application.details, null, 2)}
                 </pre>
               </div>
@@ -266,7 +266,7 @@ export default function MembershipDetailReview({ application }: MembershipDetail
           </div>
 
           {/* Assessment Form with Rich Text Editor */}
-          <form onSubmit={handleSave} className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <form onSubmit={handleSave} className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck size={16} className="text-[#175432]" />
               Secretariat Assessment & Internal Notes
@@ -291,7 +291,7 @@ export default function MembershipDetailReview({ application }: MembershipDetail
               <button
                 type="submit"
                 disabled={isSaving}
-                className="px-6 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="px-6 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 <Save size={15} />
                 <span>{isSaving ? 'Saving...' : 'Save Assessment Changes'}</span>
@@ -302,18 +302,18 @@ export default function MembershipDetailReview({ application }: MembershipDetail
 
         {/* Right Column (1 col): Status Control & Quick Communication */}
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Review Decision</h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Application Status</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Application Status</label>
               <select
                 value={status}
                 onChange={(e) => {
                   setStatus(e.target.value as any)
                   if (errors.notes) setErrors((prev) => ({ ...prev, notes: '' }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="new">Pending Review (New)</option>
                 <option value="in_review">Under Committee Verification</option>
@@ -322,7 +322,7 @@ export default function MembershipDetailReview({ application }: MembershipDetail
               </select>
             </div>
 
-            <div className="p-3 bg-[#f6f9f6] rounded-xl border border-[#e2ebe4] text-[11px] text-[#5c6f62] space-y-1">
+            <div className="p-3 bg-[#f6f9f6] rounded-md border border-[#e2ebe4] text-xs text-[#5c6f62] space-y-1">
               <div className="flex items-center gap-1.5">
                 <Calendar size={13} className="text-[#175432]" />
                 <span>Submitted: {formatDate(application.created_at)}</span>
@@ -335,13 +335,13 @@ export default function MembershipDetailReview({ application }: MembershipDetail
           </div>
 
           {/* Quick Communication Box */}
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-4">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-4">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Direct Contact</h2>
 
             <div className="space-y-2">
               <a
                 href={`mailto:${application.email}?subject=ACF Membership Application Review - ${encodeURIComponent(application.org_name || application.contact_name)}`}
-                className="w-full px-4 py-2.5 bg-[#f6f9f6] hover:bg-[#eaf4ec] text-[#175432] text-xs font-bold rounded-xl border border-[#e2ebe4] transition-colors flex items-center justify-between"
+                className="w-full px-4 py-2.5 bg-[#f6f9f6] hover:bg-[#eaf4ec] text-[#175432] text-sm font-bold rounded-md border border-[#e2ebe4] transition-colors flex items-center justify-between"
               >
                 <span className="flex items-center gap-2">
                   <Mail size={15} />
@@ -352,7 +352,7 @@ export default function MembershipDetailReview({ application }: MembershipDetail
 
               <a
                 href={`tel:${application.phone}`}
-                className="w-full px-4 py-2.5 bg-[#f6f9f6] hover:bg-[#eaf4ec] text-[#0f1d14] text-xs font-bold rounded-xl border border-[#e2ebe4] transition-colors flex items-center justify-between"
+                className="w-full px-4 py-2.5 bg-[#f6f9f6] hover:bg-[#eaf4ec] text-[#0f1d14] text-sm font-bold rounded-md border border-[#e2ebe4] transition-colors flex items-center justify-between"
               >
                 <span className="flex items-center gap-2">
                   <Phone size={15} />
@@ -364,15 +364,15 @@ export default function MembershipDetailReview({ application }: MembershipDetail
           </div>
 
           {/* Danger Zone */}
-          <div className="bg-white p-6 rounded-3xl border border-rose-200 shadow-xs space-y-3">
-            <h2 className="text-xs font-black text-rose-700 uppercase tracking-wider">Danger Zone</h2>
-            <p className="text-[11px] text-[#5c6f62]">
+          <div className="bg-white p-6 rounded-lg border border-rose-200 shadow-xs space-y-3">
+            <h2 className="text-sm font-black text-rose-700 uppercase tracking-wider">Danger Zone</h2>
+            <p className="text-xs text-[#5c6f62]">
               Permanently remove this submission from the system.
             </p>
             <button
               type="button"
               onClick={handleDelete}
-              className="w-full px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 text-sm font-bold rounded-md border border-rose-200 transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <Trash2 size={14} />
               <span>Delete Submission</span>

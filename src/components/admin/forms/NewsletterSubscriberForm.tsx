@@ -97,17 +97,17 @@ export default function NewsletterSubscriberForm() {
   return (
     <div className="max-w-4xl mx-auto space-y-6 pb-16">
       {/* Top Breadcrumb & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/newsletter"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to Newsletter"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/newsletter" className="hover:underline">
                 Newsletter Subscribers
               </Link>
@@ -123,14 +123,14 @@ export default function NewsletterSubscriberForm() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/newsletter"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Cancel
           </Link>
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Enrolling...' : 'Enrol Subscriber'}</span>
@@ -140,7 +140,7 @@ export default function NewsletterSubscriberForm() {
 
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -155,14 +155,14 @@ export default function NewsletterSubscriberForm() {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column (2 cols) */}
         <div className="md:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <Mail size={16} className="text-[#175432]" />
               Subscriber Identity & Channel
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">
+              <label className="text-sm font-bold text-[#0f1d14]">
                 Stakeholder Email Address *
               </label>
               <div className="relative">
@@ -176,13 +176,13 @@ export default function NewsletterSubscriberForm() {
                     if (errors.email) setErrors((prev) => ({ ...prev, email: '' }))
                   }}
                   placeholder="e.g. policy.specialist@cooperative.org.zm"
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full pl-10 pr-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.email ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
               </div>
               {errors.email && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.email}
                 </p>
               )}
@@ -190,11 +190,11 @@ export default function NewsletterSubscriberForm() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Acquisition Channel</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Acquisition Channel</label>
                 <select
                   value={formData.source}
                   onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-medium"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-medium"
                 >
                   <option value="admin_portal">Admin Manual Enrollment</option>
                   <option value="website_footer">Public Website Footer</option>
@@ -204,11 +204,11 @@ export default function NewsletterSubscriberForm() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Initial Subscription Status</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Initial Subscription Status</label>
                 <select
                   value={formData.status}
                   onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-bold"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-bold"
                 >
                   <option value="subscribed">Active (Subscribed)</option>
                   <option value="pending">Pending Double Opt-in</option>
@@ -218,13 +218,13 @@ export default function NewsletterSubscriberForm() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Internal Notes (Optional)</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Internal Notes (Optional)</label>
               <textarea
                 rows={3}
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 placeholder="Institutional affiliation, stakeholder group, or reason for manual enrollment..."
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed"
               />
             </div>
           </div>
@@ -232,10 +232,10 @@ export default function NewsletterSubscriberForm() {
 
         {/* Right Column (1 col): Preview & GDPR Notice */}
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-3xl border border-[#d6e5d8] space-y-4">
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#175432] uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-4">
+            <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Record Summary</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+              <span className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase ${
                 formData.status === 'subscribed'
                   ? 'bg-emerald-100 text-emerald-800'
                   : formData.status === 'pending'
@@ -246,26 +246,26 @@ export default function NewsletterSubscriberForm() {
               </span>
             </div>
 
-            <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-2.5">
-              <div className="text-xs font-bold text-[#0f1d14] break-all">
+            <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs space-y-2.5">
+              <div className="text-sm font-bold text-[#0f1d14] break-all">
                 {formData.email || 'recipient@domain.com'}
               </div>
-              <div className="text-[11px] text-[#5c6f62]">
+              <div className="text-xs text-[#5c6f62]">
                 Source: <span className="font-semibold capitalize text-[#175432]">{formData.source.replace(/_/g, ' ')}</span>
               </div>
-              <div className="pt-2 border-t border-[#e2ebe4] flex items-center gap-1.5 text-[10px] text-[#5c6f62]">
+              <div className="pt-2 border-t border-[#e2ebe4] flex items-center gap-1.5 text-[11px] text-[#5c6f62]">
                 <ShieldCheck size={12} className="text-[#175432]" />
                 <span>Explicit consent recorded</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-2">
-            <h3 className="text-xs font-bold text-[#0f1d14] flex items-center gap-1.5">
+          <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs space-y-2">
+            <h3 className="text-sm font-bold text-[#0f1d14] flex items-center gap-1.5">
               <UserCheck size={14} className="text-[#175432]" />
               ACF Policy Dispatch
             </h3>
-            <p className="text-[11px] text-[#5c6f62] leading-relaxed">
+            <p className="text-xs text-[#5c6f62] leading-relaxed">
               Subscribers receive quarterly agricultural outlooks, immediate policy briefs, and invitations to National Agricultural Policy Roundtables.
             </p>
           </div>

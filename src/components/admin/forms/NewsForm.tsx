@@ -148,17 +148,17 @@ export default function NewsForm({ initialData }: NewsFormProps) {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/news"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to News"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/news" className="hover:underline">
                 News & Press
               </Link>
@@ -174,14 +174,14 @@ export default function NewsForm({ initialData }: NewsFormProps) {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/news"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Cancel
           </Link>
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Saving...' : isEdit ? 'Save Changes' : 'Publish Story'}</span>
@@ -191,7 +191,7 @@ export default function NewsForm({ initialData }: NewsFormProps) {
 
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -206,26 +206,26 @@ export default function NewsForm({ initialData }: NewsFormProps) {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <FileText size={16} className="text-[#175432]" />
               Article Story Details
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Article Headline *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Article Headline *</label>
               <input
                 type="text"
                 required
                 value={formData.title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g. ACF Convenes National Stakeholder Dialogue on Agriculture Budget 2026"
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                   errors.title ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.title && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.title}
                 </p>
               )}
@@ -233,7 +233,7 @@ export default function NewsForm({ initialData }: NewsFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">URL Slug *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">URL Slug *</label>
                 <input
                   type="text"
                   required
@@ -242,23 +242,23 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                     setFormData({ ...formData, slug: e.target.value })
                     if (errors.slug) setErrors((prev) => ({ ...prev, slug: '' }))
                   }}
-                  className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-md border text-sm font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.slug ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
                 {errors.slug && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.slug}
                   </p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Category *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Category *</label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-semibold"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-semibold"
                 >
                   {NEWS_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
@@ -270,7 +270,7 @@ export default function NewsForm({ initialData }: NewsFormProps) {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Lead / Excerpt Summary *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Lead / Excerpt Summary *</label>
               <textarea
                 rows={3}
                 required
@@ -280,12 +280,12 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                   if (errors.excerpt) setErrors((prev) => ({ ...prev, excerpt: '' }))
                 }}
                 placeholder="Concise lead paragraph highlighting key quotes and policy implications..."
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
                   errors.excerpt ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.excerpt && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.excerpt}
                 </p>
               )}
@@ -310,7 +310,7 @@ export default function NewsForm({ initialData }: NewsFormProps) {
           </div>
 
           {/* Local Device Photo Upload */}
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <Sparkles size={16} className="text-[#175432]" />
               Featured Cover Photo
@@ -335,15 +335,15 @@ export default function NewsForm({ initialData }: NewsFormProps) {
 
         {/* Right Column (1 col): Controls & Preview */}
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Publishing Controls</h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Status</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Status</label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="published">Published (Live)</option>
                 <option value="draft">Draft (Private editorial review)</option>
@@ -352,7 +352,7 @@ export default function NewsForm({ initialData }: NewsFormProps) {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Publication Date *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Publication Date *</label>
               <input
                 type="date"
                 required
@@ -361,19 +361,19 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                   setFormData({ ...formData, published_at: e.target.value })
                   if (errors.published_at) setErrors((prev) => ({ ...prev, published_at: '' }))
                 }}
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                   errors.published_at ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.published_at && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.published_at}
                 </p>
               )}
             </div>
 
             <div className="pt-2">
-              <label className="flex items-center gap-3 p-3 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] cursor-pointer hover:bg-[#edf4ee] transition-colors">
+              <label className="flex items-center gap-3 p-3 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] cursor-pointer hover:bg-[#edf4ee] transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.is_featured}
@@ -381,11 +381,11 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                   className="rounded text-[#175432] focus:ring-[#175432] h-4 w-4"
                 />
                 <div>
-                  <span className="text-xs font-bold text-[#0f1d14] flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-[#0f1d14] flex items-center gap-1.5">
                     <Star size={13} className="text-amber-500 fill-amber-500" />
                     Feature on Homepage
                   </span>
-                  <span className="text-[11px] text-[#5c6f62] block mt-0.5">
+                  <span className="text-xs text-[#5c6f62] block mt-0.5">
                     Pinned to the homepage Latest News headline grid.
                   </span>
                 </div>
@@ -394,15 +394,15 @@ export default function NewsForm({ initialData }: NewsFormProps) {
           </div>
 
           {/* Live News Card Preview */}
-          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-3xl border border-[#d6e5d8] space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#175432] uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Card Preview</span>
-              <span className="capitalize px-2 py-0.5 bg-white rounded text-[10px] font-bold">
+              <span className="capitalize px-2 py-0.5 bg-white rounded text-[11px] font-bold">
                 {formData.status}
               </span>
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#e2ebe4] shadow-xs overflow-hidden">
+            <div className="bg-white rounded-lg border border-[#e2ebe4] shadow-xs overflow-hidden">
               <div className="h-32 bg-gray-100 overflow-hidden relative">
                 <img
                   src={formData.featured_image || '/photos/dialogue.jpg'}
@@ -412,19 +412,19 @@ export default function NewsForm({ initialData }: NewsFormProps) {
                     (e.target as HTMLImageElement).src = '/photos/logo.png'
                   }}
                 />
-                <span className="absolute top-2 left-2 px-2 py-0.5 bg-[#175432] text-white text-[9px] font-bold rounded-md">
+                <span className="absolute top-2 left-2 px-2 py-0.5 bg-[#175432] text-white text-[10px] font-bold rounded-md">
                   {formData.category}
                 </span>
               </div>
 
               <div className="p-4 space-y-2">
-                <h4 className="text-xs font-bold text-[#0f1d14] line-clamp-2">
+                <h4 className="text-sm font-bold text-[#0f1d14] line-clamp-2">
                   {formData.title || 'Headline will appear here'}
                 </h4>
-                <p className="text-[11px] text-[#5c6f62] line-clamp-2 leading-relaxed">
+                <p className="text-xs text-[#5c6f62] line-clamp-2 leading-relaxed">
                   {formData.excerpt || 'Excerpt lead summary will show here.'}
                 </p>
-                <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[10px] text-[#5c6f62]">
+                <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[11px] text-[#5c6f62]">
                   <span>{formData.published_at}</span>
                   <span className="text-[#175432] font-bold">Read Story →</span>
                 </div>

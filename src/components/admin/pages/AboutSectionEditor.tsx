@@ -97,7 +97,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
         <div>
           <Link
             href="/admin/pages"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Back to All Pages</span>
@@ -105,7 +105,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
           <h1 className="text-2xl sm:text-3xl font-black text-[#0f1d14] tracking-tight">
             About ACF Content Editor
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Modify institutional mandate, vision, mission, background narrative, and strategic pillars.
           </p>
         </div>
@@ -115,7 +115,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
             href="/about"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
+            className="px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
           >
             <span>Preview Live</span>
             <ExternalLink size={14} />
@@ -124,7 +124,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-6 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-6 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             <span>{isSaving ? 'Publishing...' : 'Save & Publish'}</span>
@@ -134,15 +134,15 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
 
       {/* Floating Sticky Alert if Unsaved */}
       {hasUnsavedChanges && (
-        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
-          <div className="flex items-center gap-2 text-xs font-bold">
+        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-lg shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-sm font-bold">
             <AlertCircle size={16} className="text-amber-600 shrink-0" />
             <span>You have unsaved changes on the About Page. Click &quot;Save &amp; Publish&quot; to apply them.</span>
           </div>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shrink-0"
+            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold transition-colors shrink-0"
           >
             Save Now
           </button>
@@ -152,7 +152,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
       {/* Status Notifications */}
       {message && (
         <div
-          className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2.5 ${
+          className={`p-4 rounded-lg text-sm font-semibold flex items-center gap-2.5 ${
             message.type === 'success'
               ? 'bg-[#f0f6f1] text-[#175432] border border-[#2da44e]/30'
               : 'bg-red-50 text-red-700 border border-red-200'
@@ -182,7 +182,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-bold transition-all shrink-0 cursor-pointer ${
                 isActive
                   ? 'bg-[#175432] text-white shadow-sm'
                   : 'bg-white text-[#5c6f62] hover:text-[#0f1d14] border border-[#e2ebe4] hover:border-[#175432]/30'
@@ -199,17 +199,17 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
           TAB 1: HEADER BANNER
       ===================================================================== */}
       {activeTab === 'header' && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+        <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
           <div>
             <h2 className="text-lg font-bold text-[#0f1d14]">About Page Header Banner</h2>
-            <p className="text-xs text-[#5c6f62] mt-0.5">
+            <p className="text-sm text-[#5c6f62] mt-0.5">
               The dark green top hero banner on `/about`.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Badge Pill
               </label>
               <input
@@ -222,12 +222,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     header: { ...prev.header, badge: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Page Title (H1)
               </label>
               <input
@@ -240,13 +240,13 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     header: { ...prev.header, title: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Subtitle Description
             </label>
             <textarea
@@ -259,7 +259,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                   header: { ...prev.header, description: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
             />
           </div>
         </div>
@@ -271,7 +271,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
       {activeTab === 'vision_mission' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Vision */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
                 <Eye size={18} />
@@ -280,7 +280,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Title
               </label>
               <input
@@ -293,12 +293,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     vision: { ...prev.vision, title: val },
                   }))
                 }}
-                className="w-full px-4 py-2 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+                className="w-full px-4 py-2 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Vision Narrative
               </label>
               <textarea
@@ -311,13 +311,13 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     vision: { ...prev.vision, description: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
               />
             </div>
           </div>
 
           {/* Mission */}
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-4">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
                 <Target size={18} />
@@ -326,7 +326,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Title
               </label>
               <input
@@ -339,12 +339,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     mission: { ...prev.mission, title: val },
                   }))
                 }}
-                className="w-full px-4 py-2 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+                className="w-full px-4 py-2 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Mission Narrative
               </label>
               <textarea
@@ -357,7 +357,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                     mission: { ...prev.mission, description: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
               />
             </div>
           </div>
@@ -369,10 +369,10 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
       ===================================================================== */}
       {activeTab === 'history' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Background, History &amp; Featured Photo</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 The institutional genesis story of ACF and the featured photographic showcase.
               </p>
             </div>
@@ -395,7 +395,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                 />
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1">
                     Photo Overlay Badge
                   </label>
                   <input
@@ -409,12 +409,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       }))
                     }}
                     placeholder="e.g. National Policy Dialogue • Lusaka"
-                    className="w-full px-3 py-2 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] uppercase tracking-wider mb-1">
+                  <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1">
                     Photo Overlay Caption
                   </label>
                   <textarea
@@ -428,7 +428,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       }))
                     }}
                     placeholder="Caption describing the photo..."
-                    className="w-full px-3 py-2 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                 </div>
               </div>
@@ -437,16 +437,16 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider">
+                    <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider">
                       Narrative Paragraphs
                     </label>
-                    <span className="text-[11px] text-[#5c6f62]">
+                    <span className="text-xs text-[#5c6f62]">
                       Each paragraph is rendered in clean typography that protects CSS margins and line heights.
                     </span>
                   </div>
                   <button
                     onClick={handleAddParagraph}
-                    className="px-3 py-1.5 rounded-lg bg-[#f0f6f1] text-[#175432] text-xs font-bold flex items-center gap-1 border border-[#e2ebe4]"
+                    className="px-3 py-1.5 rounded-lg bg-[#f0f6f1] text-[#175432] text-sm font-bold flex items-center gap-1 border border-[#e2ebe4]"
                   >
                     <Plus size={12} />
                     <span>Add Paragraph</span>
@@ -455,9 +455,9 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
 
                 <div className="space-y-4">
                   {content.history.paragraphs.map((para, idx) => (
-                    <div key={idx} className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-2">
+                    <div key={idx} className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-bold text-[#5c6f62]">
+                        <span className="text-xs font-bold text-[#5c6f62]">
                           Paragraph #{idx + 1}
                         </span>
                         <button
@@ -482,7 +482,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                             }
                           })
                         }}
-                        className="w-full px-3 py-2 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-white"
+                        className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-white"
                       />
                     </div>
                   ))}
@@ -498,17 +498,17 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
       ===================================================================== */}
       {activeTab === 'objectives' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Strategic Objectives (4 Key Pillars)</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 The 4 operational pillars displayed in the 2x2 grid on `/about`.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Section Title
                 </label>
                 <input
@@ -521,12 +521,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       objectives: { ...prev.objectives, title: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Section Subtitle
                 </label>
                 <input
@@ -539,16 +539,16 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       objectives: { ...prev.objectives, description: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
               </div>
             </div>
 
             <div className="space-y-4 pt-2">
               {content.objectives.items.map((item, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+                <div key={idx} className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-xl bg-[#0f1d14] text-[#a3e635] text-xs font-black flex items-center justify-center shrink-0">
+                    <span className="w-8 h-8 rounded-md bg-[#0f1d14] text-[#a3e635] text-sm font-black flex items-center justify-center shrink-0">
                       {item.num}
                     </span>
                     <input
@@ -566,7 +566,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                         })
                       }}
                       placeholder="Pillar Title"
-                      className="flex-1 px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                      className="flex-1 px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                     />
                   </div>
                   <textarea
@@ -584,7 +584,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       })
                     }}
                     placeholder="Pillar Description"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs leading-relaxed bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm leading-relaxed bg-white"
                   />
                 </div>
               ))}
@@ -597,16 +597,16 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
           TAB 5: GOVERNANCE CTA STRIP
       ===================================================================== */}
       {activeTab === 'governance' && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+        <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
           <div>
             <h2 className="text-lg font-bold text-[#0f1d14]">Governance Navigation Strip</h2>
-            <p className="text-xs text-[#5c6f62] mt-0.5">
+            <p className="text-sm text-[#5c6f62] mt-0.5">
               The bottom navigation bar guiding visitors to the Board of Directors, Management, and Staff.
             </p>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Headline
             </label>
             <input
@@ -619,12 +619,12 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                   governance_cta: { ...prev.governance_cta, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Subtitle Description
             </label>
             <input
@@ -637,7 +637,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                   governance_cta: { ...prev.governance_cta, description: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>

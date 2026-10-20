@@ -146,17 +146,17 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/publications"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to Publications"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/publications" className="hover:underline">
                 Publications
               </Link>
@@ -172,14 +172,14 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/publications"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Cancel
           </Link>
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Saving...' : isEdit ? 'Save Changes' : 'Publish Report'}</span>
@@ -190,7 +190,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
       {/* Notifications */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -205,26 +205,26 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <FileText size={16} className="text-[#175432]" />
               Publication Metadata
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Document Title *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Document Title *</label>
               <input
                 type="text"
                 required
                 value={formData.title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g. Zambia Agricultural Sector Policy Review 2025/2026"
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                   errors.title ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.title && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.title}
                 </p>
               )}
@@ -232,7 +232,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">URL Slug *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">URL Slug *</label>
                 <input
                   type="text"
                   required
@@ -241,23 +241,23 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
                     setFormData({ ...formData, slug: e.target.value })
                     if (errors.slug) setErrors((prev) => ({ ...prev, slug: '' }))
                   }}
-                  className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-md border text-sm font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.slug ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
                 {errors.slug && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.slug}
                   </p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Category Caucus *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Category Caucus *</label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-semibold"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-semibold"
                 >
                   {CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
@@ -269,7 +269,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Executive Summary *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Executive Summary *</label>
               <textarea
                 rows={4}
                 required
@@ -279,12 +279,12 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
                   if (errors.summary) setErrors((prev) => ({ ...prev, summary: '' }))
                 }}
                 placeholder="Brief summary of policy findings, methodology, and recommendations..."
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
                   errors.summary ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.summary && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.summary}
                 </p>
               )}
@@ -292,7 +292,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
           </div>
 
           {/* Local Device File Upload */}
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <FileText size={16} className="text-[#175432]" />
               PDF / Document Attachment
@@ -320,18 +320,18 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Calculated File Size (MB)</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Calculated File Size (MB)</label>
                 <input
                   type="text"
                   value={formData.file_size_mb}
                   onChange={(e) => setFormData({ ...formData, file_size_mb: e.target.value })}
                   placeholder="2.5"
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none font-mono"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none font-mono"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Release / Published Date *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Release / Published Date *</label>
                 <input
                   type="date"
                   required
@@ -340,12 +340,12 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
                     setFormData({ ...formData, published_on: e.target.value })
                     if (errors.published_on) setErrors((prev) => ({ ...prev, published_on: '' }))
                   }}
-                  className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.published_on ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
                 {errors.published_on && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.published_on}
                   </p>
                 )}
@@ -356,15 +356,15 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
 
         {/* Right Column (1 col): Publishing Controls & Preview */}
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Publishing Controls</h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Status</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Status</label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="published">Published (Public)</option>
                 <option value="draft">Draft (Internal review)</option>
@@ -373,7 +373,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
             </div>
 
             <div className="pt-2">
-              <label className="flex items-center gap-3 p-3 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] cursor-pointer hover:bg-[#edf4ee] transition-colors">
+              <label className="flex items-center gap-3 p-3 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] cursor-pointer hover:bg-[#edf4ee] transition-colors">
                 <input
                   type="checkbox"
                   checked={formData.is_featured}
@@ -381,11 +381,11 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
                   className="rounded text-[#175432] focus:ring-[#175432] h-4 w-4"
                 />
                 <div>
-                  <span className="text-xs font-bold text-[#0f1d14] flex items-center gap-1.5">
+                  <span className="text-sm font-bold text-[#0f1d14] flex items-center gap-1.5">
                     <Star size={13} className="text-amber-500 fill-amber-500" />
                     Feature on Homepage
                   </span>
-                  <span className="text-[11px] text-[#5c6f62] block mt-0.5">
+                  <span className="text-xs text-[#5c6f62] block mt-0.5">
                     Showcase prominently in the Featured Publications carousel.
                   </span>
                 </div>
@@ -394,35 +394,35 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
           </div>
 
           {/* Live Preview Card */}
-          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-3xl border border-[#d6e5d8] space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#175432] uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Public Card Preview</span>
-              <span className="capitalize px-2 py-0.5 bg-white rounded text-[10px] font-bold">
+              <span className="capitalize px-2 py-0.5 bg-white rounded text-[11px] font-bold">
                 {formData.status}
               </span>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
+            <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs space-y-3">
               <div className="flex items-start justify-between gap-3">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#f0f6f1] text-[#175432]">
+                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#f0f6f1] text-[#175432]">
                   {formData.category}
                 </span>
                 {formData.is_featured && (
-                  <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md flex items-center gap-1">
+                  <span className="text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md flex items-center gap-1">
                     <Star size={10} className="fill-amber-500" /> Featured
                   </span>
                 )}
               </div>
 
-              <h4 className="text-xs font-bold text-[#0f1d14] line-clamp-2">
+              <h4 className="text-sm font-bold text-[#0f1d14] line-clamp-2">
                 {formData.title || 'Untitled Document'}
               </h4>
 
-              <p className="text-[11px] text-[#5c6f62] line-clamp-3 leading-relaxed">
+              <p className="text-xs text-[#5c6f62] line-clamp-3 leading-relaxed">
                 {formData.summary || 'Summary description will appear here on public publication cards.'}
               </p>
 
-              <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[10px] text-[#5c6f62]">
+              <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[11px] text-[#5c6f62]">
                 <span>{formData.published_on || 'Release date'}</span>
                 <span className="font-mono font-bold text-[#175432]">{formData.file_size_mb} MB PDF</span>
               </div>

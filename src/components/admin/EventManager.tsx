@@ -87,7 +87,7 @@ export default function EventManager({
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -99,19 +99,19 @@ export default function EventManager({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div>
           <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
             Dialogue Events & Forums
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Schedule policy roundtables, technical workshops, and national symposiums.
           </p>
         </div>
 
         <Link
           href="/admin/events/new"
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 cursor-pointer"
         >
           <Plus size={16} />
           <span>Schedule New Event</span>
@@ -120,22 +120,22 @@ export default function EventManager({
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Total Convenings</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Total Convenings</div>
           <div className="text-2xl font-black text-[#0f1d14] mt-1">{events.length}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Upcoming Forums</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Upcoming Forums</div>
           <div className="text-2xl font-black text-[#175432] mt-1">{upcomingCount}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Past Dialogues</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Past Dialogues</div>
           <div className="text-2xl font-black text-[#5c6f62] mt-1">{pastCount}</div>
         </div>
       </div>
 
       {/* Search & Filters */}
-      <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3.5 top-3 text-[#5c6f62]" />
           <input
@@ -143,7 +143,7 @@ export default function EventManager({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by event title, venue, or topics..."
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
           />
         </div>
 
@@ -151,7 +151,7 @@ export default function EventManager({
           <select
             value={timingFilter}
             onChange={(e) => setTimingFilter(e.target.value as any)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Dates (Upcoming & Past)</option>
             <option value="UPCOMING">Upcoming Only</option>
@@ -161,7 +161,7 @@ export default function EventManager({
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+            className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
           >
             <option value="ALL">All Statuses</option>
             <option value="published">Published</option>
@@ -172,9 +172,9 @@ export default function EventManager({
       </div>
 
       {/* Events Table */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-sm">
             <thead className="bg-[#f6f9f6] text-[#5c6f62] uppercase tracking-wider font-bold border-b border-[#e2ebe4]">
               <tr>
                 <th className="py-4 px-6">Event Title</th>
@@ -201,7 +201,7 @@ export default function EventManager({
                           {evt.title}
                         </div>
                         {evt.description && (
-                          <div className="text-[11px] text-[#5c6f62] line-clamp-1 mt-0.5">
+                          <div className="text-xs text-[#5c6f62] line-clamp-1 mt-0.5">
                             {evt.description}
                           </div>
                         )}
@@ -210,7 +210,7 @@ export default function EventManager({
                         <div className="font-semibold text-[#175432]">
                           {formatDateTime(evt.starts_at)}
                         </div>
-                        <div className="text-[10px] text-[#5c6f62] mt-0.5">
+                        <div className="text-[11px] text-[#5c6f62] mt-0.5">
                           {isUpcoming ? (
                             <span className="text-emerald-700 font-bold">Upcoming</span>
                           ) : (
@@ -224,7 +224,7 @@ export default function EventManager({
                           <span className="truncate">{evt.venue || 'Lusaka Secretariat'}</span>
                         </div>
                         {evt.virtual_url && (
-                          <div className="flex items-center gap-1 text-[10px] text-blue-700 mt-0.5">
+                          <div className="flex items-center gap-1 text-[11px] text-blue-700 mt-0.5">
                             <Video size={10} />
                             <span>Virtual link available</span>
                           </div>
@@ -232,7 +232,7 @@ export default function EventManager({
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap">
                         <span
-                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                          className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
                             evt.status === 'published'
                               ? 'bg-[#f0f6f1] text-[#175432]'
                               : evt.status === 'draft'

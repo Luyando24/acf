@@ -124,17 +124,17 @@ export default function PersonForm({ initialData }: PersonFormProps) {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16">
       {/* Top Breadcrumb & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/people"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to Personnel"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/people" className="hover:underline">
                 Board & Staff
               </Link>
@@ -150,14 +150,14 @@ export default function PersonForm({ initialData }: PersonFormProps) {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/people"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Cancel
           </Link>
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Saving...' : isEdit ? 'Save Changes' : 'Publish Profile'}</span>
@@ -167,7 +167,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
 
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -182,7 +182,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <UserCheck size={16} className="text-[#175432]" />
               Personnel Details
@@ -190,7 +190,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Full Name & Honorific *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Full Name & Honorific *</label>
                 <input
                   type="text"
                   required
@@ -200,19 +200,19 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                     if (errors.name) setErrors((prev) => ({ ...prev, name: '' }))
                   }}
                   placeholder="e.g. Dr. Mweemba Chibanda"
-                  className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.name ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
                 {errors.name && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.name}
                   </p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Position / Title *</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Position / Title *</label>
                 <input
                   type="text"
                   required
@@ -222,12 +222,12 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                     if (errors.position) setErrors((prev) => ({ ...prev, position: '' }))
                   }}
                   placeholder="e.g. Senior Agricultural Policy Analyst"
-                  className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                  className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                     errors.position ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                   }`}
                 />
                 {errors.position && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.position}
                   </p>
                 )}
@@ -250,7 +250,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Official Email Address</label>
+                <label className="text-sm font-bold text-[#0f1d14]">Official Email Address</label>
                 <div className="relative">
                   <Mail size={15} className="absolute left-3.5 top-3 text-[#5c6f62]" />
                   <input
@@ -261,20 +261,20 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                       if (errors.email) setErrors((prev) => ({ ...prev, email: '' }))
                     }}
                     placeholder="name@acf.org.zm"
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                       errors.email ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                     }`}
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.email}
                   </p>
                 )}
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">LinkedIn Profile URL</label>
+                <label className="text-sm font-bold text-[#0f1d14]">LinkedIn Profile URL</label>
                 <div className="relative">
                   <span className="absolute left-3.5 top-3 text-[#5c6f62]">
                     <LinkedinIcon size={15} />
@@ -287,13 +287,13 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                       if (errors.linkedin_url) setErrors((prev) => ({ ...prev, linkedin_url: '' }))
                     }}
                     placeholder="https://linkedin.com/in/username"
-                    className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                       errors.linkedin_url ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                     }`}
                   />
                 </div>
                 {errors.linkedin_url && (
-                  <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                     <AlertCircle size={12} /> {errors.linkedin_url}
                   </p>
                 )}
@@ -319,15 +319,15 @@ export default function PersonForm({ initialData }: PersonFormProps) {
 
         {/* Right Column (1 col): Controls & Live Profile Preview */}
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Classification & Order</h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Governance Category *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Governance Category *</label>
               <select
                 value={formData.group_type}
                 onChange={(e) => setFormData({ ...formData, group_type: e.target.value as any })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="board">Board of Directors / Trustees</option>
                 <option value="management">Management Team</option>
@@ -336,7 +336,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Display Order</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Display Order</label>
               <input
                 type="number"
                 min="1"
@@ -345,24 +345,24 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                   setFormData({ ...formData, order_index: Number(e.target.value) })
                   if (errors.order_index) setErrors((prev) => ({ ...prev, order_index: '' }))
                 }}
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-mono ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-mono ${
                   errors.order_index ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.order_index && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.order_index}
                 </p>
               )}
-              <p className="text-[11px] text-[#5c6f62]">Determines visual order within its category.</p>
+              <p className="text-xs text-[#5c6f62]">Determines visual order within its category.</p>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Public Visibility</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Public Visibility</label>
               <select
                 value={formData.is_visible ? 'true' : 'false'}
                 onChange={(e) => setFormData({ ...formData, is_visible: e.target.value === 'true' })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="true">Visible on Website</option>
                 <option value="false">Hidden / Draft</option>
@@ -371,10 +371,10 @@ export default function PersonForm({ initialData }: PersonFormProps) {
           </div>
 
           {/* Profile Card Preview */}
-          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-3xl border border-[#d6e5d8] space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#175432] uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Public Card Preview</span>
-              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+              <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
                 formData.group_type === 'board'
                   ? 'bg-purple-100 text-purple-800'
                   : formData.group_type === 'management'
@@ -385,7 +385,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
               </span>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs text-center space-y-3">
+            <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs text-center space-y-3">
               <img
                 src={formData.photo_url || '/people/placeholder.jpg'}
                 alt={formData.name || 'Avatar'}
@@ -398,13 +398,13 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                 <h4 className="text-sm font-black text-[#0f1d14]">
                   {formData.name || 'Full Name'}
                 </h4>
-                <p className="text-xs text-[#175432] font-semibold mt-0.5">
+                <p className="text-sm text-[#175432] font-semibold mt-0.5">
                   {formData.position || 'Position / Designation'}
                 </p>
               </div>
 
               {formData.bio && (
-                <p className="text-[11px] text-[#5c6f62] line-clamp-3 leading-relaxed text-left border-t border-[#e2ebe4] pt-2">
+                <p className="text-xs text-[#5c6f62] line-clamp-3 leading-relaxed text-left border-t border-[#e2ebe4] pt-2">
                   {formData.bio}
                 </p>
               )}
@@ -420,7 +420,7 @@ export default function PersonForm({ initialData }: PersonFormProps) {
                     <LinkedinIcon size={14} />
                   </span>
                 )}
-                <span className="text-[10px] text-[#5c6f62] flex items-center gap-1">
+                <span className="text-[11px] text-[#5c6f62] flex items-center gap-1">
                   {formData.is_visible ? <Eye size={12} className="text-emerald-600" /> : <EyeOff size={12} className="text-gray-400" />}
                   {formData.is_visible ? 'Public' : 'Hidden'}
                 </span>

@@ -62,3 +62,32 @@ export const opportunitySchema = z.object({
 })
 
 export type OpportunityFormData = z.infer<typeof opportunitySchema>
+
+// Staff Account Schemas (super admin only)
+export const staffAccountSchema = z.object({
+  full_name: z.string().min(2, 'Full name is required').max(120),
+  email: z.string().email('Please enter a valid email address').max(150),
+  role: z.enum(['super_admin', 'admin', 'editor', 'contributor', 'viewer']),
+  password: z
+    .string()
+    .min(10, 'Initial password must be at least 10 characters')
+    .max(72, 'Password must be at most 72 characters')
+    .optional()
+    .or(z.literal('')),
+})
+
+export type StaffAccountData = z.infer<typeof staffAccountSchema>
+
+export const staffUpdateSchema = z.object({
+  userId: z.string().uuid('Valid staff account required'),
+  role: z.enum(['super_admin', 'admin', 'editor', 'contributor', 'viewer']).optional(),
+  is_active: z.boolean().optional(),
+})
+
+export type StaffUpdateData = z.infer<typeof staffUpdateSchema>
+
+export const staffResetPasswordSchema = z.object({
+  userId: z.string().uuid('Valid staff account required'),
+})
+
+export type StaffResetPasswordData = z.infer<typeof staffResetPasswordSchema>

@@ -134,7 +134,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
         <div>
           <Link
             href="/admin/pages"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Back to All Pages</span>
@@ -142,7 +142,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
           <h1 className="text-2xl sm:text-3xl font-black text-[#0f1d14] tracking-tight">
             Home Page Content Editor
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Modify hero banners, impact statistics, about snippet, strategic objectives, and section titles.
           </p>
         </div>
@@ -152,7 +152,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
+            className="px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
           >
             <span>Preview Live</span>
             <ExternalLink size={14} />
@@ -161,7 +161,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-6 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-6 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             <span>{isSaving ? 'Publishing...' : 'Save & Publish'}</span>
@@ -171,15 +171,15 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
 
       {/* Floating Sticky Alert if Unsaved */}
       {hasUnsavedChanges && (
-        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
-          <div className="flex items-center gap-2 text-xs font-bold">
+        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-lg shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-sm font-bold">
             <AlertCircle size={16} className="text-amber-600 shrink-0" />
             <span>You have unsaved changes on the Home Page. Click &quot;Save &amp; Publish&quot; to apply them.</span>
           </div>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shrink-0"
+            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold transition-colors shrink-0"
           >
             Save Now
           </button>
@@ -189,7 +189,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       {/* Status Notifications */}
       {message && (
         <div
-          className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2.5 ${
+          className={`p-4 rounded-lg text-sm font-semibold flex items-center gap-2.5 ${
             message.type === 'success'
               ? 'bg-[#f0f6f1] text-[#175432] border border-[#2da44e]/30'
               : 'bg-red-50 text-red-700 border border-red-200'
@@ -220,7 +220,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-md text-sm font-bold transition-all shrink-0 cursor-pointer ${
                 isActive
                   ? 'bg-[#175432] text-white shadow-sm'
                   : 'bg-white text-[#5c6f62] hover:text-[#0f1d14] border border-[#e2ebe4] hover:border-[#175432]/30'
@@ -238,16 +238,16 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'hero' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs flex items-center justify-between">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Hero Photo Carousel Slides</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 Upload photos directly from your device or specify URLs. These appear as the high-impact banner at the top of the home page.
               </p>
             </div>
             <button
               onClick={handleAddSlide}
-              className="px-4 py-2 rounded-xl bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-xs font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
+              className="px-4 py-2 rounded-md bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-sm font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
             >
               <Plus size={14} />
               <span>Add Slide</span>
@@ -258,14 +258,14 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
             {content.hero_slides.map((slide, idx) => (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6 relative group"
+                className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6 relative group"
               >
                 <div className="flex items-center justify-between border-b border-[#e2ebe4] pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-[#175432] text-white text-xs font-bold flex items-center justify-center">
+                    <span className="w-6 h-6 rounded-full bg-[#175432] text-white text-sm font-bold flex items-center justify-center">
                       {idx + 1}
                     </span>
-                    <span className="text-xs font-bold text-[#0f1d14]">
+                    <span className="text-sm font-bold text-[#0f1d14]">
                       Slide #{idx + 1}
                     </span>
                   </div>
@@ -319,7 +319,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                   {/* Metadata fields (7 cols) */}
                   <div className="lg:col-span-7 space-y-4">
                     <div>
-                      <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                      <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                         Slide Caption / Title
                       </label>
                       <input
@@ -334,15 +334,15 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                           })
                         }}
                         placeholder="e.g. FoSTA Health Stakeholders Policy Dialogue"
-                        className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                        className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                       />
-                      <span className="text-[11px] text-[#5c6f62] mt-1 block">
+                      <span className="text-xs text-[#5c6f62] mt-1 block">
                         Displayed in the bottom overlay badge on the slide.
                       </span>
                     </div>
 
                     <div>
-                      <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                      <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                         Accessibility Alt Text
                       </label>
                       <input
@@ -357,7 +357,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                           })
                         }}
                         placeholder="e.g. ACF convening stakeholders in Lusaka"
-                        className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                        className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                       />
                     </div>
                   </div>
@@ -373,16 +373,16 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'stats' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs flex items-center justify-between">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex items-center justify-between">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Key Impact Statistics Strip</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 These numbers display in the floating stats card directly underneath the hero carousel.
               </p>
             </div>
             <button
               onClick={handleAddStat}
-              className="px-4 py-2 rounded-xl bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-xs font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
+              className="px-4 py-2 rounded-md bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-sm font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
             >
               <Plus size={14} />
               <span>Add Stat</span>
@@ -393,10 +393,10 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
             {content.stats.map((stat, idx) => (
               <div
                 key={idx}
-                className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3 relative group"
+                className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs space-y-3 relative group"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#5c6f62]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#5c6f62]">
                     Statistic #{idx + 1}
                   </span>
                   <button
@@ -410,7 +410,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
 
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">
+                    <label className="block text-xs font-bold text-[#0f1d14] mb-1">
                       Display Metric (Value)
                     </label>
                     <input
@@ -425,12 +425,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         })
                       }}
                       placeholder="e.g. 120+, 50,000+, 95%"
-                      className="w-full px-3 py-2 rounded-xl border border-[#e2ebe4] text-base font-extrabold text-[#175432] focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                      className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] text-base font-extrabold text-[#175432] focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">
+                    <label className="block text-xs font-bold text-[#0f1d14] mb-1">
                       Description Label
                     </label>
                     <input
@@ -445,7 +445,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         })
                       }}
                       placeholder="e.g. Policy Dialogues Held"
-                      className="w-full px-3 py-2 rounded-xl border border-[#e2ebe4] text-xs font-semibold text-[#3b4d41] focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                      className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] text-sm font-semibold text-[#3b4d41] focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                     />
                   </div>
                 </div>
@@ -460,17 +460,17 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'about' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">&quot;About The Forum&quot; Showcase Section</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 Main introduction snippet on the home page highlighting ACF&apos;s credibility and mandate.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Section Pill Badge
                 </label>
                 <input
@@ -483,12 +483,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       about_snippet: { ...prev.about_snippet, badge: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Main Headline
                 </label>
                 <input
@@ -501,13 +501,13 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       about_snippet: { ...prev.about_snippet, title: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Introductory Narrative Paragraph
               </label>
               <textarea
@@ -520,19 +520,19 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     about_snippet: { ...prev.about_snippet, description: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
               />
             </div>
 
             {/* 2 Feature Cards */}
             <div className="border-t border-[#e2ebe4] pt-6 space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#0f1d14]">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-[#0f1d14]">
                 Feature Highlight Cards (Side-by-side)
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#175432]">Feature 1</span>
+                <div className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">Feature 1</span>
                   <input
                     type="text"
                     value={content.about_snippet.feature_1.title}
@@ -547,7 +547,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Title"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                   <textarea
                     rows={2}
@@ -563,12 +563,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Description"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                   />
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#175432]">Feature 2</span>
+                <div className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">Feature 2</span>
                   <input
                     type="text"
                     value={content.about_snippet.feature_2.title}
@@ -583,7 +583,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Title"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                   <textarea
                     rows={2}
@@ -599,7 +599,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Description"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                   />
                 </div>
               </div>
@@ -607,13 +607,13 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
 
             {/* Action Buttons */}
             <div className="border-t border-[#e2ebe4] pt-6 space-y-4">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#0f1d14]">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-[#0f1d14]">
                 Call to Action Buttons
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="block text-[11px] font-bold text-[#0f1d14]">
+                  <label className="block text-xs font-bold text-[#0f1d14]">
                     Primary Button Label &amp; URL
                   </label>
                   <input
@@ -627,7 +627,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Button Text"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                   <input
                     type="text"
@@ -640,12 +640,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Destination URL (e.g. /about)"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-[11px] font-bold text-[#0f1d14]">
+                  <label className="block text-xs font-bold text-[#0f1d14]">
                     Secondary Button Label &amp; URL
                   </label>
                   <input
@@ -659,7 +659,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Button Text"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                   <input
                     type="text"
@@ -672,7 +672,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       }))
                     }}
                     placeholder="Destination URL (e.g. /about/management)"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                   />
                 </div>
               </div>
@@ -686,16 +686,16 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'objectives' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Strategic Objectives (Dark Green Showcase Card)</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 This appears as the prominent green card alongside the About Forum snippet on the home page.
               </p>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Card Title
               </label>
               <input
@@ -708,19 +708,19 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     strategic_objectives: { ...prev.strategic_objectives, title: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold focus:outline-none focus:border-[#175432] bg-[#fdfdfd]"
               />
             </div>
 
             <div className="space-y-4 pt-2">
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider">
                 Objectives (1 to 4)
               </label>
 
               {content.strategic_objectives.objectives.map((obj, idx) => (
-                <div key={idx} className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+                <div key={idx} className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#175432] text-white text-[11px] font-bold flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-full bg-[#175432] text-white text-xs font-bold flex items-center justify-center">
                       {idx + 1}
                     </span>
                     <input
@@ -738,7 +738,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         })
                       }}
                       placeholder="Objective Title"
-                      className="flex-1 px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                      className="flex-1 px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                     />
                   </div>
                   <textarea
@@ -756,7 +756,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       })
                     }}
                     placeholder="Detailed explanation"
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                   />
                 </div>
               ))}
@@ -770,22 +770,22 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'sections' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Website Section Headings &amp; Subtitles</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 Customize titles and subtitles for dynamic data sections like Programmes, News, Events, and Publications.
               </p>
             </div>
 
             {/* Thematic Programmes */}
-            <div className="p-5 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">
+            <div className="p-5 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
+              <span className="text-sm font-bold uppercase tracking-wider text-[#175432]">
                 1. Thematic Programmes Section
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Badge</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">Badge</label>
                   <input
                     type="text"
                     value={content.programmes_section.badge}
@@ -796,11 +796,11 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         programmes_section: { ...prev.programmes_section, badge: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Headline</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">Headline</label>
                   <input
                     type="text"
                     value={content.programmes_section.title}
@@ -811,12 +811,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         programmes_section: { ...prev.programmes_section, title: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Subtitle / Description</label>
+                <label className="block text-xs font-bold text-[#0f1d14] mb-1">Subtitle / Description</label>
                 <input
                   type="text"
                   value={content.programmes_section.description}
@@ -827,19 +827,19 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       programmes_section: { ...prev.programmes_section, description: val },
                     }))
                   }}
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                 />
               </div>
             </div>
 
             {/* News & Events */}
-            <div className="p-5 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">
+            <div className="p-5 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
+              <span className="text-sm font-bold uppercase tracking-wider text-[#175432]">
                 2. News &amp; Events Section Headers
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">News Headline</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">News Headline</label>
                   <input
                     type="text"
                     value={content.news_events_section.news_title}
@@ -850,11 +850,11 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         news_events_section: { ...prev.news_events_section, news_title: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Events Headline</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">Events Headline</label>
                   <input
                     type="text"
                     value={content.news_events_section.events_title}
@@ -865,20 +865,20 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         news_events_section: { ...prev.news_events_section, events_title: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                 </div>
               </div>
             </div>
 
             {/* Publications Knowledge Hub */}
-            <div className="p-5 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">
+            <div className="p-5 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-4">
+              <span className="text-sm font-bold uppercase tracking-wider text-[#175432]">
                 3. Publications Knowledge Hub
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Badge</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">Badge</label>
                   <input
                     type="text"
                     value={content.publications_section.badge}
@@ -889,11 +889,11 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         publications_section: { ...prev.publications_section, badge: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Headline</label>
+                  <label className="block text-xs font-bold text-[#0f1d14] mb-1">Headline</label>
                   <input
                     type="text"
                     value={content.publications_section.title}
@@ -904,12 +904,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                         publications_section: { ...prev.publications_section, title: val },
                       }))
                     }}
-                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                    className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-[11px] font-bold text-[#0f1d14] mb-1">Subtitle</label>
+                <label className="block text-xs font-bold text-[#0f1d14] mb-1">Subtitle</label>
                 <input
                   type="text"
                   value={content.publications_section.description}
@@ -920,14 +920,14 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       publications_section: { ...prev.publications_section, description: val },
                     }))
                   }}
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                 />
               </div>
             </div>
 
             {/* Partners */}
-            <div className="p-5 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#175432]">
+            <div className="p-5 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+              <span className="text-sm font-bold uppercase tracking-wider text-[#175432]">
                 4. Collaborating Partners Marquee Title
               </span>
               <input
@@ -940,7 +940,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     partners_section: { ...prev.partners_section, title: val },
                   }))
                 }}
-                className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-white"
               />
             </div>
           </div>
@@ -952,17 +952,17 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'cta' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Membership &amp; Stakeholder Call-to-Action Banner</h2>
-              <p className="text-xs text-[#5c6f62] mt-0.5">
+              <p className="text-sm text-[#5c6f62] mt-0.5">
                 The full-width dark green call-to-action banner near the bottom of the home page.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Badge
                 </label>
                 <input
@@ -975,12 +975,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       membership_cta: { ...prev.membership_cta, badge: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                   Main Headline
                 </label>
                 <input
@@ -993,13 +993,13 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                       membership_cta: { ...prev.membership_cta, title: val },
                     }))
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+                  className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
                 Paragraph Description
               </label>
               <textarea
@@ -1012,13 +1012,13 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     membership_cta: { ...prev.membership_cta, description: val },
                   }))
                 }}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div className="space-y-2">
-                <label className="block text-[11px] font-bold text-[#0f1d14]">
+                <label className="block text-xs font-bold text-[#0f1d14]">
                   Primary Button (Apply for Membership)
                 </label>
                 <input
@@ -1032,7 +1032,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     }))
                   }}
                   placeholder="Button Label"
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
                 <input
                   type="text"
@@ -1045,12 +1045,12 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     }))
                   }}
                   placeholder="Button Link (/membership/apply)"
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-[11px] font-bold text-[#0f1d14]">
+                <label className="block text-xs font-bold text-[#0f1d14]">
                   Secondary Button (Categories &amp; Benefits)
                 </label>
                 <input
@@ -1064,7 +1064,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     }))
                   }}
                   placeholder="Button Label"
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
                 <input
                   type="text"
@@ -1077,7 +1077,7 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
                     }))
                   }}
                   placeholder="Button Link (/membership)"
-                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
                 />
               </div>
             </div>

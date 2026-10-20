@@ -94,9 +94,9 @@ export default function AdminPagesDashboard() {
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12">
       {/* Page Title & Context Banner */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f0f6f1] text-[#175432] text-xs font-bold border border-[#e2ebe4]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f0f6f1] text-[#175432] text-sm font-bold border border-[#e2ebe4]">
             <Sparkles size={14} />
             <span>Structured Section CMS</span>
           </div>
@@ -113,7 +113,7 @@ export default function AdminPagesDashboard() {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/admin/settings"
-            className="px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
+            className="px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
           >
             <Settings size={14} className="text-[#5c6f62]" />
             <span>Global Site Settings</span>
@@ -122,7 +122,7 @@ export default function AdminPagesDashboard() {
             href="/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-colors flex items-center gap-2 shadow-md shadow-[#175432]/10"
+            className="px-4 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-colors flex items-center gap-2 shadow-md shadow-[#175432]/10"
           >
             <span>View Live Site</span>
             <ExternalLink size={14} />
@@ -137,16 +137,16 @@ export default function AdminPagesDashboard() {
           return (
             <div
               key={page.slug}
-              className="bg-white rounded-3xl border border-[#e2ebe4] p-6 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#175432]/40 transition-all flex flex-col justify-between group relative overflow-hidden"
+              className="bg-white rounded-lg border border-[#e2ebe4] p-6 sm:p-8 shadow-xs hover:shadow-xl hover:border-[#175432]/40 transition-all flex flex-col justify-between group relative overflow-hidden"
             >
               <div className="space-y-5">
                 {/* Header: Icon + Badge + Live Preview link */}
                 <div className="flex items-center justify-between">
-                  <div className={`w-14 h-14 rounded-2xl ${page.bg} flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs`}>
+                  <div className={`w-14 h-14 rounded-lg ${page.bg} flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs`}>
                     <Icon size={28} className={page.color} />
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#f6f9f6] text-[#5c6f62] border border-[#e2ebe4]">
+                    <span className="text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full bg-[#f6f9f6] text-[#5c6f62] border border-[#e2ebe4]">
                       {page.badge}
                     </span>
                     <a
@@ -166,19 +166,19 @@ export default function AdminPagesDashboard() {
                   <h2 className="text-xl font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors flex items-center gap-2">
                     {page.title}
                   </h2>
-                  <p className="text-xs font-semibold text-[#5c6f62] mt-0.5">
+                  <p className="text-sm font-semibold text-[#5c6f62] mt-0.5">
                     {page.subtitle}
                   </p>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs sm:text-sm text-[#3b4d41] leading-relaxed">
+                <p className="text-sm sm:text-sm text-[#3b4d41] leading-relaxed">
                   {page.description}
                 </p>
 
                 {/* Managed Sections Pills */}
                 <div className="pt-2">
-                  <div className="text-[10px] font-black uppercase tracking-wider text-[#5c6f62] mb-2 flex items-center gap-1.5">
+                  <div className="text-[11px] font-black uppercase tracking-wider text-[#5c6f62] mb-2 flex items-center gap-1.5">
                     <Layers size={12} />
                     <span>Editable Content Sections ({page.sections.length})</span>
                   </div>
@@ -186,7 +186,7 @@ export default function AdminPagesDashboard() {
                     {page.sections.map((sec) => (
                       <span
                         key={sec}
-                        className="text-[11px] font-semibold px-2.5 py-1 rounded-md bg-[#f6f9f6] text-[#3b4d41] border border-[#e2ebe4] flex items-center gap-1"
+                        className="text-xs font-semibold px-2.5 py-1 rounded-md bg-[#f6f9f6] text-[#3b4d41] border border-[#e2ebe4] flex items-center gap-1"
                       >
                         <CheckCircle2 size={10} className="text-[#175432]" />
                         {sec}
@@ -198,13 +198,13 @@ export default function AdminPagesDashboard() {
 
               {/* Action Buttons */}
               <div className="pt-6 mt-6 border-t border-[#e2ebe4] flex items-center justify-between">
-                <span className="text-xs font-semibold text-[#5c6f62] group-hover:text-[#175432] transition-colors">
-                  Path: <code className="bg-[#f0f6f1] px-1.5 py-0.5 rounded text-[11px] text-[#175432] font-mono">{page.publicUrl}</code>
+                <span className="text-sm font-semibold text-[#5c6f62] group-hover:text-[#175432] transition-colors">
+                  Path: <code className="bg-[#f0f6f1] px-1.5 py-0.5 rounded text-xs text-[#175432] font-mono">{page.publicUrl}</code>
                 </span>
 
                 <Link
                   href={`/admin/pages/${page.slug}`}
-                  className="px-5 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-all shadow-md shadow-[#175432]/10 flex items-center gap-1.5 group-hover:translate-x-0.5"
+                  className="px-5 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-all shadow-md shadow-[#175432]/10 flex items-center gap-1.5 group-hover:translate-x-0.5"
                 >
                   <span>Edit Sections</span>
                   <ChevronRight size={14} />
@@ -216,15 +216,15 @@ export default function AdminPagesDashboard() {
       </div>
 
       {/* CSS Protection & Architecture Best Practice Notice */}
-      <div className="bg-[#f0f6f1] rounded-3xl p-6 border border-[#175432]/20 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="w-12 h-12 rounded-2xl bg-[#175432] text-white flex items-center justify-center shrink-0 shadow-sm">
+      <div className="bg-[#f0f6f1] rounded-lg p-6 border border-[#175432]/20 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <div className="w-12 h-12 rounded-lg bg-[#175432] text-white flex items-center justify-center shrink-0 shadow-sm">
           <Sliders size={24} />
         </div>
         <div className="space-y-1">
           <h4 className="text-sm font-bold text-[#0f1d14]">
             Layout & CSS Integrity Protection Active
           </h4>
-          <p className="text-xs text-[#3b4d41] leading-relaxed">
+          <p className="text-sm text-[#3b4d41] leading-relaxed">
             Content updates edited here are decoupled from CSS layout classes and responsive breakpoints. Your updates preserve all typography hierarchies, green brand palettes, button animations, and mobile responsiveness automatically.
           </p>
         </div>

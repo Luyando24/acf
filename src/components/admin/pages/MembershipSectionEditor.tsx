@@ -67,7 +67,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
         <div>
           <Link
             href="/admin/pages"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-[#5c6f62] hover:text-[#175432] mb-2 transition-colors"
           >
             <ArrowLeft size={14} />
             <span>Back to All Pages</span>
@@ -75,7 +75,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
           <h1 className="text-2xl sm:text-3xl font-black text-[#0f1d14] tracking-tight">
             Membership &amp; Partnerships Content Editor
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Modify membership benefits, stakeholder value proposition, and onboarding directives.
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
             href="/membership"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
+            className="px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold text-[#0f1d14] hover:bg-[#f6f9f6] transition-colors flex items-center gap-2 shadow-2xs"
           >
             <span>Preview Live</span>
             <ExternalLink size={14} />
@@ -94,7 +94,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-6 py-2.5 rounded-xl bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-6 py-2.5 rounded-md bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold transition-all shadow-md shadow-[#175432]/15 flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isSaving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             <span>{isSaving ? 'Publishing...' : 'Save & Publish'}</span>
@@ -104,15 +104,15 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
 
       {/* Floating Sticky Alert if Unsaved */}
       {hasUnsavedChanges && (
-        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-2xl shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
-          <div className="flex items-center gap-2 text-xs font-bold">
+        <div className="sticky top-4 z-30 bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-lg shadow-lg flex items-center justify-between gap-4 animate-in fade-in slide-in-from-top-2">
+          <div className="flex items-center gap-2 text-sm font-bold">
             <AlertCircle size={16} className="text-amber-600 shrink-0" />
             <span>You have unsaved changes on the Membership Page. Click &quot;Save &amp; Publish&quot; to apply them.</span>
           </div>
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors shrink-0"
+            className="px-4 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold transition-colors shrink-0"
           >
             Save Now
           </button>
@@ -122,7 +122,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
       {/* Status Notifications */}
       {message && (
         <div
-          className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2.5 ${
+          className={`p-4 rounded-lg text-sm font-semibold flex items-center gap-2.5 ${
             message.type === 'success'
               ? 'bg-[#f0f6f1] text-[#175432] border border-[#2da44e]/30'
               : 'bg-red-50 text-red-700 border border-red-200'
@@ -138,7 +138,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
       )}
 
       {/* Header Banner */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
             <Layers size={18} />
@@ -148,7 +148,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Badge
             </label>
             <input
@@ -161,12 +161,12 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   header: { ...prev.header, badge: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Page Title (H1)
             </label>
             <input
@@ -179,13 +179,13 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   header: { ...prev.header, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+          <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
             Subtitle Description
           </label>
           <textarea
@@ -198,13 +198,13 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                 header: { ...prev.header, description: val },
               }))
             }}
-            className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+            className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
           />
         </div>
       </div>
 
       {/* Why Join & Benefits */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center">
             <ShieldCheck size={18} />
@@ -214,7 +214,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
 
         <div className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Section Title
             </label>
             <input
@@ -227,12 +227,12 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   why_join: { ...prev.why_join, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Narrative Description
             </label>
             <textarea
@@ -245,17 +245,17 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   why_join: { ...prev.why_join, description: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs leading-relaxed bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
             />
           </div>
 
           <div className="space-y-4 pt-2">
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider">
               Membership Benefits
             </label>
 
             {content.why_join.benefits.map((benefit, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-2">
+              <div key={idx} className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-2">
                 <input
                   type="text"
                   value={benefit.title}
@@ -271,7 +271,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                     })
                   }}
                   placeholder="Benefit Title"
-                  className="w-full px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-xs font-bold bg-white"
+                  className="w-full px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                 />
                 <textarea
                   rows={2}
@@ -288,7 +288,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                     })
                   }}
                   placeholder="Benefit Description"
-                  className="w-full px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-xs bg-white"
+                  className="w-full px-3 py-1.5 rounded-lg border border-[#e2ebe4] text-sm bg-white"
                 />
               </div>
             ))}
@@ -297,17 +297,17 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
       </div>
 
       {/* CTA Box */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-6">
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
         <div>
           <h2 className="text-base font-bold text-[#0f1d14]">3. Call to Action &amp; Enquiries</h2>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Instructions encouraging visitors to apply or contact the membership desk.
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               CTA Title
             </label>
             <input
@@ -320,12 +320,12 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   cta: { ...prev.cta, title: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-bold bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+            <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
               Contact Desk Email
             </label>
             <input
@@ -338,13 +338,13 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                   cta: { ...prev.cta, contact_email: val },
                 }))
               }}
-              className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+              className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+          <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
             CTA Description
           </label>
           <textarea
@@ -357,7 +357,7 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
                 cta: { ...prev.cta, description: val },
               }))
             }}
-            className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs bg-[#fdfdfd]"
+            className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
           />
         </div>
       </div>

@@ -114,10 +114,10 @@ export default function FileUpload({
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-bold text-[#0f1d14]">
+        <label className="text-sm font-bold text-[#0f1d14]">
           {label} {required && <span className="text-rose-600">*</span>}
         </label>
-        <div className="flex items-center gap-1 text-[10px] bg-[#f6f9f6] p-0.5 rounded-lg border border-[#e2ebe4]">
+        <div className="flex items-center gap-1 text-[11px] bg-[#f6f9f6] p-0.5 rounded-lg border border-[#e2ebe4]">
           <button
             type="button"
             onClick={() => setActiveTab('upload')}
@@ -153,7 +153,7 @@ export default function FileUpload({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={isDoc ? '/publications/report-2026.pdf' : '/photos/cover.jpg'}
-            className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+            className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
               error || uploadError
                 ? 'border-rose-400 bg-rose-50/30'
                 : 'border-[#e2ebe4] bg-white'
@@ -165,14 +165,14 @@ export default function FileUpload({
         <div className="space-y-2">
           {/* If file is already selected/uploaded */}
           {value ? (
-            <div className="p-3.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] flex items-center justify-between gap-3 animate-in fade-in duration-150">
+            <div className="p-3.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] flex items-center justify-between gap-3 animate-in fade-in duration-150">
               <div className="flex items-center gap-3 min-w-0">
                 {isDoc ? (
-                  <div className="w-10 h-10 rounded-xl bg-red-100 text-red-700 flex items-center justify-center shrink-0 border border-red-200">
+                  <div className="w-10 h-10 rounded-md bg-red-100 text-red-700 flex items-center justify-center shrink-0 border border-red-200">
                     <FileText size={18} />
                   </div>
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-white border border-[#e2ebe4] overflow-hidden shrink-0 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-md bg-white border border-[#e2ebe4] overflow-hidden shrink-0 flex items-center justify-center">
                     <img
                       src={value}
                       alt="Uploaded preview"
@@ -185,10 +185,10 @@ export default function FileUpload({
                 )}
 
                 <div className="min-w-0">
-                  <div className="text-xs font-bold text-[#0f1d14] truncate">
+                  <div className="text-sm font-bold text-[#0f1d14] truncate">
                     {value.split('/').pop() || 'Selected file'}
                   </div>
-                  <div className="text-[10px] text-[#5c6f62] truncate flex items-center gap-1.5 mt-0.5">
+                  <div className="text-[11px] text-[#5c6f62] truncate flex items-center gap-1.5 mt-0.5">
                     <span className="font-mono text-[#175432]">{value}</span>
                   </div>
                 </div>
@@ -198,14 +198,14 @@ export default function FileUpload({
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-2.5 py-1.5 bg-white hover:bg-gray-50 border border-[#e2ebe4] rounded-xl text-[10px] font-bold text-[#175432] transition-colors cursor-pointer"
+                  className="px-2.5 py-1.5 bg-white hover:bg-gray-50 border border-[#e2ebe4] rounded-md text-[11px] font-bold text-[#175432] transition-colors cursor-pointer"
                 >
                   Replace
                 </button>
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
+                  className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-md transition-colors cursor-pointer"
                   title="Remove file"
                 >
                   <Trash2 size={14} />
@@ -219,7 +219,7 @@ export default function FileUpload({
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onClick={() => fileInputRef.current?.click()}
-              className={`p-6 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
+              className={`p-6 border-2 border-dashed rounded-lg flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
                 isDragging
                   ? 'border-[#175432] bg-[#f0f6f1]'
                   : error || uploadError
@@ -230,17 +230,17 @@ export default function FileUpload({
               {isUploading ? (
                 <div className="py-2 flex flex-col items-center gap-2">
                   <Loader2 size={24} className="animate-spin text-[#175432]" />
-                  <span className="text-xs font-bold text-[#175432]">Uploading from device...</span>
+                  <span className="text-sm font-bold text-[#175432]">Uploading from device...</span>
                 </div>
               ) : (
                 <>
                   <div className="w-10 h-10 rounded-full bg-[#f0f6f1] text-[#175432] flex items-center justify-center mb-2">
                     {isDoc ? <FileText size={20} /> : <UploadCloud size={20} />}
                   </div>
-                  <div className="text-xs font-bold text-[#0f1d14]">
+                  <div className="text-sm font-bold text-[#0f1d14]">
                     Click to browse or drag & drop file from device
                   </div>
-                  <div className="text-[10px] text-[#5c6f62] mt-0.5">
+                  <div className="text-[11px] text-[#5c6f62] mt-0.5">
                     {description || (isDoc ? `PDF, DOC, DOCX up to ${maxSizeMb}MB` : `PNG, JPG, WebP, or GIF up to ${maxSizeMb}MB`)}
                   </div>
                 </>
@@ -260,7 +260,7 @@ export default function FileUpload({
 
       {/* Upload Error Alert */}
       {uploadError && (
-        <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+        <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
           <AlertCircle size={13} className="shrink-0" />
           <span>{uploadError}</span>
         </p>
@@ -268,7 +268,7 @@ export default function FileUpload({
 
       {/* Prop Validation Error */}
       {error && !uploadError && (
-        <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+        <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
           <AlertCircle size={13} className="shrink-0" />
           <span>{error}</span>
         </p>

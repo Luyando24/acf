@@ -148,17 +148,17 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-16">
       {/* Top Breadcrumb & Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div className="flex items-center gap-3">
           <Link
             href="/admin/programmes"
-            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="p-2 text-[#5c6f62] hover:text-[#0f1d14] hover:bg-[#f6f9f6] rounded-md transition-colors"
             title="Back to Programmes"
           >
             <ArrowLeft size={18} />
           </Link>
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-[#5c6f62]">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[#5c6f62]">
               <Link href="/admin/programmes" className="hover:underline">
                 Programmes
               </Link>
@@ -174,14 +174,14 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
         <div className="flex items-center gap-2.5">
           <Link
             href="/admin/programmes"
-            className="px-4 py-2 border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-xl transition-colors"
+            className="px-4 py-2 border border-[#e2ebe4] text-sm font-bold text-[#5c6f62] hover:bg-[#f6f9f6] rounded-md transition-colors"
           >
             Cancel
           </Link>
           <button
             onClick={handleSubmit}
             disabled={isSaving}
-            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             <Save size={15} />
             <span>{isSaving ? 'Saving...' : isEdit ? 'Save Changes' : 'Publish Pillar'}</span>
@@ -191,7 +191,7 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
 
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -206,33 +206,33 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <Layers size={16} className="text-[#175432]" />
               Strategic Pillar Core Details
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Programme Title *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Programme Title *</label>
               <input
                 type="text"
                 required
                 value={formData.title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g. Climate Resilience & Sustainable Farming Systems"
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                   errors.title ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.title && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.title}
                 </p>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">URL Slug *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">URL Slug *</label>
               <input
                 type="text"
                 required
@@ -242,19 +242,19 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
                   if (errors.slug) setErrors((prev) => ({ ...prev, slug: '' }))
                 }}
                 placeholder="e.g. climate-resilience"
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm font-mono bg-[#f6f9f6] focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
                   errors.slug ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.slug && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.slug}
                 </p>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Strategic Focus Summary *</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Strategic Focus Summary *</label>
               <textarea
                 rows={3}
                 required
@@ -264,12 +264,12 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
                   if (errors.summary) setErrors((prev) => ({ ...prev, summary: '' }))
                 }}
                 placeholder="Concise overview of strategic focus and policy interventions..."
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none leading-relaxed transition-all ${
                   errors.summary ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.summary && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.summary}
                 </p>
               )}
@@ -294,18 +294,18 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
           </div>
 
           {/* Media & Icon Selection with Device Upload */}
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
               <Sparkles size={16} className="text-[#175432]" />
               Visuals & Branding
             </h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Icon Representation</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Icon Representation</label>
               <select
                 value={formData.icon}
                 onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-medium"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-medium"
               >
                 {ICON_OPTIONS.map((opt) => (
                   <option key={opt.name} value={opt.name}>
@@ -331,15 +331,15 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
 
         {/* Right Column (1 col): Metadata & Preview */}
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs space-y-5">
+          <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider">Publishing Controls</h2>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Status</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Status</label>
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
-                className="w-full px-4 py-2.5 rounded-xl border border-[#e2ebe4] text-xs font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-semibold focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white"
               >
                 <option value="published">Published (Visible in Our Work)</option>
                 <option value="draft">Draft (Internal review)</option>
@@ -348,7 +348,7 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[#0f1d14]">Display Order Position</label>
+              <label className="text-sm font-bold text-[#0f1d14]">Display Order Position</label>
               <input
                 type="number"
                 min="1"
@@ -357,44 +357,44 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
                   setFormData({ ...formData, order_index: Number(e.target.value) })
                   if (errors.order_index) setErrors((prev) => ({ ...prev, order_index: '' }))
                 }}
-                className={`w-full px-4 py-2.5 rounded-xl border text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-mono ${
+                className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-mono ${
                   errors.order_index ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
                 }`}
               />
               {errors.order_index && (
-                <p className="text-[11px] text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
                   <AlertCircle size={12} /> {errors.order_index}
                 </p>
               )}
-              <p className="text-[11px] text-[#5c6f62]">Pillars are ordered numerically on public portal pages.</p>
+              <p className="text-xs text-[#5c6f62]">Pillars are ordered numerically on public portal pages.</p>
             </div>
           </div>
 
           {/* Live Card Preview */}
-          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-3xl border border-[#d6e5d8] space-y-3">
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#175432] uppercase tracking-wider">
+          <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-3">
+            <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Card Preview</span>
-              <span className="px-2 py-0.5 bg-white rounded-md text-[10px] font-bold">#{formData.order_index}</span>
+              <span className="px-2 py-0.5 bg-white rounded-md text-[11px] font-bold">#{formData.order_index}</span>
             </div>
 
-            <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs space-y-3">
+            <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs space-y-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#eaf4ec] text-[#175432] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-md bg-[#eaf4ec] text-[#175432] flex items-center justify-center">
                   <SelectedIcon size={20} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#175432]">ACF Thematic Area</span>
-                  <h4 className="text-xs font-bold text-[#0f1d14] truncate">
+                  <span className="text-[11px] uppercase font-bold tracking-wider text-[#175432]">ACF Thematic Area</span>
+                  <h4 className="text-sm font-bold text-[#0f1d14] truncate">
                     {formData.title || 'Untitled Programme Area'}
                   </h4>
                 </div>
               </div>
 
-              <p className="text-[11px] text-[#5c6f62] line-clamp-3 leading-relaxed">
+              <p className="text-xs text-[#5c6f62] line-clamp-3 leading-relaxed">
                 {formData.summary || 'Strategic summary of interventions will display here on public overview cards.'}
               </p>
 
-              <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[10px] text-[#5c6f62]">
+              <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[11px] text-[#5c6f62]">
                 <span className="font-mono">/our-work/{formData.slug || 'slug'}</span>
                 <span className="capitalize font-semibold text-[#175432]">{formData.status}</span>
               </div>

@@ -134,7 +134,7 @@
 - [ ] Admin functionality and role-permission tests
 - [ ] Accessibility audit (axe + keyboard + screen reader spot-check)
 - [ ] Performance pass (Lighthouse mobile ≥ 90; image and font optimisation)
-- [ ] Security review (headers, CSP, RLS tests, upload handling, dependency audit)
+- [x] Security review (headers, CSP, RLS tests, upload handling, dependency audit)
 - [ ] Content presentation review with ACF
 - [ ] Fix issues and apply agreed revisions
 

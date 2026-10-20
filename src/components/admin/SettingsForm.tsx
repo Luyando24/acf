@@ -47,30 +47,30 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       {status === 'saved' && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-[#175432] text-xs font-semibold flex items-center gap-2">
+        <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-[#175432] text-sm font-semibold flex items-center gap-2">
           <CheckCircle2 size={16} />
           <span>{message}</span>
         </div>
       )}
 
       {status === 'error' && (
-        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2">
+        <div className="p-4 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-sm font-semibold flex items-center gap-2">
           <AlertCircle size={16} />
           <span>{message}</span>
         </div>
       )}
 
       {/* Brand Identity & Logo */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] p-6 sm:p-10 shadow-xs space-y-6">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] p-6 sm:p-10 shadow-xs space-y-6">
         <h2 className="text-lg font-bold text-[#0f1d14] border-b border-[#e2ebe4] pb-3">
           Brand Identity & Logo Configuration
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div className="space-y-1.5 sm:col-span-2">
             <label className="font-bold text-[#0f1d14]">Website Logo Path or URL</label>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-              <div className="p-2.5 bg-[#f6f9f6] rounded-2xl border border-[#e2ebe4] shrink-0">
+              <div className="p-2.5 bg-[#f6f9f6] rounded-lg border border-[#e2ebe4] shrink-0">
                 <img
                   src={formData.logo_url || '/photos/logo.png'}
                   alt="Logo preview"
@@ -87,9 +87,9 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
                   value={formData.logo_url || ''}
                   onChange={(e) => handleChange('logo_url', e.target.value)}
                   placeholder="/photos/logo.png or Supabase storage URL"
-                  className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                  className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
                 />
-                <p className="text-[11px] text-[#5c6f62]">
+                <p className="text-xs text-[#5c6f62]">
                   Currently using <code>{formData.logo_url || '/photos/logo.png'}</code>. You can enter any relative path in <code>/photos/</code> or a custom URL from Supabase Storage.
                 </p>
               </div>
@@ -102,7 +102,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="text"
               value={formData.site_name}
               onChange={(e) => handleChange('site_name', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -112,26 +112,26 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="text"
               value={formData.tagline}
               onChange={(e) => handleChange('tagline', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
         </div>
       </div>
 
       {/* Secretariat Contact Details */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] p-6 sm:p-10 shadow-xs space-y-6">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] p-6 sm:p-10 shadow-xs space-y-6">
         <h2 className="text-lg font-bold text-[#0f1d14] border-b border-[#e2ebe4] pb-3">
           Secretariat General Information
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div className="space-y-1.5">
             <label className="font-bold text-[#0f1d14]">Official Contact Email</label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => handleChange('email', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -141,7 +141,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="text"
               value={formData.phone}
               onChange={(e) => handleChange('phone', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -151,7 +151,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="text"
               value={formData.address}
               onChange={(e) => handleChange('address', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -161,7 +161,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="text"
               value={formData.office_hours}
               onChange={(e) => handleChange('office_hours', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
         </div>
@@ -170,14 +170,14 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
           Social Media Links
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
           <div className="space-y-1.5">
             <label className="font-bold text-[#0f1d14]">Facebook URL</label>
             <input
               type="url"
               value={formData.facebook_url || ''}
               onChange={(e) => handleChange('facebook_url', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -187,7 +187,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="url"
               value={formData.twitter_url || ''}
               onChange={(e) => handleChange('twitter_url', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
 
@@ -197,7 +197,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
               type="url"
               value={formData.linkedin_url || ''}
               onChange={(e) => handleChange('linkedin_url', e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full px-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
           </div>
         </div>
@@ -206,7 +206,7 @@ export default function SettingsForm({ initialSettings }: SettingsFormProps) {
           <button
             type="submit"
             disabled={status === 'saving'}
-            className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-xl shadow-md transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-sm rounded-md shadow-md transition-colors flex items-center gap-2 cursor-pointer disabled:opacity-50"
           >
             <Save size={15} />
             <span>{status === 'saving' ? 'Saving Changes...' : 'Save Settings Changes'}</span>

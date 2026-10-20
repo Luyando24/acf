@@ -77,7 +77,7 @@ export default function MembershipManager({
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`p-4 rounded-2xl flex items-center gap-2.5 text-xs font-semibold shadow-md transition-all ${
+          className={`p-4 rounded-lg flex items-center gap-2.5 text-sm font-semibold shadow-md transition-all ${
             notification.type === 'success'
               ? 'bg-emerald-50 text-[#175432] border border-emerald-200'
               : 'bg-rose-50 text-rose-800 border border-rose-200'
@@ -89,12 +89,12 @@ export default function MembershipManager({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-[#e2ebe4] shadow-xs">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
         <div>
           <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
             Membership Applications
           </h1>
-          <p className="text-xs text-[#5c6f62] mt-0.5">
+          <p className="text-sm text-[#5c6f62] mt-0.5">
             Review stakeholder caucus submissions, verify eligibility, and manage status.
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function MembershipManager({
         <a
           href="/api/admin/export/membership"
           download
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2"
+          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2"
         >
           <Download size={16} />
           <span>Export Submissions (CSV)</span>
@@ -111,22 +111,22 @@ export default function MembershipManager({
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Total Submissions</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Total Submissions</div>
           <div className="text-2xl font-black text-[#0f1d14] mt-1">{applications.length}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Pending Review</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Pending Review</div>
           <div className="text-2xl font-black text-amber-600 mt-1">{newCount}</div>
         </div>
-        <div className="bg-white p-5 rounded-2xl border border-[#e2ebe4] shadow-xs">
-          <div className="text-[11px] font-bold text-[#5c6f62] uppercase tracking-wider">Approved Members</div>
+        <div className="bg-white p-5 rounded-lg border border-[#e2ebe4] shadow-xs">
+          <div className="text-xs font-bold text-[#5c6f62] uppercase tracking-wider">Approved Members</div>
           <div className="text-2xl font-black text-[#175432] mt-1">{approvedCount}</div>
         </div>
       </div>
 
       {/* Search & Filters */}
-      <div className="bg-white p-4 rounded-2xl border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
+      <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row gap-3 items-stretch sm:items-center justify-between">
         <div className="relative flex-1">
           <Search size={16} className="absolute left-3.5 top-3 text-[#5c6f62]" />
           <input
@@ -134,14 +134,14 @@ export default function MembershipManager({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by organization name, contact person, or province..."
-            className="w-full pl-10 pr-4 py-2 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
           />
         </div>
 
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-xl text-xs font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
+          className="px-3 py-2 bg-[#f6f9f6] border border-[#e2ebe4] rounded-md text-sm font-semibold text-[#0f1d14] focus:outline-none focus:ring-2 focus:ring-[#175432]"
         >
           <option value="ALL">All Application Statuses</option>
           <option value="new">Pending Review (New)</option>
@@ -152,9 +152,9 @@ export default function MembershipManager({
       </div>
 
       {/* Applications Table */}
-      <div className="bg-white rounded-3xl border border-[#e2ebe4] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-lg border border-[#e2ebe4] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-sm">
             <thead className="bg-[#f6f9f6] text-[#5c6f62] uppercase tracking-wider font-bold border-b border-[#e2ebe4]">
               <tr>
                 <th className="py-4 px-6">Entity / Contact</th>
@@ -180,7 +180,7 @@ export default function MembershipManager({
                       <div className="font-bold text-[#0f1d14]">
                         {app.org_name || app.contact_name}
                       </div>
-                      <div className="text-[11px] text-[#5c6f62]">
+                      <div className="text-xs text-[#5c6f62]">
                         {app.contact_name} • {app.email} • {app.phone}
                       </div>
                     </td>
@@ -198,7 +198,7 @@ export default function MembershipManager({
                     </td>
                     <td className="py-4 px-6 whitespace-nowrap">
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                        className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
                           app.status === 'approved'
                             ? 'bg-emerald-100 text-emerald-800'
                             : app.status === 'in_review'
@@ -214,7 +214,7 @@ export default function MembershipManager({
                     <td className="py-4 px-6 text-right whitespace-nowrap space-x-1">
                       <Link
                         href={`/admin/membership/${app.id}`}
-                        className="px-3 py-1.5 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-xs font-bold rounded-xl transition-colors inline-flex items-center gap-1.5"
+                        className="px-3 py-1.5 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] text-sm font-bold rounded-md transition-colors inline-flex items-center gap-1.5"
                       >
                         <Eye size={13} />
                         <span>Review</span>
