@@ -19,14 +19,24 @@ export function allowRequest(key: string, limit = 5, windowMs = 10 * 60 * 1000):
 
 const TEST_TURNSTILE_SECRET = '1x0000000000000000000000000000000AA'
 
+let warnedMissingTurnstile = false
+
 export function turnstileConfigured(): boolean {
   const secret = process.env.TURNSTILE_SECRET_KEY
   return Boolean(secret && secret !== TEST_TURNSTILE_SECRET && !secret.includes('placeholder'))
 }
 
 export async function verifyTurnstile(token: string | undefined, ip: string): Promise<string | null> {
+  // Without real keys the widget cannot challenge anyone, so enforcement would only
+  // reject every submission. Honeypot + rate limiting still apply.
   if (!turnstileConfigured()) {
-    if (process.env.NODE_ENV === 'production') return 'Form protection is not configured.'
+    if (!warnedMissingTurnstile) {
+      warnedMissingTurnstile = true
+      console.warn(
+        '[security] Turnstile keys are missing or still set to test values. ' +
+          'Form submissions fall back to honeypot and rate limiting until real keys are configured.'
+      )
+    }
     return null
   }
   if (!token) return 'Please complete the spam check.'

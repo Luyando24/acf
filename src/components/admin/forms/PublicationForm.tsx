@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { PublicationItem } from '@/components/admin/PublicationManager'
 import FileUpload from '@/components/admin/FileUpload'
+import { isServableDocumentPath } from '@/lib/uploads/policy'
 
 const CATEGORIES = [
   'Policy Briefs',
@@ -34,7 +35,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
 
   const sizeMb = initialData?.file_size
     ? (initialData.file_size / (1024 * 1024)).toFixed(1)
-    : '2.5'
+    : ''
 
   const [formData, setFormData] = useState({
     title: initialData?.title || '',
@@ -42,7 +43,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
     summary: initialData?.summary || '',
     category: initialData?.category_name || initialData?.publication_categories?.name || 'Policy Briefs',
     published_on: initialData?.published_on ? initialData.published_on.split('T')[0] : new Date().toISOString().split('T')[0],
-    file_path: initialData?.file_path || '/publications/zambia-agricultural-policy-brief-2026.pdf',
+    file_path: initialData?.file_path || '',
     file_size_mb: sizeMb,
     is_featured: Boolean(initialData?.is_featured),
     status: initialData?.status || 'published',
@@ -76,6 +77,9 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
     }
     if (!formData.file_path.trim()) {
       errs.file_path = 'A PDF or document file is required. Please upload one from your device.'
+    } else if (!isServableDocumentPath(formData.file_path.trim())) {
+      errs.file_path =
+        'This path does not point to an uploaded file. Upload the document from your device, or paste a public https:// link.'
     }
     if (!formData.published_on) {
       errs.published_on = 'Publication release date is required.'
@@ -98,7 +102,8 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
     setNotification(null)
 
     const slug = formData.slug.trim() || formData.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-    const file_size = Math.round(parseFloat(formData.file_size_mb || '2.5') * 1024 * 1024)
+    const parsedSize = parseFloat(formData.file_size_mb)
+    const file_size = Number.isFinite(parsedSize) ? Math.round(parsedSize * 1024 * 1024) : 0
 
     const payload = {
       id: initialData?.id || crypto.randomUUID(),
@@ -106,7 +111,7 @@ export default function PublicationForm({ initialData }: PublicationFormProps) {
       slug,
       summary: formData.summary.trim(),
       published_on: formData.published_on,
-      file_path: formData.file_path.trim() || '/publications/document.pdf',
+      file_path: formData.file_path.trim(),
       file_size,
       is_featured: formData.is_featured,
       status: formData.status,

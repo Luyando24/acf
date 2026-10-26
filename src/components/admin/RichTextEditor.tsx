@@ -17,8 +17,8 @@ import {
   Edit3,
   Columns,
   AlertCircle,
-  HelpCircle,
 } from 'lucide-react'
+import { htmlToMarkdown, renderRichText } from '@/lib/content/richText'
 
 interface RichTextEditorProps {
   label: string
@@ -44,16 +44,21 @@ export default function RichTextEditor({
   const [viewMode, setViewMode] = useState<'write' | 'preview' | 'split'>('write')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
+  // Records saved before this editor existed hold HTML; convert on the fly so the
+  // textarea shows markdown instead of raw tags. The first edit persists markdown.
+  const legacyHtml = /<\/?[a-z][^>]*>/i.test(value)
+  const editorValue = legacyHtml ? htmlToMarkdown(value) : value
+
   const insertFormatting = (prefix: string, suffix: string = '', defaultText: string = '') => {
     const textarea = textareaRef.current
     if (!textarea) return
 
     const start = textarea.selectionStart
     const end = textarea.selectionEnd
-    const selectedText = value.substring(start, end) || defaultText
+    const selectedText = editorValue.substring(start, end) || defaultText
 
     const replacement = `${prefix}${selectedText}${suffix}`
-    const newValue = value.substring(0, start) + replacement + value.substring(end)
+    const newValue = editorValue.substring(0, start) + replacement + editorValue.substring(end)
 
     onChange(newValue)
 
@@ -68,78 +73,26 @@ export default function RichTextEditor({
     const url = prompt('Enter destination URL (e.g. https://example.com):', 'https://')
     if (url && url !== 'https://') {
       const textarea = textareaRef.current
-      const selectedText = textarea ? value.substring(textarea.selectionStart, textarea.selectionEnd) : ''
+      const selectedText = textarea ? editorValue.substring(textarea.selectionStart, textarea.selectionEnd) : ''
       const linkText = selectedText || prompt('Enter link display text:', 'link text') || 'link'
       insertFormatting(`[${linkText}](${url})`)
     }
   }
 
   // Word count & read time calculations
-  const cleanText = value.trim()
+  const cleanText = editorValue.trim()
   const wordCount = cleanText ? cleanText.split(/\s+/).length : 0
   const readTimeMinutes = Math.max(1, Math.ceil(wordCount / 200))
 
-  // Basic markdown-to-HTML parser for the live preview
-  const renderPreview = (markdown: string) => {
-    if (!markdown.trim()) {
-      return <p className="text-gray-400 italic">No content to preview yet.</p>
-    }
-
-    const lines = markdown.split('\n')
-    const elements: React.ReactNode[] = []
-
-    lines.forEach((line, idx) => {
-      if (line.startsWith('### ')) {
-        elements.push(
-          <h3 key={idx} className="text-base font-bold text-[#0f1d14] mt-3 mb-1">
-            {line.replace('### ', '')}
-          </h3>
-        )
-      } else if (line.startsWith('## ')) {
-        elements.push(
-          <h2 key={idx} className="text-lg font-black text-[#0f1d14] mt-4 mb-2 pb-1 border-b border-[#e2ebe4]">
-            {line.replace('## ', '')}
-          </h2>
-        )
-      } else if (line.startsWith('# ')) {
-        elements.push(
-          <h1 key={idx} className="text-xl font-black text-[#0f1d14] mt-4 mb-2 pb-1 border-b border-[#e2ebe4]">
-            {line.replace('# ', '')}
-          </h1>
-        )
-      } else if (line.startsWith('> ')) {
-        elements.push(
-          <blockquote key={idx} className="border-l-4 border-[#175432] pl-3 py-1 my-2 text-[#3b4d41] italic bg-[#f0f6f1] rounded-r-lg">
-            {line.replace('> ', '')}
-          </blockquote>
-        )
-      } else if (line.startsWith('- ') || line.startsWith('* ')) {
-        elements.push(
-          <li key={idx} className="list-disc ml-5 text-sm text-[#3b4d41] my-0.5">
-            {line.replace(/^[-*]\s+/, '')}
-          </li>
-        )
-      } else if (/^\d+\.\s+/.test(line)) {
-        elements.push(
-          <li key={idx} className="list-decimal ml-5 text-sm text-[#3b4d41] my-0.5">
-            {line.replace(/^\d+\.\s+/, '')}
-          </li>
-        )
-      } else if (line.trim() === '---') {
-        elements.push(<hr key={idx} className="my-4 border-[#e2ebe4]" />)
-      } else if (line.trim() === '') {
-        elements.push(<div key={idx} className="h-2" />)
-      } else {
-        elements.push(
-          <p key={idx} className="text-sm text-[#3b4d41] leading-relaxed my-1">
-            {line}
-          </p>
-        )
-      }
-    })
-
-    return <div className="space-y-1">{elements}</div>
-  }
+  const preview = (
+    <div className="p-5 min-h-[220px] bg-white overflow-y-auto max-h-[500px] prose-acf">
+      {editorValue.trim() ? (
+        <div dangerouslySetInnerHTML={{ __html: renderRichText(editorValue) }} />
+      ) : (
+        <p className="text-gray-400 italic">No content to preview yet.</p>
+      )}
+    </div>
+  )
 
   return (
     <div className="space-y-1.5">
@@ -308,31 +261,31 @@ export default function RichTextEditor({
           <textarea
             ref={textareaRef}
             rows={rows}
-            value={value}
+            value={editorValue}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             className="w-full p-4 text-sm font-sans leading-relaxed focus:outline-none resize-y bg-transparent"
           />
         )}
 
-        {viewMode === 'preview' && (
-          <div className="p-5 min-h-[220px] bg-white overflow-y-auto max-h-[500px]">
-            {renderPreview(value)}
-          </div>
-        )}
+        {viewMode === 'preview' && preview}
 
         {viewMode === 'split' && (
           <div className="grid grid-cols-2 divide-x divide-[#e2ebe4] min-h-[260px]">
             <textarea
               ref={textareaRef}
               rows={rows}
-              value={value}
+              value={editorValue}
               onChange={(e) => onChange(e.target.value)}
               placeholder={placeholder}
               className="p-4 text-sm font-sans leading-relaxed focus:outline-none resize-none bg-transparent"
             />
-            <div className="p-4 bg-[#fafcfa] overflow-y-auto max-h-[400px]">
-              {renderPreview(value)}
+            <div className="p-4 bg-[#fafcfa] overflow-y-auto max-h-[400px] prose-acf">
+              {editorValue.trim() ? (
+                <div dangerouslySetInnerHTML={{ __html: renderRichText(editorValue) }} />
+              ) : (
+                <p className="text-gray-400 italic">No content to preview yet.</p>
+              )}
             </div>
           </div>
         )}
@@ -348,6 +301,14 @@ export default function RichTextEditor({
           </div>
           <div className="flex items-center gap-1 text-[11px] text-[#175432] font-semibold">
             <span>Markdown supported</span>
+            {legacyHtml && (
+              <span
+                className="text-[#8a9a8f] font-normal"
+                title="This record was saved as HTML. It is shown as Markdown for editing and will be saved as Markdown."
+              >
+                · converted from HTML
+              </span>
+            )}
           </div>
         </div>
       </div>

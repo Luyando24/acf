@@ -137,3 +137,21 @@ export function isStoredObject(bucket: string, objectName: string): boolean {
   if (bucket !== PUBLIC_MEDIA_BUCKET && bucket !== PRIVATE_UPLOADS_BUCKET) return false
   return OBJECT_NAME.test(objectName)
 }
+
+const STORED_FILE_URL = new RegExp(
+  `^/api/files/(${PUBLIC_MEDIA_BUCKET}|${PRIVATE_UPLOADS_BUCKET})/[^/]+$`
+)
+
+export function parseStoredFileUrl(url: string): { bucket: string; objectName: string } | null {
+  const match = url.match(STORED_FILE_URL)
+  if (!match) return null
+  const objectName = url.slice(url.lastIndexOf('/') + 1)
+  if (!isStoredObject(match[1], objectName)) return null
+  return { bucket: match[1], objectName }
+}
+
+// Local asset paths (e.g. /documents/report.pdf) only work if the file is committed to public/;
+// uploads and external links are the supported sources.
+export function isServableDocumentPath(filePath: string): boolean {
+  return Boolean(parseStoredFileUrl(filePath)) || /^https?:\/\/\S+$/i.test(filePath)
+}

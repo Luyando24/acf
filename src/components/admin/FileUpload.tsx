@@ -152,7 +152,7 @@ export default function FileUpload({
             type="text"
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            placeholder={isDoc ? '/publications/report-2026.pdf' : '/photos/cover.jpg'}
+            placeholder={isDoc ? 'https://example.org/report-2026.pdf' : '/photos/cover.jpg'}
             className={`w-full px-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
               error || uploadError
                 ? 'border-rose-400 bg-rose-50/30'

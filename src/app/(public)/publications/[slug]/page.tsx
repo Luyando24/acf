@@ -4,6 +4,7 @@ import { ArrowLeft, BookOpen, Download, FileText } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate, formatFileSize } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { isServableDocumentPath } from '@/lib/uploads/policy'
 
 interface PublicationDetailProps {
   params: Promise<{ slug: string }>
@@ -47,6 +48,7 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
   }
 
   const pub = rawPub as any
+  const canDownload = isServableDocumentPath(pub.file_path || '')
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -94,18 +96,27 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
                 <span>Download Policy Document</span>
               </div>
               <p className="text-xs text-[#5c6f62]">
-                {pub.file_size ? `${formatFileSize(pub.file_size)} • ` : ''}Official PDF Publication
+                {canDownload
+                  ? `${pub.file_size ? `${formatFileSize(pub.file_size)} • ` : ''}Official PDF Publication`
+                  : 'The document file has not been uploaded yet.'}
               </p>
             </div>
 
-            <a
-              href={pub.file_path || '#'}
-              download
-              className="w-full sm:w-auto px-8 py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-full shadow-md flex items-center justify-center gap-2 transition-colors shrink-0"
-            >
-              <Download size={15} />
-              <span>Download PDF</span>
-            </a>
+            {canDownload ? (
+              <a
+                href={`/api/publications/${encodeURIComponent(pub.slug)}/download`}
+                download
+                className="w-full sm:w-auto px-8 py-3.5 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-full shadow-md flex items-center justify-center gap-2 transition-colors shrink-0"
+              >
+                <Download size={15} />
+                <span>Download PDF</span>
+              </a>
+            ) : (
+              <span className="w-full sm:w-auto px-8 py-3.5 bg-[#e8ede9] text-[#7a8b80] font-bold text-xs rounded-full flex items-center justify-center gap-2 shrink-0 cursor-not-allowed">
+                <Download size={15} />
+                <span>Document Pending Upload</span>
+              </span>
+            )}
           </div>
 
           <div className="pt-6 border-t border-[#e2ebe4] flex items-center justify-between text-xs text-[#5c6f62]">

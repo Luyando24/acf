@@ -56,8 +56,25 @@ export default function StaffManager({ currentUserId }: { currentUserId: string 
   }, [])
 
   useEffect(() => {
-    loadStaff()
-  }, [loadStaff])
+    let cancelled = false
+    void (async () => {
+      try {
+        const res = await fetch('/api/admin/staff')
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.error || 'Failed to load staff accounts.')
+        if (!cancelled) setStaff(data.staff)
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : 'Failed to load staff accounts.')
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
