@@ -13,13 +13,15 @@ import {
 } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/types/pageContent'
+import { SiteSettings } from '@/lib/supabase/settings'
 import TurnstileBox from '@/components/forms/TurnstileBox'
 
 interface ContactClientViewProps {
   initialContent?: ContactPageContent
+  settings?: SiteSettings
 }
 
-export default function ContactClientView({ initialContent }: ContactClientViewProps) {
+export default function ContactClientView({ initialContent, settings }: ContactClientViewProps) {
   const content = initialContent || DEFAULT_CONTACT_PAGE_CONTENT
 
   const [formData, setFormData] = useState({
@@ -84,18 +86,23 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
   const social = content.social_links || DEFAULT_CONTACT_PAGE_CONTENT.social_links
   const mapInfo = content.map_info || DEFAULT_CONTACT_PAGE_CONTENT.map_info
 
+  const displayAddress = settings?.address || details.address
+  const displayPhone = settings?.phone || details.phone
+  const displayEmail = settings?.email || details.email
+  const displayWorkingHours = settings?.office_hours || details.working_hours
+
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 lg:py-20 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15 inline-block">
+          <span className="text-xs font-bold uppercase tracking-widest text-white bg-white/15 px-3.5 py-1.5 rounded-full border border-white/20 inline-block">
             {header.badge}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
             {header.title}
           </h1>
-          <p className="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             {header.description}
           </p>
         </div>
@@ -107,61 +114,61 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
           {/* Contact Details & Info (5 cols) */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <h2 className="text-2xl font-bold text-[#0f1d14]">{details.title}</h2>
-              <p className="text-xs text-[#5c6f62] mt-1 leading-relaxed">
+              <h2 className="text-2xl font-bold text-[#122419]">{details.title}</h2>
+              <p className="text-xs text-[#526658] mt-1 leading-relaxed">
                 {details.subtitle}
               </p>
             </div>
 
-            <div className="space-y-6 text-sm text-[#3b4d41]">
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#e2ebe4] shadow-xs">
-                <MapPin size={20} className="text-[#175432] shrink-0 mt-0.5" />
+            <div className="space-y-6 text-sm text-[#2d3f33]">
+              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#dbe6de] shadow-xs">
+                <MapPin size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-[#0f1d14] text-xs uppercase tracking-wider mb-1">
+                  <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
                     Physical Address
                   </h3>
-                  <p className="text-xs text-[#5c6f62]">{details.address}</p>
+                  <p className="text-xs text-[#526658]">{displayAddress}</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#e2ebe4] shadow-xs">
-                <Phone size={20} className="text-[#175432] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#dbe6de] shadow-xs">
+                <Phone size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-[#0f1d14] text-xs uppercase tracking-wider mb-1">
+                  <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
                     Direct Phone Line
                   </h3>
-                  <a href={`tel:${details.phone.replace(/\s+/g, '')}`} className="text-xs font-bold text-[#175432] hover:underline">
-                    {details.phone}
+                  <a href={`tel:${displayPhone.replace(/\s+/g, '')}`} className="text-xs font-bold text-[#1e7e48] hover:underline">
+                    {displayPhone}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#e2ebe4] shadow-xs">
-                <Mail size={20} className="text-[#175432] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#dbe6de] shadow-xs">
+                <Mail size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-[#0f1d14] text-xs uppercase tracking-wider mb-1">
+                  <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
                     Official Email
                   </h3>
-                  <a href={`mailto:${details.email}`} className="text-xs font-bold text-[#175432] hover:underline">
-                    {details.email}
+                  <a href={`mailto:${displayEmail}`} className="text-xs font-bold text-[#1e7e48] hover:underline">
+                    {displayEmail}
                   </a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#e2ebe4] shadow-xs">
-                <Clock size={20} className="text-[#175432] shrink-0 mt-0.5" />
+              <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-white border border-[#dbe6de] shadow-xs">
+                <Clock size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="font-bold text-[#0f1d14] text-xs uppercase tracking-wider mb-1">
+                  <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
                     Working Hours
                   </h3>
-                  <p className="text-xs text-[#5c6f62]">{details.working_hours}</p>
+                  <p className="text-xs text-[#526658]">{displayWorkingHours}</p>
                 </div>
               </div>
             </div>
 
             {/* Social Channels */}
             <div className="space-y-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#0f1d14]">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#122419]">
                 Social Media Channels
               </h3>
               <div className="flex items-center gap-3">
@@ -170,7 +177,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
                     href={social.facebook_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white border border-[#e2ebe4] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                    className="p-3 rounded-xl bg-white border border-[#dbe6de] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                     aria-label="Facebook"
                   >
                     <FacebookIcon size={18} />
@@ -181,7 +188,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
                     href={social.twitter_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white border border-[#e2ebe4] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                    className="p-3 rounded-xl bg-white border border-[#dbe6de] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                     aria-label="Twitter"
                   >
                     <TwitterIcon size={18} />
@@ -192,7 +199,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
                     href={social.linkedin_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white border border-[#e2ebe4] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                    className="p-3 rounded-xl bg-white border border-[#dbe6de] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                     aria-label="LinkedIn"
                   >
                     <LinkedinIcon size={18} />
@@ -206,11 +213,11 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
           <div className="lg:col-span-7">
             <form
               onSubmit={handleSubmit}
-              className="bg-white rounded-3xl border border-[#e2ebe4] p-6 sm:p-10 shadow-xs space-y-6"
+              className="bg-white rounded-3xl border border-[#dbe6de] p-6 sm:p-10 shadow-xs space-y-6"
             >
               <div>
-                <h2 className="text-xl font-bold text-[#0f1d14]">Send an Enquiry</h2>
-                <p className="text-xs text-[#5c6f62] mt-1">
+                <h2 className="text-xl font-bold text-[#122419]">Send an Enquiry</h2>
+                <p className="text-xs text-[#526658] mt-1">
                   Fill in the form below and an ACF officer will respond promptly.
                 </p>
               </div>
@@ -228,7 +235,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
 
               {status === 'success' && (
                 <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-start gap-3">
-                  <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-[#2da44e]" />
+                  <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-[#1e7e48]" />
                   <span>{feedback}</span>
                 </div>
               )}
@@ -242,81 +249,81 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#0f1d14]">Your Full Name *</label>
+                  <label className="text-xs font-bold text-[#122419]">Your Full Name *</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Mwamba Banda"
-                    className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#0f1d14]">Email Address *</label>
+                  <label className="text-xs font-bold text-[#122419]">Email Address *</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="name@organization.org.zm"
-                    className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#0f1d14]">Phone Number</label>
+                  <label className="text-xs font-bold text-[#122419]">Phone Number</label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+260 95 0000000"
-                    className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-[#0f1d14]">Subject *</label>
+                  <label className="text-xs font-bold text-[#122419]">Subject *</label>
                   <input
                     type="text"
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     placeholder="Policy Enquiry / Research Access"
-                    className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[#0f1d14]">Message / Details *</label>
+                <label className="text-xs font-bold text-[#122419]">Message / Details *</label>
                 <textarea
                   required
                   rows={5}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="How can the Agricultural Consultative Forum assist you?"
-                  className="w-full px-4 py-3 rounded-xl border border-[#e2ebe4] text-xs focus:ring-2 focus:ring-[#175432] focus:outline-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                 />
               </div>
 
               <TurnstileBox onToken={setTurnstileToken} />
 
               {/* Consent Checkbox */}
-              <div className="p-4 rounded-xl bg-[#f6f9f6] border border-[#e2ebe4] flex items-start gap-3">
+              <div className="p-4 rounded-xl bg-[#f4f8f5] border border-[#dbe6de] flex items-start gap-3">
                 <input
                   type="checkbox"
                   id="contact-consent"
                   checked={formData.consent_given}
                   onChange={(e) => setFormData({ ...formData, consent_given: e.target.checked })}
-                  className="mt-1 h-4 w-4 rounded border-[#e2ebe4] text-[#175432] focus:ring-[#175432]"
+                  className="mt-1 h-4 w-4 rounded border-[#dbe6de] text-[#1e7e48] focus:ring-[#1e7e48]"
                 />
-                <label htmlFor="contact-consent" className="text-xs text-[#3b4d41] leading-relaxed">
+                <label htmlFor="contact-consent" className="text-xs text-[#2d3f33] leading-relaxed">
                   I consent to the Agricultural Consultative Forum processing my contact details to reply to this enquiry, pursuant to Zambia&apos;s{' '}
-                  <Link href="/privacy-policy" className="underline font-bold text-[#175432]">
+                  <Link href="/privacy-policy" className="underline font-bold text-[#1e7e48]">
                     Data Protection Act, 2021
                   </Link>
                   .
@@ -326,7 +333,7 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className="w-full py-4 bg-[#175432] hover:bg-[#114227] text-white font-extrabold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="w-full py-4 bg-[#1e7e48] hover:bg-[#166538] text-white font-extrabold text-sm rounded-xl transition-all shadow-md flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 <Send size={16} />
                 <span>{status === 'submitting' ? 'Sending Message...' : 'Submit Message to Secretariat'}</span>
@@ -336,12 +343,12 @@ export default function ContactClientView({ initialContent }: ContactClientViewP
         </div>
 
         {/* Interactive Location Map Container */}
-        <div className="mt-16 bg-white rounded-3xl border border-[#e2ebe4] p-4 sm:p-6 shadow-xs overflow-hidden space-y-4">
+        <div className="mt-16 bg-white rounded-3xl border border-[#dbe6de] p-4 sm:p-6 shadow-xs overflow-hidden space-y-4">
           <div className="flex items-center gap-2 px-2">
-            <MapPin size={18} className="text-[#175432]" />
-            <h3 className="text-sm font-bold text-[#0f1d14]">{mapInfo.location_title}</h3>
+            <MapPin size={18} className="text-[#1e7e48]" />
+            <h3 className="text-sm font-bold text-[#122419]">{mapInfo.location_title}</h3>
           </div>
-          <div className="w-full h-80 rounded-2xl overflow-hidden border border-[#e2ebe4]">
+          <div className="w-full h-80 rounded-2xl overflow-hidden border border-[#dbe6de]">
             <iframe
               title="Agricultural Consultative Forum Lusaka Office"
               src={mapInfo.google_maps_embed_url || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15383.159495427494!2d28.3188!3d-15.4289!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19408b0000000001%3A0x1!2sWoodlands%2C%20Lusaka%2C%20Zambia!5e0!3m2!1sen!2szm!4v1700000000000!5m2!1sen!2szm"}

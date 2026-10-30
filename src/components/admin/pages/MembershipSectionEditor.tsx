@@ -361,6 +361,27 @@ export default function MembershipSectionEditor({ initialContent }: MembershipSe
           />
         </div>
       </div>
+
+      {/* Section 4: Dynamic Categories & Requirements */}
+      <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-[#1e7e48]">
+            <Layers size={18} />
+            <h2 className="text-base font-bold text-[#0f1d14]">4. Membership Categories & Requirements</h2>
+          </div>
+          <p className="text-sm text-[#5c6f62]">
+            Configure and edit caucus names, descriptions, eligibility criteria, and member benefits without code changes.
+          </p>
+        </div>
+
+        <Link
+          href="/admin/membership/categories"
+          className="px-5 py-2.5 rounded-lg bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold transition-colors inline-flex items-center gap-2 shadow-xs shrink-0"
+        >
+          <span>Manage Categories & Requirements</span>
+          <ExternalLink size={14} />
+        </Link>
+      </div>
     </div>
   )
 }

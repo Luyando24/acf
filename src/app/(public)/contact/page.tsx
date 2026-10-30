@@ -1,5 +1,6 @@
 import { constructMetadata } from '@/lib/utils/seo'
 import { getPageContent, ContactPageContent } from '@/lib/supabase/pageContent'
+import { getSiteSettings } from '@/lib/supabase/settings'
 import ContactClientView from '@/components/contact/ContactClientView'
 
 export const metadata = constructMetadata({
@@ -10,7 +11,10 @@ export const metadata = constructMetadata({
 })
 
 export default async function ContactPage() {
-  const content = await getPageContent<ContactPageContent>('contact')
+  const [content, settings] = await Promise.all([
+    getPageContent<ContactPageContent>('contact'),
+    getSiteSettings(),
+  ])
 
-  return <ContactClientView initialContent={content} />
+  return <ContactClientView initialContent={content} settings={settings} />
 }

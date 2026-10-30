@@ -29,7 +29,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#0f1d14] text-white min-h-[440px] lg:min-h-[500px] flex items-center"
+      className="relative overflow-hidden bg-[#153e28] text-white min-h-[440px] lg:min-h-[500px] flex items-center"
       aria-label="ACF Highlights Slider"
     >
       {/* 1. SLIDER BACKGROUND IMAGES (RIGHT & FULL BLEED) */}
@@ -55,20 +55,20 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       </div>
 
       {/* 2. SOLID BACKGROUND LAYER WITH PATTERN & CRISP WHITE DIVIDER BORDER */}
-      {/* Mobile: Solid #0f1d14 background with subtle pattern */}
-      <div className="md:hidden absolute inset-0 bg-[#0f1d14]/95 pointer-events-none z-10 overflow-hidden">
+      {/* Mobile: Solid #153e28 background with subtle pattern */}
+      <div className="md:hidden absolute inset-0 bg-[#153e28]/95 pointer-events-none z-10 overflow-hidden">
         <svg className="w-full h-full opacity-60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <pattern id="mobile-hero-pattern" width="28" height="28" patternUnits="userSpaceOnUse">
-              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#2da44e" strokeWidth="0.75" strokeOpacity="0.09" />
-              <circle cx="0" cy="0" r="1.2" fill="#a3e635" fillOpacity="0.2" />
+              <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#2e9e5b" strokeWidth="0.75" strokeOpacity="0.12" />
+              <circle cx="0" cy="0" r="1.2" fill="#4ade80" fillOpacity="0.25" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#mobile-hero-pattern)" />
         </svg>
       </div>
 
-      {/* Tablet & Desktop: Solid #0f1d14 with bespoke pattern on the left, separated by crisp white border */}
+      {/* Tablet & Desktop: Solid #153e28 with bespoke pattern on the left, separated by crisp white border */}
       <svg
         className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-10"
         viewBox="0 0 1000 1000"
@@ -86,24 +86,24 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             <path
               d="M 28 0 L 0 0 0 28"
               fill="none"
-              stroke="#2da44e"
+              stroke="#2e9e5b"
               strokeWidth="0.75"
-              strokeOpacity="0.09"
+              strokeOpacity="0.12"
             />
             <circle
               cx="0"
               cy="0"
               r="1.2"
-              fill="#a3e635"
-              fillOpacity="0.2"
+              fill="#4ade80"
+              fillOpacity="0.25"
             />
           </pattern>
         </defs>
 
-        {/* Solid #0f1d14 base background */}
+        {/* Solid #153e28 base background */}
         <path
           d="M 0,0 L 610,0 C 580,350 510,650 460,1000 L 0,1000 Z"
-          fill="#0f1d14"
+          fill="#153e28"
         />
 
         {/* Geometric pattern overlay clipped to the solid region */}
@@ -129,14 +129,14 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             Dialogue for Agricultural Transformation in Zambia
           </h1>
 
-          <p className="text-base sm:text-lg text-emerald-100/90 leading-relaxed font-normal max-w-xl">
+          <p className="text-base sm:text-lg text-emerald-50/95 leading-relaxed font-normal max-w-xl">
             Connecting smallholder farmers, policymakers, agribusinesses, and researchers to champion sustainable agriculture, climate resilience, and food security across Zambia.
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-4">
             <Link
               href="/our-work"
-              className="px-8 py-4 bg-[#2da44e] hover:bg-[#34a853] text-[#0a140e] font-extrabold rounded-full transition-all flex items-center gap-2 shadow-lg shadow-[#2da44e]/25 hover:scale-105"
+              className="px-8 py-4 bg-[#2e9e5b] hover:bg-[#258249] text-white font-extrabold rounded-full transition-all flex items-center gap-2 shadow-lg shadow-[#2e9e5b]/25 hover:scale-105"
             >
               <span>Explore Our Work</span>
               <ArrowRight size={18} />
@@ -144,10 +144,10 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
             <Link
               href="/publications"
-              className="px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/20 backdrop-blur-xs flex items-center gap-2"
+              className="px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/25 backdrop-blur-xs flex items-center gap-2"
             >
               <BookOpen size={18} />
-              <span>Publications & Research</span>
+              <span>Publications &amp; Research</span>
             </Link>
           </div>
         </div>

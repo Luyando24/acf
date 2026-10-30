@@ -34,6 +34,7 @@ test('admin entity table map contains all required CMS tables', () => {
     partners: 'partners',
     membership: 'membership_applications',
     membership_applications: 'membership_applications',
+    membership_categories: 'membership_categories',
     contacts: 'contact_messages',
     contact_messages: 'contact_messages',
     newsletter: 'newsletter_subscribers',

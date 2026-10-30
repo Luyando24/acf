@@ -229,18 +229,18 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
 
   about_snippet: {
     badge: 'About The Forum',
-    title: 'A Credible, Neutral Platform for Agricultural Policy Reform',
+    title: 'A Neutral Platform for Agricultural Policy Reform',
     description:
-      "Established in Lusaka, the Agricultural Consultative Forum (ACF) bridges key players across Zambia's agricultural sector. We bring together public ministries, agricultural enterprises, academic research bodies, and grassroots farmer groups to address pressing policy bottlenecks.",
+      "The Agricultural Consultative Forum (ACF) unites government, agribusiness, research institutions, and smallholder farmers to drive evidence-based policy reform and sustainable agriculture in Zambia.",
     feature_1: {
       title: 'Evidence-Based Decisions',
-      description: 'Empirical performance data to guide timely agricultural policy actions.',
+      description: 'Empirical data guiding timely national agricultural policy actions.',
     },
     feature_2: {
-      title: 'Inclusive Tenure Rights',
-      description: 'Advocating for secure customary land tenure and equal rights for women.',
+      title: 'Inclusive Land Rights',
+      description: 'Advocating secure tenure and equal rights for women smallholders.',
     },
-    primary_btn_text: 'Learn More About ACF',
+    primary_btn_text: 'About ACF',
     primary_btn_url: '/about',
     secondary_btn_text: 'Leadership & Team',
     secondary_btn_url: '/about/management',
@@ -252,22 +252,22 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
       {
         num: 1,
         title: 'Stakeholder Mobilisation',
-        description: 'Engage actors at national and provincial levels for agricultural policy advocacy.',
+        description: 'Mobilise actors nationwide for constructive agricultural policy dialogue.',
       },
       {
         num: 2,
         title: 'Credible Evidence Generation',
-        description: 'Deliver empirical assessments on agricultural budgets, inputs, and food markets.',
+        description: 'Provide empirical assessments on budgets, food markets, and input systems.',
       },
       {
         num: 3,
         title: 'Knowledge Management',
-        description: 'Maintain a trusted central repository of Zambian agricultural research and publications.',
+        description: 'Maintain a trusted central repository of Zambian agricultural publications.',
       },
       {
         num: 4,
         title: 'Tenure & Gender Equity',
-        description: 'Strengthen small-scale farming systems and ensure equal land rights for women farmers.',
+        description: 'Champion secure customary tenure and equal land rights for women farmers.',
       },
     ],
   },

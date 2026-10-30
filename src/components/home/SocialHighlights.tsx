@@ -18,17 +18,17 @@ export default async function SocialHighlights({ facebookUrl = 'https://facebook
             <span className="text-xs font-black uppercase tracking-widest text-[#175432] bg-[#f0f6f1] px-3 py-1 rounded-md inline-block mb-3">
               Live Feed
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0f1d14] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#122419] tracking-tight">
               Social Media Highlights
             </h2>
-            <p className="text-[#5c6f62] text-sm sm:text-base mt-1.5 max-w-xl">
+            <p className="text-[#526658] text-sm sm:text-base mt-1.5 max-w-xl">
               Stay connected with our day-to-day stakeholder convenings, policy roundtables, and community updates on Facebook.
             </p>
           </div>
 
           <Link
             href="/facebook-posts"
-            className="text-[#175432] hover:text-[#0f1d14] font-bold text-sm flex items-center gap-2 group transition-colors shrink-0"
+            className="text-[#1e7e48] hover:text-[#122419] font-bold text-sm flex items-center gap-2 group transition-colors shrink-0"
           >
             <div className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center transition-transform group-hover:scale-110">
               <FacebookIcon size={16} />
@@ -46,7 +46,7 @@ export default async function SocialHighlights({ facebookUrl = 'https://facebook
                 href={post.permalink_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-[#e2ebe4] flex flex-col hover:-translate-y-1"
+                className="group bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-[#dbe6de] flex flex-col hover:-translate-y-1"
               >
                 {post.full_picture && (
                   <div className="aspect-video w-full overflow-hidden bg-neutral-100">
@@ -65,9 +65,9 @@ export default async function SocialHighlights({ facebookUrl = 'https://facebook
                       <div className="w-8 h-8 bg-[#1877F2] rounded-full flex items-center justify-center mr-3 shadow-xs text-white">
                         <FacebookIcon size={16} />
                       </div>
-                      <span className="font-bold text-sm text-[#0f1d14]">ACF Zambia</span>
+                      <span className="font-bold text-sm text-[#122419]">ACF Zambia</span>
                     </div>
-                    <div className="flex items-center text-[#5c6f62] text-xs">
+                    <div className="flex items-center text-[#526658] text-xs">
                       <Calendar size={14} className="mr-1" />
                       {new Date(post.created_time).toLocaleDateString('en-GB', {
                         day: 'numeric',
@@ -77,11 +77,11 @@ export default async function SocialHighlights({ facebookUrl = 'https://facebook
                     </div>
                   </div>
 
-                  <p className="text-[#3b4d41] text-sm mb-6 line-clamp-4 leading-relaxed font-normal">
+                  <p className="text-[#2d3f33] text-sm mb-6 line-clamp-4 leading-relaxed font-normal">
                     {post.message || 'View ACF update on Facebook.'}
                   </p>
 
-                  <div className="mt-auto text-[#175432] group-hover:text-[#2da44e] text-xs font-bold flex items-center gap-1 group-hover:underline pt-2">
+                  <div className="mt-auto text-[#1e7e48] group-hover:text-[#166538] text-xs font-bold flex items-center gap-1 group-hover:underline pt-2">
                     <span>View on Facebook</span>
                     <ArrowUpRight size={14} />
                   </div>
@@ -94,8 +94,8 @@ export default async function SocialHighlights({ facebookUrl = 'https://facebook
             <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 text-[#1877F2] flex items-center justify-center mx-auto">
               <FacebookIcon size={32} />
             </div>
-            <h3 className="text-xl font-bold text-[#0f1d14]">Connect with ACF on Facebook</h3>
-            <p className="text-[#5c6f62] text-sm leading-relaxed max-w-md mx-auto">
+            <h3 className="text-xl font-bold text-[#122419]">Connect with ACF on Facebook</h3>
+            <p className="text-[#526658] text-sm leading-relaxed max-w-md mx-auto">
               Follow our official Facebook page for the latest announcements, workshop galleries, and live dialogue coverage.
             </p>
             <div className="pt-2">

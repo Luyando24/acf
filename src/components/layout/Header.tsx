@@ -74,7 +74,7 @@ export default function Header({ settings }: HeaderProps) {
       {/* Skip to Main Content Link for WCAG 2.1 AA Accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#175432] focus:text-white focus:rounded focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#1e7e48] focus:text-white focus:rounded focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-white"
       >
         Skip to main content
       </a>
@@ -104,8 +104,8 @@ export default function Header({ settings }: HeaderProps) {
                         onClick={() => toggleDropdown(item.key!)}
                         className={`flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer ${
                           isActive
-                            ? 'text-[#175432] bg-[#f0f6f1]'
-                            : 'text-[#142018] hover:text-[#175432] hover:bg-[#f6f9f6]'
+                            ? 'text-[#1e7e48] bg-[#eef6f1]'
+                            : 'text-[#142018] hover:text-[#1e7e48] hover:bg-[#f4f8f5]'
                         }`}
                         aria-expanded={openDropdown === item.key}
                       >
@@ -124,9 +124,9 @@ export default function Header({ settings }: HeaderProps) {
                               key={sub.href}
                               href={sub.href}
                               onClick={() => setOpenDropdown(null)}
-                              className="block p-2.5 rounded-lg hover:bg-[#f0f6f1] transition-colors group/item"
+                              className="block p-2.5 rounded-lg hover:bg-[#eef6f1] transition-colors group/item"
                             >
-                              <div className="font-bold text-sm text-[#0f1d14] group-hover/item:text-[#175432]">
+                              <div className="font-bold text-sm text-[#0f1d14] group-hover/item:text-[#1e7e48]">
                                 {sub.label}
                               </div>
                               <div className="text-xs text-[#5c6f62] line-clamp-1 mt-0.5">
@@ -147,8 +147,8 @@ export default function Header({ settings }: HeaderProps) {
                     href={item.href}
                     className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                       isActive
-                        ? 'text-[#175432] bg-[#f0f6f1]'
-                        : 'text-[#142018] hover:text-[#175432] hover:bg-[#f6f9f6]'
+                        ? 'text-[#1e7e48] bg-[#eef6f1]'
+                        : 'text-[#142018] hover:text-[#1e7e48] hover:bg-[#f4f8f5]'
                     }`}
                   >
                     {item.label}
@@ -161,7 +161,7 @@ export default function Header({ settings }: HeaderProps) {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/membership/apply"
-                className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#175432] hover:bg-[#114227] px-5 py-2.5 rounded-full shadow-md shadow-[#175432]/20 hover:shadow-lg transition-all"
+                className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#1e7e48] hover:bg-[#166538] px-5 py-2.5 rounded-full shadow-md shadow-[#1e7e48]/20 hover:shadow-lg transition-all"
               >
                 <span>GET INVOLVED</span>
               </Link>
@@ -172,7 +172,7 @@ export default function Header({ settings }: HeaderProps) {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#0f1d14] hover:bg-[#f0f6f1] rounded-lg transition-colors"
+                className="p-2 text-[#0f1d14] hover:bg-[#eef6f1] rounded-lg transition-colors"
                 aria-label={mobileMenuOpen ? 'Close Menu' : 'Open Navigation Menu'}
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -197,7 +197,7 @@ export default function Header({ settings }: HeaderProps) {
                       <ChevronDown
                         size={18}
                         className={`transition-transform duration-200 ${
-                          openDropdown === item.key ? 'rotate-180 text-[#175432]' : ''
+                          openDropdown === item.key ? 'rotate-180 text-[#1e7e48]' : ''
                         }`}
                       />
                     </button>
@@ -208,7 +208,7 @@ export default function Header({ settings }: HeaderProps) {
                             key={sub.href}
                             href={sub.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block py-1.5 text-sm font-medium text-[#5c6f62] hover:text-[#175432]"
+                            className="block py-1.5 text-sm font-medium text-[#5c6f62] hover:text-[#1e7e48]"
                           >
                             {sub.label}
                           </Link>
@@ -224,7 +224,7 @@ export default function Header({ settings }: HeaderProps) {
                   <Link
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block text-base font-bold text-[#0f1d14] hover:text-[#175432] py-1"
+                    className="block text-base font-bold text-[#0f1d14] hover:text-[#1e7e48] py-1"
                   >
                     {item.label}
                   </Link>
@@ -236,7 +236,7 @@ export default function Header({ settings }: HeaderProps) {
               <Link
                 href="/membership/apply"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-[#175432] text-white font-bold rounded-xl shadow-md text-center text-sm uppercase tracking-wider"
+                className="w-full flex items-center justify-center gap-2 py-3 bg-[#1e7e48] hover:bg-[#166538] text-white font-bold rounded-xl shadow-md text-center text-sm uppercase tracking-wider transition-colors"
               >
                 GET INVOLVED
               </Link>

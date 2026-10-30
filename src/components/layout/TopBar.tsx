@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { Phone, Mail, Clock } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import { SiteSettings } from '@/lib/supabase/settings'
 
@@ -10,31 +9,12 @@ interface TopBarProps {
 export default function TopBar({ settings }: TopBarProps) {
   return (
     <div className="bg-[#0f1d14] text-white text-xs border-b border-[#1b3424] py-2 px-4 transition-colors">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-        {/* Contact details & location */}
-        <div className="flex flex-wrap items-center gap-4 text-emerald-100/80">
-          <span className="flex items-center gap-1.5 hover:text-white transition-colors">
-            <Clock size={13} className="text-[#65c466]" />
-            <span>Lusaka (CAT) • Mon - Fri 08:00 - 17:00</span>
+      <div className="container mx-auto flex flex-row justify-between items-center gap-2">
+        {/* Institutional tagline without contact details (Feedback 1.3) */}
+        <div className="hidden sm:flex items-center gap-2 text-emerald-100/75">
+          <span className="font-medium">
+            {settings.tagline || 'Multi-stakeholder Agricultural Policy Platform — Zambia'}
           </span>
-          {settings.phone && (
-            <a
-              href={`tel:${settings.phone.replace(/\s+/g, '')}`}
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-            >
-              <Phone size={13} className="text-[#65c466]" />
-              <span>{settings.phone}</span>
-            </a>
-          )}
-          {settings.email && (
-            <a
-              href={`mailto:${settings.email}`}
-              className="hidden sm:flex items-center gap-1.5 hover:text-white transition-colors"
-            >
-              <Mail size={13} className="text-[#65c466]" />
-              <span>{settings.email}</span>
-            </a>
-          )}
         </div>
 
         {/* Quick action links & socials */}
@@ -43,7 +23,7 @@ export default function TopBar({ settings }: TopBarProps) {
             href="/opportunities"
             className="text-emerald-200 hover:text-white font-medium transition-colors"
           >
-            Opportunities & Tenders
+            Opportunities &amp; Tenders
           </Link>
           <div className="flex items-center gap-2 pl-2 border-l border-emerald-900">
             {settings.facebook_url && (
@@ -85,3 +65,4 @@ export default function TopBar({ settings }: TopBarProps) {
     </div>
   )
 }
+

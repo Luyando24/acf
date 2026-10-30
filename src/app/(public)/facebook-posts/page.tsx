@@ -27,20 +27,20 @@ export default async function FacebookPostsPage() {
         <div className="mb-12 max-w-3xl">
           <Link
             href="/"
-            className="text-xs font-bold uppercase tracking-widest text-[#175432] hover:text-[#0f1d14] flex items-center gap-1.5 mb-4 group"
+            className="text-xs font-bold uppercase tracking-widest text-[#1e7e48] hover:text-[#122419] flex items-center gap-1.5 mb-4 group"
           >
             <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
             <span>Back to Home</span>
           </Link>
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-black uppercase tracking-widest text-[#175432] bg-[#f0f6f1] px-3 py-1 rounded-md">
+            <span className="text-xs font-black uppercase tracking-widest text-[#1e7e48] bg-[#eef6f1] px-3 py-1 rounded-md">
               Social Stream
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0f1d14] tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#122419] tracking-tight">
             Social Media Highlights
           </h1>
-          <p className="text-[#5c6f62] text-base mt-2 leading-relaxed">
+          <p className="text-[#526658] text-base mt-2 leading-relaxed">
             Live updates, field workshops, stakeholder dialogues, and community stories directly from our Facebook page.
           </p>
         </div>
@@ -51,7 +51,7 @@ export default async function FacebookPostsPage() {
             {posts.map((post) => (
               <article
                 key={post.id}
-                className="bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-[#e2ebe4] flex flex-col"
+                className="bg-white rounded-3xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 border border-[#dbe6de] flex flex-col"
               >
                 {post.full_picture && (
                   <div className="aspect-video w-full overflow-hidden bg-neutral-100">
@@ -70,9 +70,9 @@ export default async function FacebookPostsPage() {
                       <div className="w-10 h-10 bg-[#1877F2] rounded-full flex items-center justify-center mr-3 shadow-xs text-white">
                         <FacebookIcon size={20} />
                       </div>
-                      <span className="font-bold text-[#0f1d14] text-base">ACF Zambia</span>
+                      <span className="font-bold text-[#122419] text-base">ACF Zambia</span>
                     </div>
-                    <div className="flex items-center text-[#5c6f62] text-xs font-medium">
+                    <div className="flex items-center text-[#526658] text-xs font-medium">
                       <Calendar size={15} className="mr-1.5 text-neutral-400" />
                       {new Date(post.created_time).toLocaleDateString('en-GB', {
                         day: 'numeric',
@@ -82,7 +82,7 @@ export default async function FacebookPostsPage() {
                     </div>
                   </div>
 
-                  <p className="text-[#3b4d41] text-sm mb-6 leading-relaxed line-clamp-4 font-normal">
+                  <p className="text-[#2d3f33] text-sm mb-6 leading-relaxed line-clamp-4 font-normal">
                     {post.message || 'View ACF post on Facebook.'}
                   </p>
 
@@ -104,8 +104,8 @@ export default async function FacebookPostsPage() {
             <div className="w-16 h-16 rounded-full bg-[#1877F2]/10 text-[#1877F2] flex items-center justify-center mx-auto">
               <FacebookIcon size={36} />
             </div>
-            <h2 className="text-2xl font-bold text-[#0f1d14]">Connect with us on Facebook</h2>
-            <p className="text-[#5c6f62] text-sm leading-relaxed">
+            <h2 className="text-2xl font-bold text-[#122419]">Connect with us on Facebook</h2>
+            <p className="text-[#526658] text-sm leading-relaxed">
               We couldn&apos;t load the latest posts at the moment. You can visit our official Facebook page directly to browse all recent updates.
             </p>
             <div className="pt-2">

@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-acf-dark: #0f1d14;
-  --color-acf-primary: #175432;
-  --color-acf-primary-hover: #114227;
-  --color-acf-light: #2da44e;
-  --color-acf-accent: #65c466;
-  --color-acf-lime: #a3e635;
-  --color-acf-surface: #f6f9f6;
-  --color-acf-muted: #5c6f62;
-  --color-acf-border: #e2ebe4;
+  --color-acf-dark: #153e28;
+  --color-acf-primary: #1e7e48;
+  --color-acf-primary-hover: #166538;
+  --color-acf-light: #2e9e5b;
+  --color-acf-accent: #34a853;
+  --color-acf-lime: #4ade80;
+  --color-acf-surface: #f4f8f5;
+  --color-acf-muted: #526658;
+  --color-acf-border: #dbe6de;
 
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-heading: var(--font-heading), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -18,17 +18,17 @@
 :root {
   --background: #ffffff;
   --foreground: #142018;
-  --primary: #175432;
+  --primary: #1e7e48;
   --primary-foreground: #ffffff;
-  --secondary: #f0f6f1;
-  --secondary-foreground: #175432;
-  --accent: #2da44e;
+  --secondary: #eef6f1;
+  --secondary-foreground: #153e28;
+  --accent: #2e9e5b;
   --accent-foreground: #ffffff;
-  --muted: #f4f7f4;
-  --muted-foreground: #5c6f62;
+  --muted: #f4f8f5;
+  --muted-foreground: #526658;
   --card: #ffffff;
   --card-foreground: #142018;
-  --border: #e2ebe4;
+  --border: #dbe6de;
 }
 
 body {
@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Accessible focus outlines */
 :focus-visible {
-  outline: 2px solid #2da44e;
+  outline: 2px solid #2e9e5b;
   outline-offset: 2px;
 }
 
@@ -63,17 +63,17 @@ h1, h2, h3, h4, h5, h6 {
 .prose-acf h2 {
   font-size: 1.65rem;
   font-weight: 700;
-  color: #0f1d14;
+  color: #122419;
   margin-top: 2.25rem;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e2ebe4;
+  border-bottom: 1px solid #dbe6de;
 }
 
 .prose-acf h3 {
   font-size: 1.35rem;
   font-weight: 600;
-  color: #175432;
+  color: #1e7e48;
   margin-top: 1.75rem;
   margin-bottom: 0.75rem;
 }
@@ -95,8 +95,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .prose-acf blockquote {
-  border-left: 4px solid #175432;
-  background-color: #f6f9f6;
+  border-left: 4px solid #1e7e48;
+  background-color: #f4f8f5;
   padding: 1rem 1.25rem;
   margin: 1.5rem 0;
   font-style: italic;
@@ -105,13 +105,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .prose-acf a {
-  color: #175432;
+  color: #1e7e48;
   text-decoration: underline;
   font-weight: 500;
 }
 
 .prose-acf a:hover {
-  color: #2da44e;
+  color: #2e9e5b;
 }
 
 /* Infinite Marquee Animation for Partners */

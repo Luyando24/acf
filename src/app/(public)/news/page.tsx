@@ -26,15 +26,15 @@ export default async function NewsPage() {
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 lg:py-20 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15 inline-block">
+          <span className="text-xs font-bold uppercase tracking-widest text-white bg-white/15 px-3.5 py-1.5 rounded-full border border-white/20 inline-block">
             ACF Media & Communications
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
             News & Sector Updates
           </h1>
-          <p className="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Official announcements, policy submissions, consultative dialogues, and agricultural developments from ACF and partners.
           </p>
         </div>
@@ -50,7 +50,7 @@ export default async function NewsPage() {
               return (
                 <article
                   key={item.slug}
-                  className="bg-white rounded-3xl border border-[#e2ebe4] overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
+                  className="bg-white rounded-3xl border border-[#dbe6de] overflow-hidden shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group"
                 >
                   <div>
                     {/* Article Feature Image */}
@@ -61,23 +61,23 @@ export default async function NewsPage() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute top-3 left-3">
-                        <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#175432] font-bold text-xs shadow-xs">
+                        <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[#1e7e48] font-bold text-xs shadow-xs">
                           {item.category || 'Sector News'}
                         </span>
                       </div>
                     </div>
 
                     <div className="p-6">
-                      <div className="flex items-center gap-2 text-xs text-[#5c6f62] mb-3">
-                        <Calendar size={13} className="text-[#175432]" />
+                      <div className="flex items-center gap-2 text-xs text-[#526658] mb-3">
+                        <Calendar size={13} className="text-[#1e7e48]" />
                         <span>{formatDate(item.published_at)}</span>
                       </div>
 
-                      <h2 className="text-lg font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors leading-snug mb-3 line-clamp-2">
+                      <h2 className="text-lg font-bold text-[#122419] group-hover:text-[#1e7e48] transition-colors leading-snug mb-3 line-clamp-2">
                         <Link href={`/news/${item.slug}`}>{item.title}</Link>
                       </h2>
 
-                      <p className="text-xs text-[#5c6f62] leading-relaxed line-clamp-3">
+                      <p className="text-xs text-[#526658] leading-relaxed line-clamp-3">
                         {item.excerpt}
                       </p>
                     </div>
@@ -86,7 +86,7 @@ export default async function NewsPage() {
                   <div className="px-6 pb-6 pt-2 flex justify-end">
                     <Link
                       href={`/news/${item.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#175432] group-hover:text-[#2da44e]"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#1e7e48] group-hover:text-[#166538]"
                     >
                       <span>Read Full Article</span>
                       <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -97,9 +97,9 @@ export default async function NewsPage() {
             })}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white rounded-2xl border border-[#e2ebe4] p-8 max-w-md mx-auto">
-            <p className="text-base font-semibold text-[#0f1d14]">No news articles currently published</p>
-            <p className="text-xs text-[#5c6f62] mt-1">Articles published via the admin portal will appear here.</p>
+          <div className="text-center py-16 bg-white rounded-2xl border border-[#dbe6de] p-8 max-w-md mx-auto">
+            <p className="text-base font-semibold text-[#122419]">No news articles currently published</p>
+            <p className="text-xs text-[#526658] mt-1">Articles published via the admin portal will appear here.</p>
           </div>
         )}
       </div>

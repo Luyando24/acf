@@ -53,7 +53,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/opportunities"
@@ -64,7 +64,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
           </Link>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#1e462f] text-[#a3e635] border border-[#2da44e]/40">
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/15 text-white border border-white/20">
               {opp.type}
             </span>
 
@@ -85,10 +85,10 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
             {opp.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-emerald-200/80 pt-1">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-emerald-100/90 pt-1">
             <span>Opened: {formatDate(opp.opens_on)}</span>
             <span>•</span>
-            <span className="font-bold text-[#a3e635]">
+            <span className="font-bold text-emerald-300">
               Closing Deadline: {formatDate(opp.closes_on)} (CAT)
             </span>
           </div>
@@ -110,20 +110,20 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
           </div>
         )}
 
-        <div className="bg-white rounded-3xl border border-[#e2ebe4] p-8 sm:p-12 shadow-xs space-y-8">
+        <div className="bg-white rounded-3xl border border-[#dbe6de] p-8 sm:p-12 shadow-xs space-y-8">
           <div>
-            <h2 className="text-xl font-bold text-[#0f1d14] mb-3">Overview & Terms of Reference</h2>
-            <p className="text-base sm:text-lg text-[#3b4d41] leading-relaxed whitespace-pre-line">
+            <h2 className="text-xl font-bold text-[#122419] mb-3">Overview & Terms of Reference</h2>
+            <p className="text-base sm:text-lg text-[#2d3f33] leading-relaxed whitespace-pre-line">
               {opp.description}
             </p>
           </div>
 
           {opp.application_instructions && (
-            <div className="pt-6 border-t border-[#e2ebe4]">
-              <h3 className="text-lg font-bold text-[#0f1d14] mb-3">
+            <div className="pt-6 border-t border-[#dbe6de]">
+              <h3 className="text-lg font-bold text-[#122419] mb-3">
                 Application Instructions & Submission Requirements
               </h3>
-              <p className="text-sm text-[#5c6f62] leading-relaxed whitespace-pre-line">
+              <p className="text-sm text-[#526658] leading-relaxed whitespace-pre-line">
                 {opp.application_instructions}
               </p>
             </div>
@@ -144,10 +144,10 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                 }
               />
 
-              <div className="p-6 rounded-2xl bg-[#f6f9f6] border border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div className="p-6 rounded-2xl bg-[#f4f8f5] border border-[#dbe6de] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                 <div className="space-y-1">
-                  <h4 className="font-bold text-sm text-[#0f1d14]">Alternative Submission Options</h4>
-                  <p className="text-xs text-[#5c6f62]">
+                  <h4 className="font-bold text-sm text-[#122419]">Alternative Submission Options</h4>
+                  <p className="text-xs text-[#526658]">
                     You may also forward your dossier or inquiries directly to our recruitment secretariat.
                   </p>
                 </div>
@@ -157,7 +157,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                     href={opp.apply_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2 transition-colors shrink-0"
+                    className="px-6 py-3 bg-[#1e7e48] hover:bg-[#166538] text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2 transition-colors shrink-0"
                   >
                     <Globe size={15} />
                     <span>External Application Portal</span>
@@ -165,7 +165,7 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
                 ) : (
                   <a
                     href={`mailto:${opp.contact_info || 'opportunities@acfzambia.org'}?subject=Application: ${encodeURIComponent(opp.title)}`}
-                    className="px-6 py-3 bg-white hover:bg-neutral-50 text-[#175432] border border-[#175432] font-bold text-xs rounded-xl shadow-xs flex items-center gap-2 transition-colors shrink-0"
+                    className="px-6 py-3 bg-white hover:bg-neutral-50 text-[#1e7e48] border border-[#1e7e48] font-bold text-xs rounded-xl shadow-xs flex items-center gap-2 transition-colors shrink-0"
                   >
                     <Mail size={15} />
                     <span>Submit via Email</span>

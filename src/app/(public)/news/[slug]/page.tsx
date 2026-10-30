@@ -55,7 +55,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/news"
@@ -66,10 +66,10 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
           </Link>
 
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#1e462f] text-[#a3e635] border border-[#2da44e]/40">
+            <span className="px-3 py-1 rounded-full text-xs font-bold bg-white/15 text-white border border-white/20">
               {article.category || 'Sector News'}
             </span>
-            <span className="text-xs text-emerald-200/70">
+            <span className="text-xs text-emerald-100/80">
               Published on {formatDate(article.published_at)}
             </span>
           </div>
@@ -83,13 +83,13 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
       {/* Main Content Layout */}
       <div className="container mx-auto px-4 max-w-4xl pt-12 space-y-10">
         {/* Featured Article Image */}
-        <div className="relative w-full aspect-21/9 sm:aspect-2/1 rounded-3xl overflow-hidden border border-[#e2ebe4] shadow-sm bg-neutral-100">
+        <div className="relative w-full aspect-21/9 sm:aspect-2/1 rounded-3xl overflow-hidden border border-[#dbe6de] shadow-sm bg-neutral-100">
           <ContentImage src={featuredImg} alt={article.title} className="object-cover" />
         </div>
 
-        <div className="bg-white rounded-3xl border border-[#e2ebe4] p-8 sm:p-12 shadow-xs space-y-8">
-          <div className="border-b border-[#e2ebe4] pb-6">
-            <p className="text-base sm:text-lg text-[#175432] font-semibold leading-relaxed">
+        <div className="bg-white rounded-3xl border border-[#dbe6de] p-8 sm:p-12 shadow-xs space-y-8">
+          <div className="border-b border-[#dbe6de] pb-6">
+            <p className="text-base sm:text-lg text-[#1e7e48] font-semibold leading-relaxed">
               {article.excerpt}
             </p>
           </div>
@@ -99,8 +99,8 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
             dangerouslySetInnerHTML={{ __html: renderRichText(article.body || article.excerpt || '') }}
           />
 
-          <div className="pt-8 border-t border-[#e2ebe4] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <span className="text-xs font-bold text-[#5c6f62]">
+          <div className="pt-8 border-t border-[#dbe6de] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <span className="text-xs font-bold text-[#526658]">
               Share this article with colleagues & networks:
             </span>
             <div className="flex items-center gap-2">
@@ -110,7 +110,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                className="p-2 rounded-lg bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                 aria-label="Share on Facebook"
               >
                 <FacebookIcon size={16} />
@@ -121,7 +121,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                 )}&url=${encodeURIComponent(`https://acfzambia.org/news/${article.slug}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                className="p-2 rounded-lg bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                 aria-label="Share on Twitter"
               >
                 <TwitterIcon size={16} />
@@ -132,7 +132,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                 )}&title=${encodeURIComponent(article.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white transition-colors"
+                className="p-2 rounded-lg bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
                 aria-label="Share on LinkedIn"
               >
                 <LinkedinIcon size={16} />

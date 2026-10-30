@@ -14,6 +14,7 @@ const TABLE_MAP: Record<string, string> = {
   partners: 'partners',
   membership: 'membership_applications',
   membership_applications: 'membership_applications',
+  membership_categories: 'membership_categories',
   contacts: 'contact_messages',
   contact_messages: 'contact_messages',
   newsletter: 'newsletter_subscribers',
@@ -66,7 +67,7 @@ export async function GET(
       query = fromTable(table).select('*, publication_categories(name)').order('published_on', { ascending: false })
     } else if (table === 'membership_applications') {
       query = fromTable(table).select('*, membership_categories(name)').order('created_at', { ascending: false })
-    } else if (table === 'people' || table === 'partners' || table === 'programmes') {
+    } else if (table === 'people' || table === 'partners' || table === 'programmes' || table === 'membership_categories') {
       query = fromTable(table).select('*').order('order_index', { ascending: true })
     } else if (table === 'events') {
       query = fromTable(table).select('*').order('starts_at', { ascending: false })

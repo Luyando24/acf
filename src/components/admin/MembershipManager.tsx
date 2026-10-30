@@ -89,24 +89,48 @@ export default function MembershipManager({
       )}
 
       {/* Header Banner */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs">
-        <div>
-          <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
-            Membership Applications
-          </h1>
-          <p className="text-sm text-[#5c6f62] mt-0.5">
-            Review stakeholder caucus submissions, verify eligibility, and manage status.
-          </p>
+      <div className="bg-white p-6 rounded-2xl border border-[#dbe6de] shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h1 className="text-2xl font-black text-[#0f1d14] tracking-tight">
+              Membership Applications
+            </h1>
+            <p className="text-sm text-[#5c6f62] mt-0.5">
+              Review stakeholder caucus submissions, verify eligibility, and manage status.
+            </p>
+          </div>
+
+          <a
+            href="/api/admin/export/membership"
+            download
+            className="px-4 py-2.5 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-xl shadow-xs transition-colors flex items-center gap-2"
+          >
+            <Download size={16} />
+            <span>Export Submissions (CSV)</span>
+          </a>
         </div>
 
-        <a
-          href="/api/admin/export/membership"
-          download
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2"
-        >
-          <Download size={16} />
-          <span>Export Submissions (CSV)</span>
-        </a>
+        {/* Tab switcher */}
+        <div className="flex items-center gap-2 border-t border-[#dbe6de] pt-4">
+          <Link
+            href="/admin/membership"
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-[#eef6f1] text-[#1e7e48] border border-[#1e7e48]/30 transition-colors"
+          >
+            Applications List ({applications.length})
+          </Link>
+          <Link
+            href="/admin/membership/categories"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-[#526658] hover:text-[#1e7e48] hover:bg-[#f4f8f5] transition-colors"
+          >
+            Categories & Requirements
+          </Link>
+          <Link
+            href="/admin/pages/membership"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-[#526658] hover:text-[#1e7e48] hover:bg-[#f4f8f5] transition-colors"
+          >
+            Edit Page Intro
+          </Link>
+        </div>
       </div>
 
       {/* Quick Stats */}

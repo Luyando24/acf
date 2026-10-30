@@ -27,7 +27,7 @@ export default async function OpportunitiesArchivePage() {
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/opportunities"
@@ -39,7 +39,7 @@ export default async function OpportunitiesArchivePage() {
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
             Opportunities Archive
           </h1>
-          <p className="text-emerald-100/80 text-sm sm:text-base max-w-2xl">
+          <p className="text-emerald-100/90 text-sm sm:text-base max-w-2xl">
             Historical repository of closed vacancies, concluded consultancies, and past tenders. Applications are no longer accepted for these positions.
           </p>
         </div>
@@ -48,36 +48,36 @@ export default async function OpportunitiesArchivePage() {
       {/* Archive Listings */}
       <div className="container mx-auto px-4 max-w-5xl pt-12 space-y-4">
         {archived.length === 0 ? (
-          <div className="text-center py-16 bg-white rounded-3xl border border-[#e2ebe4] p-8 space-y-3">
-            <Briefcase size={36} className="mx-auto text-[#5c6f62]" />
-            <h2 className="text-lg font-bold text-[#0f1d14]">No archived opportunities</h2>
-            <p className="text-xs text-[#5c6f62]">Concluded vacancies and past tenders will be archived here.</p>
+          <div className="text-center py-16 bg-white rounded-3xl border border-[#dbe6de] p-8 space-y-3">
+            <Briefcase size={36} className="mx-auto text-[#526658]" />
+            <h2 className="text-lg font-bold text-[#122419]">No archived opportunities</h2>
+            <p className="text-xs text-[#526658]">Concluded vacancies and past tenders will be archived here.</p>
           </div>
         ) : (
           archived.map((opp) => (
             <div
               key={opp.slug}
-              className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 opacity-75 hover:opacity-100 transition-opacity"
+              className="bg-white rounded-2xl border border-[#dbe6de] p-6 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 opacity-75 hover:opacity-100 transition-opacity"
             >
               <div className="space-y-1">
-                <div className="flex items-center gap-2 text-xs text-[#5c6f62]">
+                <div className="flex items-center gap-2 text-xs text-[#526658]">
                   <span className="px-2 py-0.5 rounded bg-gray-100 font-semibold text-gray-700">
                     {opp.type}
                   </span>
                   <span>•</span>
                   <span>Closed on {formatDate(opp.closes_on)}</span>
                 </div>
-                <h3 className="text-base font-bold text-[#0f1d14]">
-                  <Link href={`/opportunities/${opp.slug}`} className="hover:text-[#175432]">
+                <h3 className="text-base font-bold text-[#122419]">
+                  <Link href={`/opportunities/${opp.slug}`} className="hover:text-[#1e7e48]">
                     {opp.title}
                   </Link>
                 </h3>
-                <p className="text-xs text-[#5c6f62] line-clamp-1">{opp.description}</p>
+                <p className="text-xs text-[#526658] line-clamp-1">{opp.description}</p>
               </div>
 
               <Link
                 href={`/opportunities/${opp.slug}`}
-                className="px-4 py-2 border border-[#e2ebe4] hover:border-[#175432] text-xs font-bold text-[#0f1d14] rounded-lg transition-colors shrink-0"
+                className="px-4 py-2 border border-[#dbe6de] hover:border-[#1e7e48] text-xs font-bold text-[#122419] rounded-lg transition-colors shrink-0"
               >
                 View Notice
               </Link>

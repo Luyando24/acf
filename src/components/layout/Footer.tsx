@@ -62,19 +62,19 @@ export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#0a140e] text-white border-t border-[#1a3020]">
+    <footer className="bg-[#11271b] text-white border-t border-[#1b3d2b]">
       {/* Top Banner: Newsletter Subscription */}
-      <div className="border-b border-[#16291b] bg-[#0d1a12] py-12">
+      <div className="border-b border-[#1b3d2b] bg-[#153223] py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#175432] text-[#a3e635] mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-white border border-white/20 mb-3">
                 <Shield size={12} /> Stay Informed
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
                 Subscribe to ACF Agricultural Policy Updates
               </h2>
-              <p className="text-emerald-100/70 text-sm mt-2 leading-relaxed">
+              <p className="text-emerald-100/80 text-sm mt-2 leading-relaxed">
                 Receive policy analysis briefs, agricultural dialogue reports, and quarterly sector newsletters directly to your inbox.
               </p>
             </div>
@@ -100,14 +100,14 @@ export default function Footer({ settings }: FooterProps) {
                       placeholder="Enter your official email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3.5 bg-[#122419] border border-[#213f2a] rounded-xl text-white placeholder-emerald-200/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#34a853] transition-all"
+                      className="w-full px-4 py-3.5 bg-[#0e2217] border border-[#234d35] rounded-xl text-white placeholder-emerald-200/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#2e9e5b] transition-all"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="px-6 py-3.5 bg-[#2da44e] hover:bg-[#34a853] text-[#0a140e] font-extrabold text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#2da44e]/20 disabled:opacity-50 cursor-pointer"
+                    className="px-6 py-3.5 bg-[#2e9e5b] hover:bg-[#258249] text-white font-extrabold text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#2e9e5b]/20 disabled:opacity-50 cursor-pointer"
                   >
                     <span>{status === 'loading' ? 'Subscribing...' : 'Subscribe'}</span>
                     <ArrowRight size={16} />
@@ -120,9 +120,9 @@ export default function Footer({ settings }: FooterProps) {
                     id="newsletter-consent"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-[#213f2a] bg-[#122419] text-[#2da44e] focus:ring-[#2da44e]"
+                    className="mt-1 h-4 w-4 rounded border-[#234d35] bg-[#0e2217] text-[#2e9e5b] focus:ring-[#2e9e5b]"
                   />
-                  <label htmlFor="newsletter-consent" className="text-xs text-emerald-200/70 leading-normal">
+                  <label htmlFor="newsletter-consent" className="text-xs text-emerald-200/80 leading-normal">
                     I consent to ACF processing my email address in accordance with Zambia&apos;s{' '}
                     <Link href="/privacy-policy" className="underline hover:text-white">
                       Data Protection Act, 2021
@@ -132,7 +132,7 @@ export default function Footer({ settings }: FooterProps) {
                 </div>
 
                 {status === 'success' && (
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#a3e635] bg-[#175432]/50 p-2.5 rounded-lg border border-[#2da44e]/30">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-emerald-200 bg-[#1e462f] p-2.5 rounded-lg border border-[#2e9e5b]/30">
                     <CheckCircle2 size={16} />
                     <span>{message}</span>
                   </div>
@@ -165,7 +165,7 @@ export default function Footer({ settings }: FooterProps) {
               </div>
             </Link>
 
-            <p className="text-emerald-100/75 text-sm leading-relaxed max-w-sm">
+            <p className="text-emerald-100/80 text-sm leading-relaxed max-w-sm">
               The Agricultural Consultative Forum is a multi-stakeholder platform championing evidence-based policy dialogue, sustainable food systems, and secure tenure rights for Zambian smallholders.
             </p>
 
@@ -176,7 +176,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.facebook_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#14281b] border border-[#23432d] flex items-center justify-center text-emerald-300 hover:text-white hover:bg-[#175432] transition-colors"
+                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
                   aria-label="ACF Facebook"
                 >
                   <FacebookIcon size={17} />
@@ -187,7 +187,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.twitter_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#14281b] border border-[#23432d] flex items-center justify-center text-emerald-300 hover:text-white hover:bg-[#175432] transition-colors"
+                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
                   aria-label="ACF Twitter"
                 >
                   <TwitterIcon size={17} />
@@ -198,7 +198,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#14281b] border border-[#23432d] flex items-center justify-center text-emerald-300 hover:text-white hover:bg-[#175432] transition-colors"
+                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
                   aria-label="ACF LinkedIn"
                 >
                   <LinkedinIcon size={17} />
@@ -209,10 +209,10 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 2: Navigation Links */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-[#a3e635]">
+            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
               Organisation
             </h3>
-            <ul className="space-y-2 text-sm text-emerald-100/75">
+            <ul className="space-y-2 text-sm text-emerald-100/80">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About ACF & Mission
@@ -243,10 +243,10 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 3: Programmes & Knowledge */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-[#a3e635]">
+            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
               Programmes & Work
             </h3>
-            <ul className="space-y-2 text-sm text-emerald-100/75">
+            <ul className="space-y-2 text-sm text-emerald-100/80">
               <li>
                 <Link href="/our-work" className="hover:text-white transition-colors">
                   All Thematic Areas
@@ -282,24 +282,24 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 4: Secretariat Contact */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-[#a3e635]">
+            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
               Secretariat
             </h3>
-            <div className="space-y-2.5 text-xs text-emerald-100/75 leading-relaxed">
+            <div className="space-y-2.5 text-xs text-emerald-100/80 leading-relaxed">
               <div className="flex items-start gap-2.5">
-                <MapPin size={15} className="text-[#a3e635] shrink-0 mt-0.5" />
+                <MapPin size={15} className="text-emerald-400 shrink-0 mt-0.5" />
                 <span>{settings.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone size={15} className="text-[#a3e635] shrink-0" />
+                <Phone size={15} className="text-emerald-400 shrink-0" />
                 <span>{settings.phone}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail size={15} className="text-[#a3e635] shrink-0" />
+                <Mail size={15} className="text-emerald-400 shrink-0" />
                 <span>{settings.email}</span>
               </div>
               <div className="flex items-start gap-2.5">
-                <Clock size={15} className="text-[#a3e635] shrink-0 mt-0.5" />
+                <Clock size={15} className="text-emerald-400 shrink-0 mt-0.5" />
                 <span>{settings.office_hours}</span>
               </div>
             </div>
@@ -307,9 +307,9 @@ export default function Footer({ settings }: FooterProps) {
         </div>
       </div>
 
-      {/* Bottom Bar: Darker Green Copyright & Compliance Section */}
-      <div className="bg-[#050b07] border-t border-[#102216] py-8">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-200/50">
+      {/* Bottom Bar: Copyright & Compliance Section */}
+      <div className="bg-[#0b1a12] border-t border-[#163324] py-8">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-200/60">
           <div>
             © {currentYear} Agricultural Consultative Forum (ACF). All rights reserved. Built by SpaceMinds Technologies.
           </div>

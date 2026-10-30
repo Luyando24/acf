@@ -68,7 +68,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 lg:py-20 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl space-y-4">
           <Link
             href="/our-work"
@@ -82,7 +82,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
             {prog.title}
           </h1>
 
-          <p className="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl">
+          <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl">
             {prog.summary}
           </p>
         </div>
@@ -94,21 +94,21 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
           {/* Main Body */}
           <div className="lg:col-span-8 space-y-12">
             <div
-              className="prose-acf text-base sm:text-lg leading-relaxed text-[#3b4d41] space-y-6"
+              className="prose-acf text-base sm:text-lg leading-relaxed text-[#2d3f33] space-y-6"
               dangerouslySetInnerHTML={{ __html: renderRichText(prog.body || prog.summary || '') }}
             />
 
             {/* Contextual CTA */}
-            <div className="p-8 rounded-3xl bg-[#f0f6f1] border border-[#d2e3d6] flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="p-8 rounded-3xl bg-[#eef6f1] border border-[#dbe6de] flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
-                <h3 className="text-lg font-bold text-[#0f1d14]">Engage on this Programme</h3>
-                <p className="text-xs text-[#5c6f62] mt-1 max-w-md">
+                <h3 className="text-lg font-bold text-[#122419]">Engage on this Programme</h3>
+                <p className="text-xs text-[#526658] mt-1 max-w-md">
                   Participate in our multi-stakeholder consultations or access research briefs on this thematic area.
                 </p>
               </div>
               <Link
                 href="/membership/apply"
-                className="px-6 py-3 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-full transition-colors whitespace-nowrap shadow-md shadow-[#175432]/20"
+                className="px-6 py-3 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-full transition-colors whitespace-nowrap shadow-md shadow-[#1e7e48]/20"
               >
                 Join Working Group
               </Link>
@@ -119,25 +119,25 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
           <div className="lg:col-span-4 space-y-8">
             {/* Related Publications */}
             {relatedPubs.length > 0 && (
-              <div className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 border-b border-[#e2ebe4] pb-3">
-                  <BookOpen size={18} className="text-[#175432]" />
-                  <h3 className="font-bold text-[#0f1d14] text-sm">Related Policy Briefs</h3>
+              <div className="bg-white rounded-2xl border border-[#dbe6de] p-6 shadow-xs space-y-4">
+                <div className="flex items-center gap-2 border-b border-[#dbe6de] pb-3">
+                  <BookOpen size={18} className="text-[#1e7e48]" />
+                  <h3 className="font-bold text-[#122419] text-sm">Related Policy Briefs</h3>
                 </div>
 
                 <div className="space-y-3">
                   {relatedPubs.map((pub) => (
                     <div key={pub.slug} className="group">
-                      <span className="text-[10px] font-bold text-[#175432] uppercase tracking-wider block mb-0.5">
+                      <span className="text-[10px] font-bold text-[#1e7e48] uppercase tracking-wider block mb-0.5">
                         {pub.publication_categories?.name || 'Publication'}
                       </span>
                       <Link
                         href={`/publications/${pub.slug}`}
-                        className="text-xs font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors line-clamp-2"
+                        className="text-xs font-bold text-[#122419] group-hover:text-[#1e7e48] transition-colors line-clamp-2"
                       >
                         {pub.title}
                       </Link>
-                      <span className="text-[10px] text-[#5c6f62] block mt-1">
+                      <span className="text-[10px] text-[#526658] block mt-1">
                         {formatDate(pub.published_on)}
                       </span>
                     </div>
@@ -146,7 +146,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
 
                 <Link
                   href="/publications"
-                  className="pt-2 text-xs font-bold text-[#175432] hover:underline inline-flex items-center gap-1"
+                  className="pt-2 text-xs font-bold text-[#1e7e48] hover:underline inline-flex items-center gap-1"
                 >
                   <span>Explore Publications Hub</span>
                   <ArrowRight size={12} />
@@ -156,25 +156,25 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
 
             {/* Related News */}
             {relatedNews.length > 0 && (
-              <div className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs space-y-4">
-                <div className="flex items-center gap-2 border-b border-[#e2ebe4] pb-3">
-                  <Calendar size={18} className="text-[#175432]" />
-                  <h3 className="font-bold text-[#0f1d14] text-sm">Sector News & Updates</h3>
+              <div className="bg-white rounded-2xl border border-[#dbe6de] p-6 shadow-xs space-y-4">
+                <div className="flex items-center gap-2 border-b border-[#dbe6de] pb-3">
+                  <Calendar size={18} className="text-[#1e7e48]" />
+                  <h3 className="font-bold text-[#122419] text-sm">Sector News & Updates</h3>
                 </div>
 
                 <div className="space-y-3">
                   {relatedNews.map((news) => (
                     <div key={news.slug} className="group">
-                      <span className="text-[10px] font-bold text-[#175432] uppercase tracking-wider block mb-0.5">
+                      <span className="text-[10px] font-bold text-[#1e7e48] uppercase tracking-wider block mb-0.5">
                         {news.category || 'News'}
                       </span>
                       <Link
                         href={`/news/${news.slug}`}
-                        className="text-xs font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors line-clamp-2"
+                        className="text-xs font-bold text-[#122419] group-hover:text-[#1e7e48] transition-colors line-clamp-2"
                       >
                         {news.title}
                       </Link>
-                      <span className="text-[10px] text-[#5c6f62] block mt-1">
+                      <span className="text-[10px] text-[#526658] block mt-1">
                         {formatDate(news.published_at)}
                       </span>
                     </div>
@@ -183,7 +183,7 @@ export default async function ProgrammeDetailPage({ params }: ProgrammePageProps
 
                 <Link
                   href="/news"
-                  className="pt-2 text-xs font-bold text-[#175432] hover:underline inline-flex items-center gap-1"
+                  className="pt-2 text-xs font-bold text-[#1e7e48] hover:underline inline-flex items-center gap-1"
                 >
                   <span>View All News</span>
                   <ArrowRight size={12} />

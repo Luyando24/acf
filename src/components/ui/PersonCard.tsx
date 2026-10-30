@@ -21,11 +21,11 @@ export default function PersonCard({ person }: { person: Person }) {
     person.email || person.linkedin_url || person.twitter_url || person.facebook_url
 
   return (
-    <div className="bg-white rounded-2xl border border-[#e2ebe4] p-6 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
+    <div className="bg-white rounded-2xl border border-[#dbe6de] p-6 shadow-xs hover:shadow-lg transition-all flex flex-col justify-between group">
       <div>
         {/* Photo ID or Initials Avatar */}
         {person.photo_url ? (
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-neutral-100 border border-[#ccd9cf] shadow-sm mb-5 group-hover:scale-105 transition-transform duration-300">
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden bg-neutral-100 border border-[#dbe6de] shadow-sm mb-5 group-hover:scale-105 transition-transform duration-300">
             <ContentImage
               src={person.photo_url}
               alt={displayName}
@@ -33,32 +33,32 @@ export default function PersonCard({ person }: { person: Person }) {
             />
           </div>
         ) : (
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#175432] text-white flex items-center justify-center font-black text-2xl shadow-sm border border-[#2da44e]/30 mb-5">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#1e7e48] text-white flex items-center justify-center font-black text-2xl shadow-sm border border-[#2e9e5b]/30 mb-5">
             {displayName.charAt(0)}
           </div>
         )}
 
-        <h3 className="text-lg font-bold text-[#0f1d14] leading-tight group-hover:text-[#175432] transition-colors">
+        <h3 className="text-lg font-bold text-[#122419] leading-tight group-hover:text-[#1e7e48] transition-colors">
           {displayName}
         </h3>
 
-        <div className="text-xs font-semibold text-[#175432] mt-1.5 uppercase tracking-wider">
+        <div className="text-xs font-semibold text-[#1e7e48] mt-1.5 uppercase tracking-wider">
           {person.position}
         </div>
 
         {person.bio && (
-          <p className="text-xs text-[#5c6f62] mt-3 leading-relaxed line-clamp-4">
+          <p className="text-xs text-[#526658] mt-3 leading-relaxed line-clamp-4">
             {person.bio}
           </p>
         )}
       </div>
 
       {hasSocials && (
-        <div className="pt-4 border-t border-[#e2ebe4] mt-5 flex items-center gap-2">
+        <div className="pt-4 border-t border-[#dbe6de] mt-5 flex items-center gap-2">
           {person.email && (
             <a
               href={`mailto:${person.email}`}
-              className="w-8 h-8 rounded-full bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white flex items-center justify-center transition-colors"
               aria-label={`Email ${displayName}`}
               title="Email"
             >
@@ -70,7 +70,7 @@ export default function PersonCard({ person }: { person: Person }) {
               href={person.linkedin_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white flex items-center justify-center transition-colors"
               aria-label={`LinkedIn for ${displayName}`}
               title="LinkedIn"
             >
@@ -82,7 +82,7 @@ export default function PersonCard({ person }: { person: Person }) {
               href={person.twitter_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white flex items-center justify-center transition-colors"
               aria-label={`Twitter/X for ${displayName}`}
               title="Twitter / X"
             >
@@ -94,7 +94,7 @@ export default function PersonCard({ person }: { person: Person }) {
               href={person.facebook_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full bg-[#f0f6f1] text-[#175432] hover:bg-[#175432] hover:text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white flex items-center justify-center transition-colors"
               aria-label={`Facebook for ${displayName}`}
               title="Facebook"
             >

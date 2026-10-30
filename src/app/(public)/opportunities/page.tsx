@@ -41,15 +41,15 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
   return (
     <div className="bg-[#fdfdfd] pb-24">
       {/* Header Banner */}
-      <section className="bg-[#0f1d14] text-white py-16 lg:py-20 border-b border-[#1b3424]">
+      <section className="bg-[#153e28] text-white py-16 lg:py-20 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#a3e635] bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15 inline-block">
+          <span className="text-xs font-bold uppercase tracking-widest text-white bg-white/15 px-3.5 py-1.5 rounded-full border border-white/20 inline-block">
             ACF Network & Procurement
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
             Opportunities & Tenders
           </h1>
-          <p className="text-emerald-100/80 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+          <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
             Current job vacancies, consultancy expressions of interest, procurement notices, and calls for proposals.
           </p>
         </div>
@@ -58,7 +58,7 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
       {/* Main Content Layout */}
       <div className="container mx-auto px-4 max-w-5xl pt-12">
         {/* Navigation / Filter Strip */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-8 border-b border-[#e2ebe4]">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-8 border-b border-[#dbe6de]">
           <div className="flex flex-wrap items-center gap-2">
             {types.map((t) => {
               const isSelected = (!type && t === 'All') || type === t
@@ -69,8 +69,8 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
                   href={href}
                   className={`px-4 py-2 rounded-full text-xs font-bold transition-colors ${
                     isSelected
-                      ? 'bg-[#175432] text-white shadow-xs'
-                      : 'bg-white border border-[#e2ebe4] text-[#5c6f62] hover:border-[#175432] hover:text-[#175432]'
+                      ? 'bg-[#1e7e48] text-white shadow-xs'
+                      : 'bg-white border border-[#dbe6de] text-[#526658] hover:border-[#1e7e48] hover:text-[#1e7e48]'
                   }`}
                 >
                   {t}
@@ -81,7 +81,7 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
 
           <Link
             href="/opportunities/archive"
-            className="text-xs font-bold text-[#175432] hover:underline shrink-0"
+            className="text-xs font-bold text-[#1e7e48] hover:underline shrink-0"
           >
             Browse Concluded Archive &rarr;
           </Link>
@@ -90,15 +90,15 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
         {/* Opportunities List */}
         <div className="pt-8 space-y-6">
           {activeOpportunities.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-3xl border border-[#e2ebe4] p-8 space-y-3">
-              <Briefcase size={40} className="mx-auto text-[#5c6f62]" />
-              <h2 className="text-xl font-bold text-[#0f1d14]">No active opportunities</h2>
-              <p className="text-sm text-[#5c6f62] max-w-md mx-auto">
+            <div className="text-center py-16 bg-white rounded-3xl border border-[#dbe6de] p-8 space-y-3">
+              <Briefcase size={40} className="mx-auto text-[#526658]" />
+              <h2 className="text-xl font-bold text-[#122419]">No active opportunities</h2>
+              <p className="text-sm text-[#526658] max-w-md mx-auto">
                 There are currently no active opportunities in this category. Check back soon or browse past items in the archive.
               </p>
               <Link
                 href="/opportunities/archive"
-                className="inline-block mt-2 px-5 py-2 text-xs font-bold bg-[#175432] text-white rounded-full"
+                className="inline-block mt-2 px-5 py-2 text-xs font-bold bg-[#1e7e48] text-white rounded-full hover:bg-[#166538]"
               >
                 View Archive
               </Link>
@@ -107,25 +107,25 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
             activeOpportunities.map((opp) => (
               <div
                 key={opp.slug}
-                className="bg-white rounded-3xl border border-[#e2ebe4] p-6 sm:p-8 shadow-xs hover:shadow-lg transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6 group"
+                className="bg-white rounded-3xl border border-[#dbe6de] p-6 sm:p-8 shadow-xs hover:shadow-lg transition-all flex flex-col md:flex-row items-start md:items-center justify-between gap-6 group"
               >
                 <div className="space-y-2 flex-grow">
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-[#5c6f62]">
-                    <span className="px-3 py-1 rounded-md bg-[#f0f6f1] text-[#175432] font-bold">
+                  <div className="flex flex-wrap items-center gap-3 text-xs text-[#526658]">
+                    <span className="px-3 py-1 rounded-md bg-[#eef6f1] text-[#1e7e48] font-bold">
                       {opp.type}
                     </span>
                     <span>•</span>
-                    <span className="flex items-center gap-1 text-emerald-800 font-semibold">
-                      <Clock size={13} className="text-[#2da44e]" />
+                    <span className="flex items-center gap-1 text-[#1e7e48] font-semibold">
+                      <Clock size={13} className="text-[#1e7e48]" />
                       Closes on {formatDate(opp.closes_on)}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-bold text-[#0f1d14] group-hover:text-[#175432] transition-colors leading-snug">
+                  <h2 className="text-xl font-bold text-[#122419] group-hover:text-[#1e7e48] transition-colors leading-snug">
                     <Link href={`/opportunities/${opp.slug}`}>{opp.title}</Link>
                   </h2>
 
-                  <p className="text-xs sm:text-sm text-[#5c6f62] leading-relaxed max-w-2xl line-clamp-2">
+                  <p className="text-xs sm:text-sm text-[#526658] leading-relaxed max-w-2xl line-clamp-2">
                     {opp.description}
                   </p>
                 </div>
@@ -133,7 +133,7 @@ export default async function OpportunitiesPage({ searchParams }: OpportunitiesP
                 <div className="shrink-0 w-full md:w-auto pt-2 md:pt-0">
                   <Link
                     href={`/opportunities/${opp.slug}`}
-                    className="w-full md:w-auto px-5 py-3 rounded-xl bg-[#175432] hover:bg-[#114227] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
+                    className="w-full md:w-auto px-5 py-3 rounded-xl bg-[#1e7e48] hover:bg-[#166538] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-colors"
                   >
                     <span>View Details & Apply</span>
                     <ArrowRight size={14} />
