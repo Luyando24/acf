@@ -46,6 +46,8 @@ test('DEFAULT_ABOUT_PAGE_CONTENT includes all pillars and narrative elements', (
   assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.history.image_url)
   assert.ok(Array.isArray(DEFAULT_ABOUT_PAGE_CONTENT.history.paragraphs))
   assert.strictEqual(DEFAULT_ABOUT_PAGE_CONTENT.objectives.items.length, 4)
+  assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.core_values)
+  assert.strictEqual(DEFAULT_ABOUT_PAGE_CONTENT.core_values.items.length, 7)
 })
 
 test('DEFAULT_CONTACT_PAGE_CONTENT has complete Lusaka Secretariat credentials', () => {

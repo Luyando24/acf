@@ -93,6 +93,12 @@ export interface HomePageContent {
   }
 }
 
+export interface CoreValueItem {
+  letter: string
+  title: string
+  description: string
+}
+
 // ----------------------------------------------------------------------------
 // ABOUT PAGE CONTENT SCHEMA
 // ----------------------------------------------------------------------------
@@ -111,6 +117,13 @@ export interface AboutPageContent {
   mission: {
     title: string
     description: string
+  }
+
+  core_values?: {
+    badge: string
+    title: string
+    description: string
+    items: CoreValueItem[]
   }
 
   history: {
@@ -329,6 +342,57 @@ export const DEFAULT_ABOUT_PAGE_CONTENT: AboutPageContent = {
     title: 'Our Mission',
     description:
       'To contribute to a responsive agricultural sector through evidence-based policy analysis, knowledge management, multi-stakeholder dialogue, and strategic advocacy for sustainable agricultural development.',
+  },
+
+  core_values: {
+    badge: 'Guiding Principles',
+    title: 'Our Core Values & Guiding Principles',
+    description:
+      "The foundational principles steering ACF's policy dialogues, research neutrality, and multi-stakeholder advocacy across Zambia.",
+    items: [
+      {
+        letter: 'a',
+        title: 'Non-partisan and independency',
+        description:
+          'Maintaining a neutral, objective, and independent platform for constructive dialogue between all public, private, and civil society agricultural stakeholders.',
+      },
+      {
+        letter: 'b',
+        title: 'Innovation and creativity',
+        description:
+          'Fostering forward-looking farming solutions, modern technological adoption, and creative policy alternatives for sustainable food systems.',
+      },
+      {
+        letter: 'c',
+        title: 'Transparency, accountability & governance',
+        description:
+          'Upholding the highest standards of open stakeholder consultation, fiscal integrity, ethical conduct, and good institutional governance.',
+      },
+      {
+        letter: 'd',
+        title: 'Inclusiveness',
+        description:
+          'Ensuring meaningful participation and equitable representation for smallholders, women, youth, and vulnerable rural agricultural producers.',
+      },
+      {
+        letter: 'e',
+        title: 'Professionalism',
+        description:
+          'Delivering rigorous technical excellence, ethical conduct, and high-quality analysis in all research, dialogue, and advisory engagements.',
+      },
+      {
+        letter: 'f',
+        title: 'Evidence-based policy advocacy',
+        description:
+          'Grounding all policy proposals and legislative recommendations in credible empirical research, verified field data, and market realities.',
+      },
+      {
+        letter: 'g',
+        title: 'Membership and ownership',
+        description:
+          'Cultivating a strong sense of ownership and active participation across all member caucuses, commodity associations, and sector partners.',
+      },
+    ],
   },
 
   history: {

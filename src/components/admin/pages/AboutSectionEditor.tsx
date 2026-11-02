@@ -15,10 +15,11 @@ import {
   Target,
   History,
   Shield,
+  ShieldCheck,
   Layers,
 } from 'lucide-react'
 import FileUpload from '@/components/admin/FileUpload'
-import type { AboutPageContent } from '@/types/pageContent'
+import { AboutPageContent, DEFAULT_ABOUT_PAGE_CONTENT } from '@/types/pageContent'
 
 interface AboutSectionEditorProps {
   initialContent: AboutPageContent
@@ -27,7 +28,7 @@ interface AboutSectionEditorProps {
 export default function AboutSectionEditor({ initialContent }: AboutSectionEditorProps) {
   const [content, setContent] = useState<AboutPageContent>(initialContent)
   const [isSaving, setIsSaving] = useState(false)
-  const [activeTab, setActiveTab] = useState<'header' | 'vision_mission' | 'history' | 'objectives' | 'governance'>('header')
+  const [activeTab, setActiveTab] = useState<'header' | 'vision_mission' | 'core_values' | 'history' | 'objectives' | 'governance'>('header')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
 
@@ -172,6 +173,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
         {[
           { id: 'header', label: 'Header Banner', icon: Layers },
           { id: 'vision_mission', label: 'Vision & Mission', icon: Eye },
+          { id: 'core_values', label: 'Core Values & Principles', icon: ShieldCheck },
           { id: 'history', label: 'Background & Photo', icon: History },
           { id: 'objectives', label: 'Strategic Objectives', icon: Target },
           { id: 'governance', label: 'Governance CTA', icon: Shield },
@@ -360,6 +362,195 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                 className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm leading-relaxed bg-[#fdfdfd]"
               />
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* =====================================================================
+          TAB: CORE VALUES & GUIDING PRINCIPLES
+      ===================================================================== */}
+      {activeTab === 'core_values' && (
+        <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-lg font-bold text-[#0f1d14]">Our Core Values &amp; Guiding Principles</h2>
+              <p className="text-sm text-[#5c6f62] mt-0.5">
+                The foundational values and ethical standards that steer ACF&apos;s policy consultations across Zambia.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                const currentItems = content.core_values?.items || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.items || []
+                const nextLetter = String.fromCharCode(97 + currentItems.length)
+                const newItem = {
+                  letter: nextLetter,
+                  title: 'New Value / Principle',
+                  description: 'Brief description of this core guiding principle...',
+                }
+                updateContent((prev) => {
+                  const base = prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!
+                  return {
+                    ...prev,
+                    core_values: {
+                      ...base,
+                      items: [...(base.items || []), newItem],
+                    },
+                  }
+                })
+              }}
+              className="px-4 py-2 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer"
+            >
+              <Plus size={14} />
+              <span>Add Value</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                Section Badge
+              </label>
+              <input
+                type="text"
+                value={content.core_values?.badge || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.badge || ''}
+                onChange={(e) => {
+                  const val = e.target.value
+                  updateContent((prev) => ({
+                    ...prev,
+                    core_values: {
+                      ...(prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!),
+                      badge: val,
+                    },
+                  }))
+                }}
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                Section Title
+              </label>
+              <input
+                type="text"
+                value={content.core_values?.title || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.title || ''}
+                onChange={(e) => {
+                  const val = e.target.value
+                  updateContent((prev) => ({
+                    ...prev,
+                    core_values: {
+                      ...(prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!),
+                      title: val,
+                    },
+                  }))
+                }}
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm font-bold bg-[#fdfdfd]"
+              />
+            </div>
+
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-bold text-[#0f1d14] uppercase tracking-wider mb-1.5">
+                Section Subtitle / Description
+              </label>
+              <input
+                type="text"
+                value={content.core_values?.description || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.description || ''}
+                onChange={(e) => {
+                  const val = e.target.value
+                  updateContent((prev) => ({
+                    ...prev,
+                    core_values: {
+                      ...(prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!),
+                      description: val,
+                    },
+                  }))
+                }}
+                className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm bg-[#fdfdfd]"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-4 pt-2">
+            {(content.core_values?.items || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.items || []).map((item, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
+                <div className="flex items-center gap-3">
+                  <input
+                    type="text"
+                    value={item.letter}
+                    onChange={(e) => {
+                      const val = e.target.value
+                      updateContent((prev) => {
+                        const base = prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!
+                        const updated = [...base.items]
+                        updated[idx] = { ...updated[idx], letter: val }
+                        return {
+                          ...prev,
+                          core_values: { ...base, items: updated },
+                        }
+                      })
+                    }}
+                    placeholder="a"
+                    className="w-10 px-2 py-2 text-center rounded-lg border border-[#e2ebe4] text-xs font-black bg-white uppercase text-[#1e7e48]"
+                  />
+                  <input
+                    type="text"
+                    value={item.title}
+                    onChange={(e) => {
+                      const val = e.target.value
+                      updateContent((prev) => {
+                        const base = prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!
+                        const updated = [...base.items]
+                        updated[idx] = { ...updated[idx], title: val }
+                        return {
+                          ...prev,
+                          core_values: { ...base, items: updated },
+                        }
+                      })
+                    }}
+                    placeholder="Core Value Title"
+                    className="flex-1 px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
+                  />
+                  {(content.core_values?.items || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.items || []).length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        updateContent((prev) => {
+                          const base = prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!
+                          const updated = base.items.filter((_, i) => i !== idx)
+                          return {
+                            ...prev,
+                            core_values: { ...base, items: updated },
+                          }
+                        })
+                      }}
+                      className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                      title="Remove Value"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  )}
+                </div>
+                <textarea
+                  rows={2}
+                  value={item.description}
+                  onChange={(e) => {
+                    const val = e.target.value
+                    updateContent((prev) => {
+                      const base = prev.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values!
+                      const updated = [...base.items]
+                      updated[idx] = { ...updated[idx], description: val }
+                      return {
+                        ...prev,
+                        core_values: { ...base, items: updated },
+                      }
+                    })
+                  }}
+                  placeholder="Core Value Explanation"
+                  className="w-full px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm leading-relaxed bg-white"
+                />
+              </div>
+            ))}
           </div>
         </div>
       )}

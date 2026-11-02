@@ -1,5 +1,19 @@
 import Link from 'next/link'
-import { CheckCircle2, Target, Eye, History, Shield, Users, ArrowRight } from 'lucide-react'
+import {
+  CheckCircle2,
+  Target,
+  Eye,
+  History,
+  Shield,
+  Users,
+  ArrowRight,
+  Scale,
+  Lightbulb,
+  FileCheck2,
+  Award,
+  BarChart3,
+  Building2,
+} from 'lucide-react'
 import { constructMetadata } from '@/lib/utils/seo'
 import { getPageContent, AboutPageContent, DEFAULT_ABOUT_PAGE_CONTENT } from '@/lib/supabase/pageContent'
 import ContentImage from '@/components/ui/ContentImage'
@@ -17,6 +31,7 @@ export default async function AboutPage() {
   const header = content?.header || DEFAULT_ABOUT_PAGE_CONTENT.header
   const vision = content?.vision || DEFAULT_ABOUT_PAGE_CONTENT.vision
   const mission = content?.mission || DEFAULT_ABOUT_PAGE_CONTENT.mission
+  const coreValues = content?.core_values || DEFAULT_ABOUT_PAGE_CONTENT.core_values
   const history = content?.history || DEFAULT_ABOUT_PAGE_CONTENT.history
   const objectives = content?.objectives || DEFAULT_ABOUT_PAGE_CONTENT.objectives
   const governance = content?.governance_cta || DEFAULT_ABOUT_PAGE_CONTENT.governance_cta
@@ -60,6 +75,59 @@ export default async function AboutPage() {
             <p className="text-[#2d3f33] text-base leading-relaxed">
               {mission.description}
             </p>
+          </div>
+        </section>
+
+        {/* Core Values & Guiding Principles */}
+        <section className="space-y-8">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#1e7e48] bg-[#eef6f1] px-3.5 py-1.5 rounded-full border border-[#1e7e48]/20 inline-block">
+              {coreValues?.badge || 'Guiding Principles'}
+            </span>
+            <h2 className="text-3xl font-extrabold text-[#122419]">
+              {coreValues?.title || 'Our Core Values & Guiding Principles'}
+            </h2>
+            <p className="text-[#526658] text-sm">
+              {coreValues?.description ||
+                "The fundamental institutional values that anchor ACF's policy consultations, research neutrality, and multi-stakeholder advocacy across Zambia."}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(coreValues?.items || DEFAULT_ABOUT_PAGE_CONTENT.core_values?.items || []).map((val, idx) => {
+              const icons = [Scale, Lightbulb, FileCheck2, Users, Award, BarChart3, Building2]
+              const Icon = icons[idx % icons.length]
+              const isLast = idx === 6
+              return (
+                <div
+                  key={val.letter || idx}
+                  className={`bg-white p-6 sm:p-7 rounded-2xl border border-[#dbe6de] shadow-xs hover:border-[#1e7e48]/40 hover:shadow-sm transition-all space-y-3 flex flex-col justify-between ${
+                    isLast ? 'md:col-span-2 lg:col-span-3 bg-gradient-to-br from-white via-white to-[#f4f8f5]' : ''
+                  }`}
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="w-10 h-10 rounded-xl bg-[#eef6f1] text-[#1e7e48] flex items-center justify-center font-bold text-sm">
+                        <Icon size={20} />
+                      </div>
+                      <span className="w-7 h-7 rounded-full bg-[#f4f8f5] border border-[#dbe6de] text-[#1e7e48] text-xs font-black flex items-center justify-center uppercase">
+                        {val.letter}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bold text-[#122419] text-base leading-snug">
+                      {val.title}
+                    </h3>
+
+                    {val.description && (
+                      <p className="text-xs text-[#526658] leading-relaxed">
+                        {val.description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </section>
 
