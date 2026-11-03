@@ -19,9 +19,9 @@ export default function AdminSidebar({ role }: { role?: string }) {
   }
 
   return (
-    <aside className="w-64 bg-white border-r border-[#e4e8e6] flex flex-col h-screen sticky top-0 shrink-0">
+    <aside className="w-64 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0 shrink-0">
       {/* Brand Header */}
-      <div className="px-4 py-3.5 border-b border-[#e4e8e6] flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-slate-200 flex items-center justify-between">
         <Link href="/admin" className="flex items-center gap-2">
           <img
             src="/photos/logo.png"
@@ -29,13 +29,13 @@ export default function AdminSidebar({ role }: { role?: string }) {
             className="h-9 w-auto max-w-[140px] object-contain"
           />
         </Link>
-        <span className="text-[11px] bg-[#f0f6f1] text-[#175432] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold border border-[#e4e8e6]">
+        <span className="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full uppercase tracking-wider font-black border border-slate-200">
           CMS
         </span>
       </div>
 
       {/* Navigation Groups */}
-      <nav className="flex-grow overflow-y-auto py-4 px-3 space-y-5">
+      <nav className="flex-grow overflow-y-auto py-5 px-3 space-y-6">
         {navGroups.map((group) => {
           const items = group.items.filter(
             (item: AdminNavItem) => !item.superAdminOnly || canManageStaff
@@ -43,60 +43,61 @@ export default function AdminSidebar({ role }: { role?: string }) {
           if (items.length === 0) return null
 
           return (
-          <div key={group.title} className="space-y-1">
-            <div className="px-3 text-[11px] font-bold uppercase tracking-widest text-[#8a9a8f]">
-              {group.title}
+            <div key={group.title} className="space-y-1">
+              <div className="px-3 text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                {group.title}
+              </div>
+
+              <div className="space-y-0.5">
+                {items.map((item) => {
+                  const isActive = isAdminActive(pathname, item.href)
+                  const Icon = item.icon
+
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-sm transition-all group ${
+                        isActive
+                          ? 'bg-[#175432] text-white shadow-xs font-semibold'
+                          : 'text-slate-600 font-medium hover:bg-slate-100/70 hover:text-slate-900'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon
+                          size={16}
+                          strokeWidth={isActive ? 2.2 : 1.8}
+                          className={isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-700'}
+                        />
+                        <span className="truncate">{item.name}</span>
+                      </div>
+
+                      {isActive && <ChevronRight size={13} className="text-white/70 shrink-0" />}
+                    </Link>
+                  )
+                })}
+              </div>
             </div>
-
-            <div className="space-y-0.5 pt-1">
-              {items.map((item) => {
-                const isActive = isAdminActive(pathname, item.href)
-                const Icon = item.icon
-
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    aria-current={isActive ? 'page' : undefined}
-                    className={`flex items-center justify-between px-3 py-2 rounded-md text-sm font-semibold transition-colors group ${
-                      isActive
-                        ? 'bg-[#eef6ef] text-[#175432] border border-[#d9e8dc]'
-                        : 'text-[#3b4d41] border border-transparent hover:bg-[#f5f8f5] hover:text-[#175432]'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <Icon
-                        size={16}
-                        className={isActive ? 'text-[#175432]' : 'text-[#7a8b80] group-hover:text-[#175432]'}
-                      />
-                      <span>{item.name}</span>
-                    </div>
-
-                    {isActive && <ChevronRight size={13} className="text-[#175432]/60" />}
-                  </Link>
-                )
-              })}
-            </div>
-          </div>
           )
         })}
       </nav>
 
       {/* Footer / Sign Out */}
-      <div className="p-3 border-t border-[#e4e8e6] space-y-0.5">
+      <div className="p-3 border-t border-slate-200 space-y-1">
         <Link
           href="/"
           target="_blank"
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-[#5c6f62] hover:bg-[#f5f8f5] hover:text-[#175432] transition-colors"
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-100/70 hover:text-slate-900 transition-all"
         >
-          <Globe size={15} />
+          <Globe size={15} className="text-slate-400" />
           <span>View Public Website</span>
         </Link>
 
         <button
           type="button"
           onClick={handleSignOut}
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
+          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm font-semibold text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
         >
           <LogOut size={15} />
           <span>Sign Out</span>

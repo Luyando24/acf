@@ -10,11 +10,11 @@ export default async function DashboardLayout({
   const session = await getStaffSession()
 
   return (
-    <div className="min-h-screen flex bg-[#f4f6f5] text-[#142018]">
+    <div className="min-h-screen flex bg-[#F8FAFC] text-slate-900">
       <AdminSidebar role={session?.role ?? ''} />
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto">
         <AdminTopbar email={session?.email ?? ''} role={session?.role ?? ''} />
-        <main className="flex-1 p-4 lg:p-8">{children}</main>
+        <main className="flex-1 p-6 lg:p-8">{children}</main>
       </div>
     </div>
   )
