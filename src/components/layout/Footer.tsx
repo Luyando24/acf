@@ -62,19 +62,19 @@ export default function Footer({ settings }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-[#11271b] text-white border-t border-[#1b3d2b]">
+    <footer className="bg-[#f4f8f5] text-[#2d3f33] border-t border-[#dbe6de]">
       {/* Top Banner: Newsletter Subscription */}
-      <div className="border-b border-[#1b3d2b] bg-[#153223] py-12">
+      <div className="border-b border-[#dbe6de] bg-[#eef6f1] py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/10 text-white border border-white/20 mb-3">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#1e7e48]/10 text-[#1e7e48] border border-[#1e7e48]/20 mb-3">
                 <Shield size={12} /> Stay Informed
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#122419] tracking-tight">
                 Subscribe to ACF Agricultural Policy Updates
               </h2>
-              <p className="text-emerald-100/80 text-sm mt-2 leading-relaxed">
+              <p className="text-[#526658] text-sm mt-2 leading-relaxed">
                 Receive policy analysis briefs, agricultural dialogue reports, and quarterly sector newsletters directly to your inbox.
               </p>
             </div>
@@ -100,14 +100,14 @@ export default function Footer({ settings }: FooterProps) {
                       placeholder="Enter your official email address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full px-4 py-3.5 bg-[#0e2217] border border-[#234d35] rounded-xl text-white placeholder-emerald-200/50 text-sm focus:outline-none focus:ring-2 focus:ring-[#2e9e5b] transition-all"
+                      className="w-full px-4 py-3.5 bg-white border border-[#dbe6de] rounded-xl text-[#122419] placeholder-[#526658]/70 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e7e48] transition-all shadow-2xs"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="px-6 py-3.5 bg-[#2e9e5b] hover:bg-[#258249] text-white font-extrabold text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#2e9e5b]/20 disabled:opacity-50 cursor-pointer"
+                    className="px-6 py-3.5 bg-[#1e7e48] hover:bg-[#166538] text-white font-extrabold text-sm rounded-xl transition-all flex items-center justify-center gap-2 shadow-md shadow-[#1e7e48]/20 disabled:opacity-50 cursor-pointer"
                   >
                     <span>{status === 'loading' ? 'Subscribing...' : 'Subscribe'}</span>
                     <ArrowRight size={16} />
@@ -120,11 +120,11 @@ export default function Footer({ settings }: FooterProps) {
                     id="newsletter-consent"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-1 h-4 w-4 rounded border-[#234d35] bg-[#0e2217] text-[#2e9e5b] focus:ring-[#2e9e5b]"
+                    className="mt-1 h-4 w-4 rounded border-[#dbe6de] text-[#1e7e48] focus:ring-[#1e7e48]"
                   />
-                  <label htmlFor="newsletter-consent" className="text-xs text-emerald-200/80 leading-normal">
+                  <label htmlFor="newsletter-consent" className="text-xs text-[#526658] leading-normal">
                     I consent to ACF processing my email address in accordance with Zambia&apos;s{' '}
-                    <Link href="/privacy-policy" className="underline hover:text-white">
+                    <Link href="/privacy-policy" className="underline hover:text-[#1e7e48] font-semibold text-[#122419]">
                       Data Protection Act, 2021
                     </Link>
                     . You may unsubscribe at any time.
@@ -132,14 +132,14 @@ export default function Footer({ settings }: FooterProps) {
                 </div>
 
                 {status === 'success' && (
-                  <div className="flex items-center gap-2 text-xs font-semibold text-emerald-200 bg-[#1e462f] p-2.5 rounded-lg border border-[#2e9e5b]/30">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#1e7e48] bg-emerald-50 p-2.5 rounded-lg border border-emerald-200">
                     <CheckCircle2 size={16} />
                     <span>{message}</span>
                   </div>
                 )}
 
                 {status === 'error' && (
-                  <div className="flex items-center gap-2 text-xs font-semibold text-rose-300 bg-rose-950/50 p-2.5 rounded-lg border border-rose-800/40">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-rose-700 bg-rose-50 p-2.5 rounded-lg border border-rose-200">
                     <AlertCircle size={16} />
                     <span>{message}</span>
                   </div>
@@ -156,7 +156,7 @@ export default function Footer({ settings }: FooterProps) {
           {/* Column 1: Institutional Brand & Mandate */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-block py-1">
-              <div className="bg-white rounded-xl p-2.5 inline-block shadow-sm">
+              <div className="bg-white rounded-xl p-2.5 inline-block border border-[#dbe6de] shadow-xs">
                 <img
                   src={settings.logo_url || '/photos/logo.png'}
                   alt={settings.site_name || 'ACF Zambia'}
@@ -165,7 +165,7 @@ export default function Footer({ settings }: FooterProps) {
               </div>
             </Link>
 
-            <p className="text-emerald-100/80 text-sm leading-relaxed max-w-sm">
+            <p className="text-[#526658] text-sm leading-relaxed max-w-sm">
               The Agricultural Consultative Forum is a multi-stakeholder platform championing evidence-based policy dialogue, sustainable food systems, and secure tenure rights for Zambian smallholders.
             </p>
 
@@ -176,7 +176,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.facebook_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
+                  className="w-9 h-9 rounded-full bg-white border border-[#dbe6de] flex items-center justify-center text-[#1e7e48] hover:text-white hover:bg-[#1e7e48] hover:border-[#1e7e48] shadow-2xs transition-colors"
                   aria-label="ACF Facebook"
                 >
                   <FacebookIcon size={17} />
@@ -187,7 +187,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.twitter_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
+                  className="w-9 h-9 rounded-full bg-white border border-[#dbe6de] flex items-center justify-center text-[#1e7e48] hover:text-white hover:bg-[#1e7e48] hover:border-[#1e7e48] shadow-2xs transition-colors"
                   aria-label="ACF Twitter"
                 >
                   <TwitterIcon size={17} />
@@ -198,7 +198,7 @@ export default function Footer({ settings }: FooterProps) {
                   href={settings.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-[#163524] border border-[#235038] flex items-center justify-center text-emerald-200 hover:text-white hover:bg-[#1e7e48] transition-colors"
+                  className="w-9 h-9 rounded-full bg-white border border-[#dbe6de] flex items-center justify-center text-[#1e7e48] hover:text-white hover:bg-[#1e7e48] hover:border-[#1e7e48] shadow-2xs transition-colors"
                   aria-label="ACF LinkedIn"
                 >
                   <LinkedinIcon size={17} />
@@ -209,33 +209,33 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 2: Navigation Links */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
+            <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
               Organisation
             </h3>
-            <ul className="space-y-2 text-sm text-emerald-100/80">
+            <ul className="space-y-2 text-sm text-[#526658]">
               <li>
-                <Link href="/about" className="hover:text-white transition-colors">
-                  About ACF & Mission
+                <Link href="/about" className="hover:text-[#1e7e48] transition-colors">
+                  About ACF &amp; Mission
                 </Link>
               </li>
               <li>
-                <Link href="/about/board" className="hover:text-white transition-colors">
+                <Link href="/about/board" className="hover:text-[#1e7e48] transition-colors">
                   Board of Directors
                 </Link>
               </li>
               <li>
-                <Link href="/about/management" className="hover:text-white transition-colors">
+                <Link href="/about/management" className="hover:text-[#1e7e48] transition-colors">
                   Management Team
                 </Link>
               </li>
               <li>
-                <Link href="/about/staff" className="hover:text-white transition-colors">
+                <Link href="/about/staff" className="hover:text-[#1e7e48] transition-colors">
                   Secretariat Staff
                 </Link>
               </li>
               <li>
-                <Link href="/partners" className="hover:text-white transition-colors">
-                  Partners & Networks
+                <Link href="/partners" className="hover:text-[#1e7e48] transition-colors">
+                  Partners &amp; Networks
                 </Link>
               </li>
             </ul>
@@ -243,37 +243,37 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 3: Programmes & Knowledge */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
-              Programmes & Work
+            <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
+              Programmes &amp; Work
             </h3>
-            <ul className="space-y-2 text-sm text-emerald-100/80">
+            <ul className="space-y-2 text-sm text-[#526658]">
               <li>
-                <Link href="/our-work" className="hover:text-white transition-colors">
+                <Link href="/our-work" className="hover:text-[#1e7e48] transition-colors">
                   All Thematic Areas
                 </Link>
               </li>
               <li>
-                <Link href="/publications" className="hover:text-white transition-colors">
+                <Link href="/publications" className="hover:text-[#1e7e48] transition-colors">
                   Publications Repository
                 </Link>
               </li>
               <li>
-                <Link href="/news" className="hover:text-white transition-colors">
-                  News & Sector Updates
+                <Link href="/news" className="hover:text-[#1e7e48] transition-colors">
+                  News &amp; Sector Updates
                 </Link>
               </li>
               <li>
-                <Link href="/events" className="hover:text-white transition-colors">
-                  Events & Policy Dialogues
+                <Link href="/events" className="hover:text-[#1e7e48] transition-colors">
+                  Events &amp; Policy Dialogues
                 </Link>
               </li>
               <li>
-                <Link href="/opportunities" className="hover:text-white transition-colors">
-                  Opportunities & Tenders
+                <Link href="/opportunities" className="hover:text-[#1e7e48] transition-colors">
+                  Opportunities &amp; Tenders
                 </Link>
               </li>
               <li>
-                <Link href="/facebook-posts" className="hover:text-white transition-colors">
+                <Link href="/facebook-posts" className="hover:text-[#1e7e48] transition-colors">
                   Social Highlights
                 </Link>
               </li>
@@ -282,24 +282,28 @@ export default function Footer({ settings }: FooterProps) {
 
           {/* Column 4: Secretariat Contact */}
           <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-emerald-300">
+            <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
               Secretariat
             </h3>
-            <div className="space-y-2.5 text-xs text-emerald-100/80 leading-relaxed">
+            <div className="space-y-2.5 text-xs text-[#526658] leading-relaxed">
               <div className="flex items-start gap-2.5">
-                <MapPin size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+                <MapPin size={15} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <span>{settings.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone size={15} className="text-emerald-400 shrink-0" />
-                <span>{settings.phone}</span>
+                <Phone size={15} className="text-[#1e7e48] shrink-0" />
+                <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="hover:text-[#1e7e48] transition-colors">
+                  {settings.phone}
+                </a>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail size={15} className="text-emerald-400 shrink-0" />
-                <span>{settings.email}</span>
+                <Mail size={15} className="text-[#1e7e48] shrink-0" />
+                <a href={`mailto:${settings.email}`} className="hover:text-[#1e7e48] transition-colors">
+                  {settings.email}
+                </a>
               </div>
               <div className="flex items-start gap-2.5">
-                <Clock size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+                <Clock size={15} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <span>{settings.office_hours}</span>
               </div>
             </div>
@@ -308,17 +312,17 @@ export default function Footer({ settings }: FooterProps) {
       </div>
 
       {/* Bottom Bar: Copyright & Compliance Section */}
-      <div className="bg-[#0b1a12] border-t border-[#163324] py-8">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-emerald-200/60">
+      <div className="bg-white border-t border-[#dbe6de] py-6">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#526658]">
           <div>
-            © {currentYear} Agricultural Consultative Forum (ACF). All rights reserved. Built by SpaceMinds Technologies.
+            © {currentYear} Agricultural Consultative Forum (ACF). All rights reserved.
           </div>
           <div className="flex items-center gap-6">
-            <Link href="/privacy-policy" className="hover:text-white transition-colors">
-              Privacy Policy & Consent
+            <Link href="/privacy-policy" className="hover:text-[#1e7e48] transition-colors">
+              Privacy Policy &amp; Consent
             </Link>
-            <span>•</span>
-            <Link href="/contact" className="hover:text-white transition-colors">
+            <span className="text-[#dbe6de]">•</span>
+            <Link href="/contact" className="hover:text-[#1e7e48] transition-colors">
               Contact Secretariat
             </Link>
           </div>

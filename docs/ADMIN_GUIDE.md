@@ -61,17 +61,35 @@ ACF's primary asset is its policy research. Publications can be organized, featu
 
 ---
 
-## 7. Membership Applications & Partner Directory (`/admin/membership`)
+## 7. Membership Applications & Caucus Categories (`/admin/membership`)
 
 - **Applicant Review:** Review corporate, NGO, institutional, and individual farmer applicants.
-- **Status Updates:** Update application status (`pending`, `under_review`, `approved`, `rejected`).
+- **Status Updates:** Update application status (`new`, `in_review`, `approved`, `declined`).
 - **CSV Export:** Accessible at `/api/admin/export/membership` for committee meetings.
+- **Categories & Requirements Management (`/admin/membership/categories`):** Add, edit, reorder (`Move Up`/`Move Down`), and configure benefits and eligibility criteria without editing code.
 
 ---
 
-## 8. General Site Settings (`/admin/settings`)
+## 8. General Site Settings & Working Hours (`/admin/settings`)
 
 Editable without code deployment:
+- **Working Hours:** Editable directly; updates immediately propagate to the global footer and `/contact` page.
 - **Contact Details:** Secretariat physical address, phone numbers, and official emails.
 - **Social Media Links:** Official Facebook, Twitter/X, and LinkedIn URLs.
 - **Impact Statistics:** Customizable counters displayed on the homepage hero section.
+
+---
+
+## 9. Page Content Management (`/admin/pages`)
+
+Manage static page copy, narratives, and banners:
+- **Home (`/admin/pages/home`):** Hero carousel slides, narrative snippet, section visibility toggles.
+- **About (`/admin/pages/about`):** Header banner, Vision, Mission, Core Values & Guiding Principles, History (narrative and dialogue photo), Strategic Objectives, and Governance links.
+- **Contact (`/admin/pages/contact`):** Header description, office directions, and enquiry copy.
+- **Membership (`/admin/pages/membership`):** Why join benefits and stakeholder CTA.
+
+---
+
+## 10. End-User Manual
+For the comprehensive, non-technical staff manual with step-by-step screenshots and FAQs, refer to:
+👉 [**docs/USER_GUIDE.md**](file:///c:/Users/User/Desktop/acf/docs/USER_GUIDE.md)

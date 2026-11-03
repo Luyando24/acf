@@ -1,6 +1,6 @@
 # CLAUDE.md: ACF Website & CMS
 
-You are helping build the website and admin CMS for the **Agricultural Consultative Forum (ACF)**, a Zambian multi-stakeholder agricultural policy NGO based in Lusaka. Builder: SpaceMinds Technologies.
+You are helping build the website and admin CMS for the **Agricultural Consultative Forum (ACF)**, a Zambian multi-stakeholder agricultural policy NGO based in Lusaka.
 
 **Full requirements live in `docs/PROJECT_GUIDE.md`. Task checklists live in `docs/TASKS.md`.** Read the relevant section of the guide before starting any module. If an instruction conflicts with the guide, ask before proceeding.
 

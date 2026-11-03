@@ -2,7 +2,6 @@
 
 > **Purpose of this file:** This is the single source of truth for what we are building. Read it fully before writing code, and re-read the relevant section before starting each module. Place it in the repo root (e.g. `/docs/PROJECT_GUIDE.md`) and reference it from `CLAUDE.md` / `AGENTS.md` / your tool's rules file.
 >
-> **Builder:** SpaceMinds Technologies (https://spaceminds.agency/)
 > **Client:** Agricultural Consultative Forum (ACF), Lusaka, Zambia
 > **Target delivery:** ~30 calendar days, phased (see Section 14)
 
@@ -539,4 +538,4 @@ A feature is done when:
 
 ---
 
-*Sources of context: SpaceMinds Technologies' ACF Website Development Proposal and background information on ACF compiled from public sources (e.g. ACF's website, International Land Coalition profile, ACF Facebook page). Treat organisational facts as provisional until confirmed by ACF.*
+*Sources of context: ACF Website Development Proposal and background information on ACF compiled from public sources (e.g. ACF's website, International Land Coalition profile, ACF Facebook page). Treat organisational facts as provisional until confirmed by ACF.*
