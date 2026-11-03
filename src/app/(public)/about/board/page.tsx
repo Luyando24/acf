@@ -23,6 +23,7 @@ export default async function BoardPage() {
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
+      {/* Header Banner */}
       <section className="bg-[#153e28] text-white py-16 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-3">
           <div className="flex items-center justify-center gap-2 text-xs font-bold text-emerald-300 uppercase tracking-widest">
@@ -41,19 +42,40 @@ export default async function BoardPage() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4 max-w-5xl pt-16">
-        {members.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {members.map((person) => (
-              <PersonCard key={person.id} person={person} />
-            ))}
+      {/* Two-Tab Navigation Switcher */}
+      <div className="container mx-auto px-4 max-w-5xl pt-10">
+        <div className="flex items-center justify-center">
+          <div className="inline-flex p-1.5 rounded-2xl bg-[#eef6f1] border border-[#dbe6de] shadow-2xs gap-1.5">
+            <Link
+              href="/about/board"
+              className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#1e7e48] text-white shadow-xs transition-all"
+            >
+              Board of Directors
+            </Link>
+            <Link
+              href="/about/secretariat"
+              className="px-6 py-2.5 rounded-xl text-xs font-bold text-[#526658] hover:text-[#122419] transition-all"
+            >
+              Secretariat
+            </Link>
           </div>
-        ) : (
-          <div className="text-center py-16 bg-white rounded-2xl border border-[#dbe6de] p-8 max-w-md mx-auto">
-            <p className="text-base font-semibold text-[#122419]">No board members currently listed</p>
-            <p className="text-xs text-[#526658] mt-1">Board directory records will appear here once added in the administrative portal.</p>
-          </div>
-        )}
+        </div>
+
+        {/* Personnel Grid */}
+        <div className="pt-10">
+          {members.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {members.map((person) => (
+                <PersonCard key={person.id} person={person} />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16 bg-white rounded-2xl border border-[#dbe6de] p-8 max-w-md mx-auto">
+              <p className="text-base font-semibold text-[#122419]">No board members currently listed</p>
+              <p className="text-xs text-[#526658] mt-1">Board directory records will appear here once added in the administrative portal.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )

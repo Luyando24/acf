@@ -690,11 +690,34 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
       {activeTab === 'objectives' && (
         <div className="space-y-6">
           <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs space-y-6">
-            <div>
-              <h2 className="text-lg font-bold text-[#0f1d14]">Strategic Objectives (4 Key Pillars)</h2>
-              <p className="text-sm text-[#5c6f62] mt-0.5">
-                The 4 operational pillars displayed in the 2x2 grid on `/about`.
-              </p>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h2 className="text-lg font-bold text-[#0f1d14]">Strategic Objectives (3 Key Pillars)</h2>
+                <p className="text-sm text-[#5c6f62] mt-0.5">
+                  The operational pillars displayed on `/about` (first two side-by-side, third centered beneath them).
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const currentItems = content.objectives.items || []
+                  const nextNum = String(currentItems.length + 1).padStart(2, '0')
+                  updateContent((prev) => ({
+                    ...prev,
+                    objectives: {
+                      ...prev.objectives,
+                      items: [
+                        ...prev.objectives.items,
+                        { num: nextNum, title: 'New Strategic Objective', description: 'Objective description...' },
+                      ],
+                    },
+                  }))
+                }}
+                className="px-4 py-2 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 shrink-0 cursor-pointer"
+              >
+                <Plus size={14} />
+                <span>Add Objective</span>
+              </button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -739,7 +762,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
               {content.objectives.items.map((item, idx) => (
                 <div key={idx} className="p-4 rounded-lg bg-[#f6f9f6] border border-[#e2ebe4] space-y-3">
                   <div className="flex items-center gap-2">
-                    <span className="w-8 h-8 rounded-md bg-[#0f1d14] text-[#a3e635] text-sm font-black flex items-center justify-center shrink-0">
+                    <span className="w-8 h-8 rounded-md bg-[#1e7e48] text-white text-sm font-black flex items-center justify-center shrink-0">
                       {item.num}
                     </span>
                     <input
@@ -759,6 +782,24 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
                       placeholder="Pillar Title"
                       className="flex-1 px-3 py-2 rounded-lg border border-[#e2ebe4] text-sm font-bold bg-white"
                     />
+                    {content.objectives.items.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateContent((prev) => ({
+                            ...prev,
+                            objectives: {
+                              ...prev.objectives,
+                              items: prev.objectives.items.filter((_, i) => i !== idx),
+                            },
+                          }))
+                        }}
+                        className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
+                        title="Remove Objective"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </div>
                   <textarea
                     rows={2}
@@ -792,7 +833,7 @@ export default function AboutSectionEditor({ initialContent }: AboutSectionEdito
           <div>
             <h2 className="text-lg font-bold text-[#0f1d14]">Governance Navigation Strip</h2>
             <p className="text-sm text-[#5c6f62] mt-0.5">
-              The bottom navigation bar guiding visitors to the Board of Directors, Management, and Staff.
+              The bottom navigation bar guiding visitors to the Board of Directors and the Secretariat.
             </p>
           </div>
 

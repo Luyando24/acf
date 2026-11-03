@@ -256,7 +256,7 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
     primary_btn_text: 'About ACF',
     primary_btn_url: '/about',
     secondary_btn_text: 'Leadership & Team',
-    secondary_btn_url: '/about/management',
+    secondary_btn_url: '/about/secretariat',
   },
 
   strategic_objectives: {
@@ -411,7 +411,7 @@ export const DEFAULT_ABOUT_PAGE_CONTENT: AboutPageContent = {
 
   objectives: {
     title: 'Key Strategic Objectives',
-    description: "ACF operates under four core pillars established to serve Zambia's agricultural constituents.",
+    description: "ACF operates under three core pillars established to serve Zambia's agricultural constituents.",
     items: [
       {
         num: '01',
@@ -431,18 +431,12 @@ export const DEFAULT_ABOUT_PAGE_CONTENT: AboutPageContent = {
         description:
           'Providing an open repository of publications, policy briefs, and advisory notes accessible to farmers, students, researchers, and government leaders.',
       },
-      {
-        num: '04',
-        title: 'Tenure Security & Gender Equality',
-        description:
-          'Advocating for secure customary land rights, transparent land allocation, and equitable economic empowerment for women and youth farmers.',
-      },
     ],
   },
 
   governance_cta: {
     title: 'Explore ACF Governance & People',
-    description: 'Meet our Board of Directors, Management Team, and dedicated Secretariat Staff.',
+    description: 'Meet our Board of Directors and the dedicated Secretariat team.',
   },
 }
 

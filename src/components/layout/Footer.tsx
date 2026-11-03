@@ -224,13 +224,8 @@ export default function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/about/management" className="hover:text-[#1e7e48] transition-colors">
-                  Management Team
-                </Link>
-              </li>
-              <li>
-                <Link href="/about/staff" className="hover:text-[#1e7e48] transition-colors">
-                  Secretariat Staff
+                <Link href="/about/secretariat" className="hover:text-[#1e7e48] transition-colors">
+                  Secretariat
                 </Link>
               </li>
               <li>

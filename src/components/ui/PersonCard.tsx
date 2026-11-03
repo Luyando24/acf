@@ -13,6 +13,7 @@ export interface Person {
   twitter_url?: string | null
   facebook_url?: string | null
   group_type: 'board' | 'management' | 'staff'
+  order_index?: number
 }
 
 export default function PersonCard({ person }: { person: Person }) {

@@ -183,24 +183,31 @@ export default async function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {(objectives.items && objectives.items.length > 0
               ? objectives.items
               : DEFAULT_ABOUT_PAGE_CONTENT.objectives.items
-            ).map((obj) => (
-              <div
-                key={obj.num}
-                className="bg-white p-6 rounded-2xl border border-[#dbe6de] shadow-xs flex items-start gap-4"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#1e7e48] text-white flex items-center justify-center font-black text-sm shrink-0 border border-[#2e9e5b]/30">
-                  {obj.num}
+            ).slice(0, 3).map((obj, idx) => {
+              const isCenteredBottom = idx === 2
+              return (
+                <div
+                  key={obj.num}
+                  className={`bg-white p-6 sm:p-7 rounded-2xl border border-[#dbe6de] shadow-xs flex items-start gap-4 transition-all hover:border-[#1e7e48]/40 hover:shadow-sm ${
+                    isCenteredBottom
+                      ? 'md:col-span-2 md:col-start-2'
+                      : 'md:col-span-2'
+                  }`}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-[#1e7e48] text-white flex items-center justify-center font-black text-sm shrink-0 border border-[#2e9e5b]/30">
+                    {obj.num}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-[#122419] text-base mb-1.5">{obj.title}</h3>
+                    <p className="text-xs text-[#526658] leading-relaxed">{obj.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-[#122419] text-base mb-1.5">{obj.title}</h3>
-                  <p className="text-xs text-[#526658] leading-relaxed">{obj.description}</p>
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </section>
 
@@ -216,21 +223,15 @@ export default async function AboutPage() {
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/about/board"
-              className="px-5 py-2.5 bg-white border border-[#dbe6de] hover:border-[#1e7e48] text-xs font-bold text-[#122419] rounded-full transition-colors"
+              className="px-6 py-2.5 bg-white border border-[#dbe6de] hover:border-[#1e7e48] text-xs font-bold text-[#122419] rounded-full transition-colors"
             >
               Board of Directors
             </Link>
             <Link
-              href="/about/management"
-              className="px-5 py-2.5 bg-white border border-[#dbe6de] hover:border-[#1e7e48] text-xs font-bold text-[#122419] rounded-full transition-colors"
+              href="/about/secretariat"
+              className="px-6 py-2.5 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-full transition-colors shadow-xs"
             >
-              Management Team
-            </Link>
-            <Link
-              href="/about/staff"
-              className="px-5 py-2.5 bg-[#1e7e48] hover:bg-[#166538] text-white text-xs font-bold rounded-full transition-colors"
-            >
-              Staff Profiles
+              Secretariat
             </Link>
           </div>
         </section>

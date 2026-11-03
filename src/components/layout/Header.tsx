@@ -32,8 +32,7 @@ export default function Header({ settings }: HeaderProps) {
       dropdown: [
         { label: 'Overview & Mission', href: '/about', desc: 'History, vision, and strategic mandate' },
         { label: 'Board of Directors', href: '/about/board', desc: 'Governance and oversight leadership' },
-        { label: 'Management Team', href: '/about/management', desc: 'Executive and operational directors' },
-        { label: 'Staff Profiles', href: '/about/staff', desc: 'Dedicated secretariat team members' },
+        { label: 'Secretariat', href: '/about/secretariat', desc: 'Executive leadership and operational staff' },
       ],
     },
     {
