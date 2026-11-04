@@ -26,6 +26,8 @@ export default function ContactClientView({ initialContent, settings }: ContactC
 
   const [formData, setFormData] = useState({
     name: '',
+    organization: '',
+    constituency: '',
     email: '',
     phone: '',
     subject: '',
@@ -64,6 +66,8 @@ export default function ContactClientView({ initialContent, settings }: ContactC
         setFeedback('Thank you! Your enquiry has been received by the ACF Secretariat.')
         setFormData({
           name: '',
+          organization: '',
+          constituency: '',
           email: '',
           phone: '',
           subject: '',
@@ -97,13 +101,13 @@ export default function ContactClientView({ initialContent, settings }: ContactC
       <section className="bg-[#153e28] text-white py-16 lg:py-20 border-b border-[#1e4a32]">
         <div className="container mx-auto px-4 max-w-4xl text-center space-y-4">
           <span className="text-xs font-bold uppercase tracking-widest text-white bg-white/15 px-3.5 py-1.5 rounded-full border border-white/20 inline-block">
-            {header.badge}
+            {header.badge || 'ACF Secretariat'}
           </span>
           <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-            {header.title}
+            Get in Touch with ACF
           </h1>
           <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            {header.description}
+            Reach out to our secretariat for membership inquiries, research partnerships, or event details.
           </p>
         </div>
       </section>
@@ -135,11 +139,16 @@ export default function ContactClientView({ initialContent, settings }: ContactC
                 <Phone size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
-                    Direct Phone Line
+                    Telephone
                   </h3>
-                  <a href={`tel:${displayPhone.replace(/\s+/g, '')}`} className="text-xs font-bold text-[#1e7e48] hover:underline">
-                    {displayPhone}
-                  </a>
+                  <div className="space-y-0.5">
+                    <a href="tel:+260966455696" className="text-xs font-bold text-[#1e7e48] hover:underline block">
+                      +260 966 455696
+                    </a>
+                    <a href="tel:+260211260767" className="text-xs font-bold text-[#1e7e48] hover:underline block">
+                      +260 21 126 0767
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -147,11 +156,16 @@ export default function ContactClientView({ initialContent, settings }: ContactC
                 <Mail size={20} className="text-[#1e7e48] shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-bold text-[#122419] text-xs uppercase tracking-wider mb-1">
-                    Official Email
+                    Secretariat Email
                   </h3>
-                  <a href={`mailto:${displayEmail}`} className="text-xs font-bold text-[#1e7e48] hover:underline">
-                    {displayEmail}
-                  </a>
+                  <div className="space-y-0.5">
+                    <a href="mailto:info@acfzambia.org" className="text-xs font-bold text-[#1e7e48] hover:underline block">
+                      info@acfzambia.org
+                    </a>
+                    <a href="mailto:agriculturalconsultativeforum@gmail.com" className="text-xs text-[#526658] hover:underline block">
+                      agriculturalconsultativeforum@gmail.com
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -275,12 +289,42 @@ export default function ContactClientView({ initialContent, settings }: ContactC
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#122419]">Organization Name</label>
+                  <input
+                    type="text"
+                    value={formData.organization}
+                    onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                    placeholder="e.g. Farmer Cooperative / Agribusiness"
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#122419]">Constituency / Sector</label>
+                  <select
+                    value={formData.constituency}
+                    onChange={(e) => setFormData({ ...formData, constituency: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none bg-white text-[#122419]"
+                  >
+                    <option value="">Select Constituency...</option>
+                    <option value="Farmer organisations">Farmer organisations</option>
+                    <option value="Public Sector & Policy Makers">Public Sector &amp; Policy Makers</option>
+                    <option value="Private sector (Agribusiness, Farmers & Finance)">Private sector / Agribusiness</option>
+                    <option value="Civil Society & Research">Civil Society &amp; Research</option>
+                    <option value="Cooperating Partners">Cooperating Partners</option>
+                    <option value="Other">Other Stakeholder</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
                   <label className="text-xs font-bold text-[#122419]">Phone Number</label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="+260 95 0000000"
+                    placeholder="+260 966 000000"
                     className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>
@@ -292,7 +336,7 @@ export default function ContactClientView({ initialContent, settings }: ContactC
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="Policy Enquiry / Research Access"
+                    placeholder="Membership / Dialogue / Research Inquiry"
                     className="w-full px-4 py-3 rounded-xl border border-[#dbe6de] text-xs focus:ring-2 focus:ring-[#1e7e48] focus:outline-none"
                   />
                 </div>

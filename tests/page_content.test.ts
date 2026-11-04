@@ -8,6 +8,10 @@ import {
 } from '../src/lib/supabase/pageContent'
 
 test('DEFAULT_HOME_PAGE_CONTENT conforms to structured section requirements', () => {
+  // Hero headline & subheadline
+  assert.ok(DEFAULT_HOME_PAGE_CONTENT.hero?.headline)
+  assert.ok(DEFAULT_HOME_PAGE_CONTENT.hero?.primary_cta_text)
+
   // Hero slides
   assert.ok(Array.isArray(DEFAULT_HOME_PAGE_CONTENT.hero_slides))
   assert.ok(DEFAULT_HOME_PAGE_CONTENT.hero_slides.length > 0)
@@ -15,9 +19,13 @@ test('DEFAULT_HOME_PAGE_CONTENT conforms to structured section requirements', ()
 
   // Stats
   assert.ok(Array.isArray(DEFAULT_HOME_PAGE_CONTENT.stats))
-  assert.ok(DEFAULT_HOME_PAGE_CONTENT.stats.length >= 4)
+  assert.ok(DEFAULT_HOME_PAGE_CONTENT.stats.length >= 3)
   assert.ok(DEFAULT_HOME_PAGE_CONTENT.stats[0].value)
   assert.ok(DEFAULT_HOME_PAGE_CONTENT.stats[0].label)
+
+  // Core constituencies
+  assert.ok(Array.isArray(DEFAULT_HOME_PAGE_CONTENT.core_constituencies))
+  assert.strictEqual(DEFAULT_HOME_PAGE_CONTENT.core_constituencies.length, 5)
 
   // About snippet & feature cards
   assert.ok(DEFAULT_HOME_PAGE_CONTENT.about_snippet.title)
@@ -43,6 +51,9 @@ test('DEFAULT_ABOUT_PAGE_CONTENT includes all pillars and narrative elements', (
   assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.vision.description)
   assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.mission.title)
   assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.mission.description)
+  assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.departments)
+  assert.strictEqual(DEFAULT_ABOUT_PAGE_CONTENT.departments.length, 3)
+  assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.strategic_plan?.button_text)
   assert.ok(DEFAULT_ABOUT_PAGE_CONTENT.history.image_url)
   assert.ok(Array.isArray(DEFAULT_ABOUT_PAGE_CONTENT.history.paragraphs))
   assert.strictEqual(DEFAULT_ABOUT_PAGE_CONTENT.objectives.items.length, 3)
@@ -54,6 +65,7 @@ test('DEFAULT_CONTACT_PAGE_CONTENT has complete Lusaka Secretariat credentials',
   assert.ok(DEFAULT_CONTACT_PAGE_CONTENT.details.address.includes('Woodlands'))
   assert.ok(DEFAULT_CONTACT_PAGE_CONTENT.details.email.includes('acfzambia.org'))
   assert.ok(DEFAULT_CONTACT_PAGE_CONTENT.details.phone.startsWith('+260'))
+  assert.ok(DEFAULT_CONTACT_PAGE_CONTENT.details.alternate_email)
   assert.ok(DEFAULT_CONTACT_PAGE_CONTENT.social_links.facebook_url)
 })
 

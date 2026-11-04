@@ -34,11 +34,13 @@ We are building a modern, responsive, accessible institutional website for ACF, 
 - **Activities:** Multi-stakeholder consultations, policy dialogues, evidence-based analyses, newsletters and sector news updates.
 - **Existing web presence:** An existing site at `acfzambia.org` (with a "sector news" section) and a Facebook page (`facebook.com/ACFZambia`). Use these as references for existing content and branding, but this is a **new build**.
 
-### Contact details (provisional; confirm with ACF before launch)
+### Contact details (Confirmed via Feedback 2)
 | Field | Value |
 |---|---|
-| Address | 24 Elm Rd, Lusaka, Zambia |
-| Phone | 095 4755071 |
+| Address | Plot 24, Elm Road, Woodlands, Lusaka, Zambia |
+| Phone | +260 966 455696 / +260 21 126 0767 |
+| Primary Email | info@acfzambia.org |
+| Alternative Email | agriculturalconsultativeforum@gmail.com |
 | Website | acfzambia.org |
 | Facebook | facebook.com/ACFZambia |
 

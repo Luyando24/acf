@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, email, phone, subject, message, consent_given, honeypot, turnstile_token } =
+    const { name, organization, constituency, email, phone, subject, message, consent_given, honeypot, turnstile_token } =
       validation.data
 
     if (honeypot) {
@@ -38,6 +38,8 @@ export async function POST(request: Request) {
     // 1. Store submission in database
     const { error: dbError } = await supabase.from('contact_messages').insert({
       name,
+      organization: organization || null,
+      constituency: constituency || null,
       email,
       phone: phone || null,
       subject,
@@ -66,6 +68,8 @@ export async function POST(request: Request) {
       html: `
         <h2>New Contact Enquiry from ACF Website</h2>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Organization:</strong> ${escapeHtml(organization || 'Not provided')}</p>
+        <p><strong>Constituency:</strong> ${escapeHtml(constituency || 'Not provided')}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Phone:</strong> ${escapeHtml(phone || 'Not provided')}</p>
         <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>

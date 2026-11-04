@@ -27,15 +27,46 @@ export interface FeatureCardItem {
   description: string
 }
 
+export interface HeroConfig {
+  headline: string
+  subheadline: string
+  primary_cta_text: string
+  primary_cta_url: string
+  secondary_cta_text: string
+  secondary_cta_url: string
+}
+
+export interface ConstituencyItem {
+  title: string
+  description?: string
+}
+
+export interface DepartmentItem {
+  title: string
+  description?: string
+}
+
+export interface StrategicPlanItem {
+  title: string
+  button_text: string
+  file_url: string
+}
+
 // ----------------------------------------------------------------------------
 // HOME PAGE CONTENT SCHEMA
 // ----------------------------------------------------------------------------
 export interface HomePageContent {
+  // Hero Configuration
+  hero?: HeroConfig
+
   // Hero Section
   hero_slides: HeroSlideItem[]
 
   // Stats Strip
   stats: StatItem[]
+
+  // Core Constituencies Ticker / Overview
+  core_constituencies?: ConstituencyItem[]
 
   // About The Forum Snippet
   about_snippet: {
@@ -126,6 +157,10 @@ export interface AboutPageContent {
     items: CoreValueItem[]
   }
 
+  departments?: DepartmentItem[]
+
+  strategic_plan?: StrategicPlanItem
+
   history: {
     title: string
     banner_badge: string
@@ -164,6 +199,7 @@ export interface ContactPageContent {
     phone: string
     alternate_phone?: string
     email: string
+    alternate_email?: string
     working_hours: string
   }
 
@@ -210,6 +246,16 @@ export interface MembershipPageContent {
 // ============================================================================
 
 export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
+  hero: {
+    headline: 'Driving Evidence-Based Policy for a Food-Secure Zambia',
+    subheadline:
+      'The premier public-private dialogue platform bridging the gap between government, farmer organisations, civil society and academia, agribusiness and cooperative partners to transform the agricultural sector.',
+    primary_cta_text: 'Explore Knowledge Hub',
+    primary_cta_url: '/publications',
+    secondary_cta_text: 'Read Latest Policy Briefs',
+    secondary_cta_url: '/publications',
+  },
+
   hero_slides: [
     {
       image_url: '/photos/fosta-stakeholders-dialogue.jpg',
@@ -234,10 +280,17 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
   ],
 
   stats: [
-    { label: 'Policy Dialogues Held', value: '120+', order: 1 },
-    { label: 'Research Publications', value: '85+', order: 2 },
-    { label: 'Farmer Groups Reached', value: '50,000+', order: 3 },
-    { label: 'Stakeholder Partners', value: '40+', order: 4 },
+    { label: 'Core Strategic Pillars (CATSP & 8NDP Aligned)', value: '4', order: 1 },
+    { label: 'Years of Policy Dialogue Coordination', value: '20+', order: 2 },
+    { label: 'Key Stakeholder Constituencies Engaged', value: '5', order: 3 },
+  ],
+
+  core_constituencies: [
+    { title: 'Farmer organisations' },
+    { title: 'Public Sector & Policy Makers' },
+    { title: 'Private sector (Agribusiness Enterprises, Farmer Organisations & Financial Institutions)' },
+    { title: 'Civil Society and Research institutions' },
+    { title: 'Cooperating Partners' },
   ],
 
   about_snippet: {
@@ -326,22 +379,43 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
 
 export const DEFAULT_ABOUT_PAGE_CONTENT: AboutPageContent = {
   header: {
-    badge: 'Institutional Mandate',
-    title: 'About the Agricultural Consultative Forum',
+    badge: 'Who We Are',
+    title: 'Who We Are',
     description:
-      'A trusted multi-stakeholder platform fostering collaborative dialogue, evidence-based policy formulation, and sustainable agricultural progress in Zambia.',
+      "The Agricultural Consultative Forum is Zambia's premier multi-stakeholder platform dedicated to fostering inclusive, evidence-based agricultural policy dialogue. Formed out of the vital need to bridge the gap between policy formulation and practical implementation in 1998, our mandate is to provide a multi-stakeholder platform for agricultural policy dialogue and coordination, and fostering of Public-Private Partnerships (PPPs) in Zambia’s agricultural. We serve as a neutral broker and catalyst, transforming divergent sector interests into unified national strategies that drive agricultural growth, rural development, and economic transformation.",
   },
 
   vision: {
     title: 'Our Vision',
     description:
-      'A viable, equitable, and climate-resilient agricultural sector in Zambia where smallholder farmers, agribusinesses, and rural communities flourish through transparent, evidence-based policy frameworks.',
+      'A leading policy advisory organization in the formulation and development of agricultural sector policies” in Zambia.',
   },
 
   mission: {
     title: 'Our Mission',
     description:
-      'To contribute to a responsive agricultural sector through evidence-based policy analysis, knowledge management, multi-stakeholder dialogue, and strategic advocacy for sustainable agricultural development.',
+      'To promote evidence-based policy analysis, knowledge management, and structured policy dialogue among diverse stakeholders.',
+  },
+
+  departments: [
+    {
+      title: 'Stakeholder Engagements',
+      description: 'Mobilizing farmer organisations, private agribusiness, and cooperating partners across Zambia.',
+    },
+    {
+      title: 'Policy Research & Studies',
+      description: 'Conducting data-driven empirical analysis, legislative reviews, and policy impact assessments.',
+    },
+    {
+      title: 'Finance & Administration',
+      description: 'Ensuring transparent fiscal management, institutional governance, and program coordination.',
+    },
+  ],
+
+  strategic_plan: {
+    title: 'Strategic Plan 2026 - 2031',
+    button_text: 'Download 5-Year Strategic Plan Blueprint (PDF)',
+    file_url: '/documents/acf-strategic-plan-2026-2031.pdf',
   },
 
   core_values: {
@@ -451,10 +525,11 @@ export const DEFAULT_CONTACT_PAGE_CONTENT: ContactPageContent = {
   details: {
     title: 'Secretariat Details',
     subtitle: 'Visit or call our offices during business hours (Central Africa Time).',
-    address: '24 Elm Rd, Woodlands, Lusaka, Zambia',
-    phone: '+260 95 4755071',
-    alternate_phone: '+260 21 1260000',
+    address: 'Plot 24, Elm Road, Woodlands, Lusaka, Zambia',
+    phone: '+260 966 455696 / +260 21 126 0767',
+    alternate_phone: '+260 21 126 0767',
     email: 'info@acfzambia.org',
+    alternate_email: 'agriculturalconsultativeforum@gmail.com',
     working_hours: 'Monday - Friday: 08:00 - 17:00 (CAT)',
   },
 

@@ -249,7 +249,7 @@ export default function Footer({ settings }: FooterProps) {
               </li>
               <li>
                 <Link href="/publications" className="hover:text-[#1e7e48] transition-colors">
-                  Publications Repository
+                  Knowledge Hub
                 </Link>
               </li>
               <li>
@@ -259,7 +259,7 @@ export default function Footer({ settings }: FooterProps) {
               </li>
               <li>
                 <Link href="/events" className="hover:text-[#1e7e48] transition-colors">
-                  Events &amp; Policy Dialogues
+                  Policy Dialogues
                 </Link>
               </li>
               <li>

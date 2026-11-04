@@ -4,13 +4,15 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import type { HeroSlide } from '@/lib/supabase/settings'
+import type { HeroConfig } from '@/types/pageContent'
 import ContentImage from '@/components/ui/ContentImage'
 
 interface HeroSliderProps {
   slides: HeroSlide[]
+  heroConfig?: HeroConfig
 }
 
-export default function HeroSlider({ slides }: HeroSliderProps) {
+export default function HeroSlider({ slides, heroConfig }: HeroSliderProps) {
   const [current, setCurrent] = useState(0)
   const slideCount = slides.length
 
@@ -126,28 +128,29 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       <div className="container relative mx-auto px-4 py-12 lg:py-16 z-20">
         <div className="max-w-xl lg:max-w-2xl space-y-5">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12]">
-            Dialogue for Agricultural Transformation in Zambia
+            {heroConfig?.headline || 'Driving Evidence-Based Policy for a Food-Secure Zambia'}
           </h1>
 
           <p className="text-base sm:text-lg text-emerald-50/95 leading-relaxed font-normal max-w-xl">
-            Connecting smallholder farmers, policymakers, agribusinesses, and researchers to champion sustainable agriculture, climate resilience, and food security across Zambia.
+            {heroConfig?.subheadline ||
+              'The premier public-private dialogue platform bridging the gap between government, farmer organisations, civil society and academia, agribusiness and cooperative partners to transform the agricultural sector.'}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center gap-4">
             <Link
-              href="/our-work"
+              href={heroConfig?.primary_cta_url || '/publications'}
               className="px-8 py-4 bg-[#2e9e5b] hover:bg-[#258249] text-white font-extrabold rounded-full transition-all flex items-center gap-2 shadow-lg shadow-[#2e9e5b]/25 hover:scale-105"
             >
-              <span>Explore Our Work</span>
+              <span>{heroConfig?.primary_cta_text || 'Explore Knowledge Hub'}</span>
               <ArrowRight size={18} />
             </Link>
 
             <Link
-              href="/publications"
+              href={heroConfig?.secondary_cta_url || '/publications'}
               className="px-7 py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full transition-all border border-white/25 backdrop-blur-xs flex items-center gap-2"
             >
               <BookOpen size={18} />
-              <span>Publications &amp; Research</span>
+              <span>{heroConfig?.secondary_cta_text || 'Read Latest Policy Briefs'}</span>
             </Link>
           </div>
         </div>

@@ -40,20 +40,14 @@ export default function Header({ settings }: HeaderProps) {
       key: 'work',
       dropdown: [
         { label: 'Thematic Programmes', href: '/our-work', desc: 'Policy advocacy, dialogue, and climate' },
-        { label: 'Policy Advocacy', href: '/our-work/policy-advocacy', desc: 'Engaging national policymakers' },
+        { label: 'Policy Advocacy & Reform', href: '/our-work/policy-advocacy', desc: 'Engaging national policymakers' },
         { label: 'Research & Evidence', href: '/our-work/research-and-evidence', desc: 'Data-driven analysis' },
         { label: 'Climate Resilience', href: '/our-work/climate-resilience', desc: 'Sustainable smallholder systems' },
       ],
     },
-    {
-      label: 'News & Events',
-      key: 'news-events',
-      dropdown: [
-        { label: 'News & Sector Updates', href: '/news', desc: 'Latest articles and sector releases' },
-        { label: 'Events & Forums', href: '/events', desc: 'Upcoming dialogues and past symposia' },
-        { label: 'Social Highlights', href: '/facebook-posts', desc: 'Live updates from our Facebook page' },
-      ],
-    },
+    { label: 'Policy Dialogues', href: '/events' },
+    { label: 'Knowledge Hub', href: '/publications' },
+    { label: 'News', href: '/news' },
     {
       label: 'Get Involved',
       key: 'involved',
@@ -62,9 +56,9 @@ export default function Header({ settings }: HeaderProps) {
         { label: 'Apply for Membership', href: '/membership/apply', desc: 'Online application form' },
         { label: 'Partners & Networks', href: '/partners', desc: 'Collaborating institutions' },
         { label: 'Opportunities & Tenders', href: '/opportunities', desc: 'Jobs, tenders, and consultancies' },
+        { label: 'Social Highlights', href: '/facebook-posts', desc: 'Live updates from our Facebook page' },
       ],
     },
-    { label: 'Search', href: '/search' },
     { label: 'Contact', href: '/contact' },
   ]
 
@@ -159,10 +153,10 @@ export default function Header({ settings }: HeaderProps) {
             {/* Quick Actions (Desktop) */}
             <div className="hidden lg:flex items-center gap-3">
               <Link
-                href="/membership/apply"
+                href="/events"
                 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#1e7e48] hover:bg-[#166538] px-5 py-2.5 rounded-full shadow-md shadow-[#1e7e48]/20 hover:shadow-lg transition-all"
               >
-                <span>GET INVOLVED</span>
+                <span>Join a Dialogue</span>
               </Link>
             </div>
 
@@ -231,13 +225,20 @@ export default function Header({ settings }: HeaderProps) {
               )
             })}
 
-            <div className="pt-2 space-y-3">
+            <div className="pt-2 space-y-2.5">
               <Link
-                href="/membership/apply"
+                href="/events"
                 onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-[#1e7e48] hover:bg-[#166538] text-white font-bold rounded-xl shadow-md text-center text-sm uppercase tracking-wider transition-colors"
               >
-                GET INVOLVED
+                Join a Dialogue
+              </Link>
+              <Link
+                href="/membership/apply"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#f4f8f5] hover:bg-[#eef6f1] text-[#1e7e48] border border-[#dbe6de] font-bold rounded-xl text-center text-xs uppercase tracking-wider transition-colors"
+              >
+                Apply for Membership
               </Link>
             </div>
           </div>

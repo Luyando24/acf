@@ -118,34 +118,62 @@ export default async function HomePage() {
     'Food and Agriculture Organization (FAO)': '/partners/fao.svg',
   }
 
-  // Feedback 1.2: Temporarily hide homepage statistics strip below hero.
-  // Preserved for 1-step restoration: flip to true when requested by client.
-  const SHOW_HOMEPAGE_STATS = false
+  // Feedback 2: Re-enable homepage statistics strip below hero with strategic targets
+  const SHOW_HOMEPAGE_STATS = true
+
+  const defaultConstituencies = [
+    { title: 'Farmer organisations' },
+    { title: 'Public Sector & Policy Makers' },
+    { title: 'Private sector (Agribusiness, Farmers & Finance)' },
+    { title: 'Civil Society & Research institutions' },
+    { title: 'Cooperating Partners' },
+  ]
+  const constituencies = pageContent?.core_constituencies || defaultConstituencies
 
   return (
     <div className="space-y-0">
       {/* 1. HERO SECTION WITH PHOTO SLIDER & SOLID FADING OVERLAY */}
-      <HeroSlider slides={heroSlides} />
+      <HeroSlider slides={heroSlides} heroConfig={pageContent?.hero} />
 
-      {/* 2. STATS HIGHLIGHTS STRIP (Temporarily hidden per client feedback - 1-step reversible) */}
+      {/* 2. STATS HIGHLIGHTS STRIP & CORE CONSTITUENCIES OVERVIEW */}
       {SHOW_HOMEPAGE_STATS && stats && stats.length > 0 && (
-        <section className="relative z-10 -mt-10 container mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-xl border border-[#dbe6de] p-6 lg:p-8 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y lg:divide-y-0 lg:divide-x divide-[#dbe6de]">
-            {stats.map((item, index) => (
+        <section className="relative z-10 -mt-10 container mx-auto px-4 space-y-3.5">
+          <div className="bg-white rounded-2xl shadow-xl border border-[#dbe6de] p-6 lg:p-8 grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 divide-y sm:divide-y-0 sm:divide-x divide-[#dbe6de]">
+            {stats.slice(0, 3).map((item, index) => (
               <div
                 key={item.label}
                 className={`flex flex-col items-center text-center ${
-                  index > 0 ? 'pt-4 lg:pt-0 lg:pl-6' : ''
+                  index > 0 ? 'pt-4 sm:pt-0 sm:pl-6' : ''
                 }`}
               >
                 <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1e7e48] tracking-tight">
                   {item.value}
                 </span>
-                <span className="text-xs sm:text-sm font-bold text-[#526658] mt-1 uppercase tracking-wider">
+                <span className="text-xs sm:text-sm font-bold text-[#526658] mt-1.5 uppercase tracking-wider max-w-xs">
                   {item.label}
                 </span>
               </div>
             ))}
+          </div>
+
+          {/* Core Constituencies Ticker / Overview */}
+          <div className="bg-[#f4f8f5] rounded-2xl border border-[#dbe6de] px-5 py-3.5 flex flex-col md:flex-row items-center justify-between gap-3 shadow-2xs">
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#1e7e48] animate-pulse" />
+              <span className="text-xs font-black uppercase tracking-wider text-[#122419]">
+                Core Constituencies:
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 text-xs font-bold text-[#2d4233]">
+              {constituencies.map((c) => (
+                <span
+                  key={c.title}
+                  className="px-3 py-1 rounded-full bg-white border border-[#dbe6de] shadow-2xs"
+                >
+                  {c.title}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
       )}

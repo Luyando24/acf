@@ -38,8 +38,7 @@ yarn-error.log*
 !.env.example
 
 # migrations
-migrations/
-supabase/migrations/
+/migrations/
 
 
 # vercel
