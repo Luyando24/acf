@@ -335,6 +335,11 @@ export interface Database {
           virtual_url: string | null
           registration_url: string | null
           featured_image: string | null
+          document_url: string | null
+          slides_url: string | null
+          recording_url: string | null
+          attachments: Json | null
+          is_closed: boolean | null
           status: ContentStatus
           seo_title: string | null
           seo_description: string | null
@@ -352,6 +357,11 @@ export interface Database {
           virtual_url?: string | null
           registration_url?: string | null
           featured_image?: string | null
+          document_url?: string | null
+          slides_url?: string | null
+          recording_url?: string | null
+          attachments?: Json | null
+          is_closed?: boolean | null
           status?: ContentStatus
           seo_title?: string | null
           seo_description?: string | null
@@ -369,6 +379,11 @@ export interface Database {
           virtual_url?: string | null
           registration_url?: string | null
           featured_image?: string | null
+          document_url?: string | null
+          slides_url?: string | null
+          recording_url?: string | null
+          attachments?: Json | null
+          is_closed?: boolean | null
           status?: ContentStatus
           seo_title?: string | null
           seo_description?: string | null

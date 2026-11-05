@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import MembershipManager, { MembershipApplicationItem } from '@/components/admin/MembershipManager'
 
+export const dynamic = 'force-dynamic'
+
 const DEFAULT_APPLICATIONS: MembershipApplicationItem[] = [
   {
     id: '88888888-8888-8888-8888-888888888801',

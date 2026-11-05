@@ -3,7 +3,7 @@
 import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import { Lock, Mail, AlertCircle, ArrowRight } from 'lucide-react'
+import { Lock, Mail, AlertCircle, ArrowRight, Eye, EyeOff } from 'lucide-react'
 import { isStaffRole, safeAdminRedirect } from '@/lib/auth/permissions'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/client'
 
@@ -15,6 +15,7 @@ function AdminLoginForm() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
 
@@ -112,14 +113,22 @@ function AdminLoginForm() {
             <Lock size={16} className="absolute left-3.5 top-3.5 text-[#5c6f62]" />
             <input
               id="admin-password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               autoComplete="current-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••••••"
-              className="w-full pl-10 pr-4 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
+              className="w-full pl-10 pr-11 py-3 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#5c6f62] hover:text-[#0f1d14] transition-colors cursor-pointer"
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
           </div>
         </div>
 

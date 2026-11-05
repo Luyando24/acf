@@ -93,3 +93,50 @@ export const staffResetPasswordSchema = z.object({
 })
 
 export type StaffResetPasswordData = z.infer<typeof staffResetPasswordSchema>
+
+// Policy Dialogue Proposal Schema (Public submission)
+export const dialogueProposalSchema = z.object({
+  title: z.string().min(5, 'Proposed dialogue title must be at least 5 characters').max(200),
+  topic_area: z.string().min(2, 'Please select or enter a thematic topic area').max(150),
+  proposer_name: z.string().min(2, 'Your full name is required').max(120),
+  organization: z.string().min(2, 'Organization or constituency name is required').max(180),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(6, 'Please enter a valid contact phone number').max(35),
+  proposed_format: z.string().min(2, 'Please select a proposed dialogue format').max(100),
+  preferred_timeframe: z.string().max(120).optional().or(z.literal('')),
+  description: z
+    .string()
+    .min(20, 'Please provide a brief concept note or summary of key policy questions (at least 20 characters)')
+    .max(4000),
+  document_url: z.string().max(500).optional().or(z.literal('')).nullable(),
+  document_name: z.string().max(255).optional().or(z.literal('')).nullable(),
+  consent_given: z.boolean().refine((val) => val === true, {
+    message: 'You must consent to data processing to submit a dialogue proposal.',
+  }),
+  honeypot: z.string().max(0, 'Spam detected').optional().or(z.literal('')),
+  turnstile_token: z.string().optional(),
+})
+
+export type DialogueProposalFormData = z.infer<typeof dialogueProposalSchema>
+
+// Policy Dialogue Join / Registration Schema (Requires Admin Approval)
+export const dialogueJoinSchema = z.object({
+  event_id: z.string().min(1, 'Dialogue identifier is required').max(120),
+  event_slug: z.string().min(1, 'Dialogue slug is required').max(200),
+  event_title: z.string().min(2, 'Dialogue title is required').max(250),
+  participant_name: z.string().min(2, 'Full name is required').max(120),
+  organization: z.string().min(2, 'Organization or constituency is required').max(180),
+  role_title: z.string().max(120).optional().or(z.literal('')),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(6, 'Please enter a valid phone number').max(35),
+  attendance_mode: z.enum(['In-Person', 'Virtual / Online', 'Either']).default('In-Person'),
+  contribution_note: z.string().max(2000).optional().or(z.literal('')),
+  consent_given: z.boolean().refine((val) => val === true, {
+    message: 'You must consent to data storage and Secretariat review to join this dialogue.',
+  }),
+  honeypot: z.string().max(0, 'Spam detected').optional().or(z.literal('')),
+  turnstile_token: z.string().optional(),
+})
+
+export type DialogueJoinFormData = z.infer<typeof dialogueJoinSchema>
+

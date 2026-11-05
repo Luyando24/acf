@@ -23,7 +23,34 @@ async function isPublishedFile(objectName: string): Promise<boolean> {
     .ilike('attachment_url', needle)
     .limit(1)
 
-  return Boolean(opportunity.data && opportunity.data.length > 0)
+  if (opportunity.data && opportunity.data.length > 0) return true
+
+  try {
+    const eventsRes = await admin
+      .from('events')
+      .select('*')
+      .eq('status', 'published')
+    if (Array.isArray(eventsRes.data)) {
+      for (const ev of eventsRes.data as Record<string, any>[]) {
+        const serialized = JSON.stringify(ev)
+        if (serialized.includes(objectName)) return true
+      }
+    }
+
+    const fromTable = (name: string) => (admin.from as (table: string) => any)(name)
+    const metaRes = await fromTable('site_settings')
+      .select('value')
+      .eq('key', 'dialogue_event_meta')
+      .maybeSingle()
+
+    if (metaRes?.data?.value && JSON.stringify(metaRes.data.value).includes(objectName)) {
+      return true
+    }
+  } catch {
+    // Non-fatal fallback
+  }
+
+  return false
 }
 
 export async function GET(

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import EventForm from '@/components/admin/forms/EventForm'
 import { EventItem } from '@/components/admin/EventManager'
+import { getDialogueEventMetaMap, mergeEventWithDialogueMeta } from '@/lib/supabase/dialogues'
 
 export const metadata = {
   title: 'Edit Event | ACF Admin CMS',
@@ -50,11 +51,14 @@ export default async function EditEventPage({ params }: EditEventProps) {
     .eq('id', id)
     .single()
 
-  const eventItem = data || defaultEvents.find((e) => e.id === id)
+  const rawEvent = data || defaultEvents.find((e) => e.id === id)
 
-  if (!eventItem) {
+  if (!rawEvent) {
     notFound()
   }
+
+  const metaMap = await getDialogueEventMetaMap(supabase)
+  const eventItem = mergeEventWithDialogueMeta(rawEvent as Record<string, any>, metaMap)
 
   return <EventForm initialData={eventItem as unknown as EventItem} />
 }

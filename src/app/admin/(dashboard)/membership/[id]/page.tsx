@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import MembershipDetailReview from '@/components/admin/forms/MembershipDetailReview'
 import { MembershipApplicationItem } from '@/components/admin/MembershipManager'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'Review Membership Application | ACF Admin CMS',
 }
