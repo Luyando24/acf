@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import {
@@ -18,11 +18,41 @@ interface HeaderProps {
 export default function Header({ settings }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const navRef = useRef<HTMLElement | null>(null)
   const pathname = usePathname()
 
   const toggleDropdown = (key: string) => {
-    setOpenDropdown(openDropdown === key ? null : key)
+    setOpenDropdown((prev) => (prev === key ? null : key))
   }
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setOpenDropdown(null)
+    setMobileMenuOpen(false)
+  }, [pathname])
+
+  // Close dropdown when clicking outside or pressing Escape
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null)
+      }
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpenDropdown(null)
+        setMobileMenuOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
 
   const navLinks = [
     { label: 'Home', href: '/' },
@@ -63,11 +93,18 @@ export default function Header({ settings }: HeaderProps) {
         Skip to main content
       </a>
 
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e2ebe4] shadow-xs transition-all">
+      <header
+        ref={navRef}
+        className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e2ebe4] shadow-xs transition-all"
+      >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group focus:outline-hidden py-1">
+            <Link
+              href="/"
+              onClick={() => setOpenDropdown(null)}
+              className="flex items-center gap-3 group focus:outline-hidden py-1"
+            >
               <img
                 src={settings?.logo_url || '/photos/logo.png'}
                 alt={settings?.site_name || 'Agricultural Consultative Forum (ACF)'}
@@ -79,28 +116,37 @@ export default function Header({ settings }: HeaderProps) {
             <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
               {navLinks.map((item) => {
                 if (item.dropdown) {
+                  const isOpen = openDropdown === item.key
                   const isActive =
                     item.dropdown.some((sub) => pathname.startsWith(sub.href))
                   return (
-                    <div key={item.key} className="relative group">
+                    <div key={item.key} className="relative">
                       <button
                         type="button"
                         onClick={() => toggleDropdown(item.key!)}
                         className={`flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer ${
-                          isActive
+                          isActive || isOpen
                             ? 'text-[#1e7e48] bg-[#eef6f1]'
                             : 'text-[#142018] hover:text-[#1e7e48] hover:bg-[#f4f8f5]'
                         }`}
-                        aria-expanded={openDropdown === item.key}
+                        aria-expanded={isOpen}
+                        aria-haspopup="true"
                       >
                         {item.label}
-                        <ChevronDown size={15} className="group-hover:rotate-180 transition-transform duration-200" />
+                        <ChevronDown
+                          size={15}
+                          className={`transition-transform duration-200 ${
+                            isOpen ? 'rotate-180 text-[#1e7e48]' : ''
+                          }`}
+                        />
                       </button>
 
                       <div
-                        className={`absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible ${
-                          openDropdown === item.key ? '!opacity-100 !visible' : ''
-                        } transition-all duration-200 shadow-xl rounded-xl overflow-hidden z-50`}
+                        className={`absolute top-full left-0 pt-2 w-72 transition-all duration-200 shadow-xl rounded-xl overflow-hidden z-50 ${
+                          isOpen
+                            ? 'opacity-100 visible translate-y-0 pointer-events-auto'
+                            : 'opacity-0 invisible -translate-y-1 pointer-events-none'
+                        }`}
                       >
                         <div className="bg-white border border-[#e2ebe4] rounded-xl p-2 shadow-2xl">
                           {item.dropdown.map((sub) => (
@@ -124,11 +170,14 @@ export default function Header({ settings }: HeaderProps) {
                   )
                 }
 
-                const isActive = pathname === item.href
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== '/' && pathname.startsWith(item.href))
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
+                    onClick={() => setOpenDropdown(null)}
                     className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                       isActive
                         ? 'text-[#1e7e48] bg-[#eef6f1]'
@@ -145,6 +194,7 @@ export default function Header({ settings }: HeaderProps) {
             <div className="hidden lg:flex items-center gap-3">
               <Link
                 href="/events"
+                onClick={() => setOpenDropdown(null)}
                 className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-white bg-[#1e7e48] hover:bg-[#166538] px-5 py-2.5 rounded-full shadow-md shadow-[#1e7e48]/20 hover:shadow-lg transition-all"
               >
                 <span>Join a Dialogue</span>
@@ -170,28 +220,33 @@ export default function Header({ settings }: HeaderProps) {
           <div className="lg:hidden border-t border-[#e2ebe4] bg-white px-4 py-6 max-h-[85vh] overflow-y-auto space-y-4 shadow-xl">
             {navLinks.map((item) => {
               if (item.dropdown) {
+                const isOpen = openDropdown === item.key
                 return (
                   <div key={item.key} className="border-b border-[#e2ebe4]/60 pb-3">
                     <button
                       type="button"
                       onClick={() => toggleDropdown(item.key!)}
-                      className="w-full flex items-center justify-between text-base font-bold text-[#0f1d14] py-1"
+                      className="w-full flex items-center justify-between text-base font-bold text-[#0f1d14] py-1 cursor-pointer"
+                      aria-expanded={isOpen}
                     >
                       <span>{item.label}</span>
                       <ChevronDown
                         size={18}
                         className={`transition-transform duration-200 ${
-                          openDropdown === item.key ? 'rotate-180 text-[#1e7e48]' : ''
+                          isOpen ? 'rotate-180 text-[#1e7e48]' : ''
                         }`}
                       />
                     </button>
-                    {openDropdown === item.key && (
+                    {isOpen && (
                       <div className="mt-2 pl-3 space-y-2">
                         {item.dropdown.map((sub) => (
                           <Link
                             key={sub.href}
                             href={sub.href}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                              setOpenDropdown(null)
+                              setMobileMenuOpen(false)
+                            }}
                             className="block py-1.5 text-sm font-medium text-[#5c6f62] hover:text-[#1e7e48]"
                           >
                             {sub.label}
@@ -207,7 +262,10 @@ export default function Header({ settings }: HeaderProps) {
                 <div key={item.href} className="border-b border-[#e2ebe4]/60 pb-3">
                   <Link
                     href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                      setOpenDropdown(null)
+                      setMobileMenuOpen(false)
+                    }}
                     className="block text-base font-bold text-[#0f1d14] hover:text-[#1e7e48] py-1"
                   >
                     {item.label}
@@ -219,14 +277,20 @@ export default function Header({ settings }: HeaderProps) {
             <div className="pt-2 space-y-2.5">
               <Link
                 href="/events"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setOpenDropdown(null)
+                  setMobileMenuOpen(false)
+                }}
                 className="w-full flex items-center justify-center gap-2 py-3 bg-[#1e7e48] hover:bg-[#166538] text-white font-bold rounded-xl shadow-md text-center text-sm uppercase tracking-wider transition-colors"
               >
                 Join a Dialogue
               </Link>
               <Link
                 href="/membership/apply"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={() => {
+                  setOpenDropdown(null)
+                  setMobileMenuOpen(false)
+                }}
                 className="w-full flex items-center justify-center gap-2 py-2.5 bg-[#f4f8f5] hover:bg-[#eef6f1] text-[#1e7e48] border border-[#dbe6de] font-bold rounded-xl text-center text-xs uppercase tracking-wider transition-colors"
               >
                 Apply for Membership

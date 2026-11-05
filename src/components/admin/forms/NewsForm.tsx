@@ -19,6 +19,8 @@ import RichTextEditor from '@/components/admin/RichTextEditor'
 
 const NEWS_CATEGORIES = [
   'Sector News',
+  'Policy Briefing',
+  'Dialogue Highlight',
   'Policy Dialogue',
   'Secretariat Updates',
   'Press Release',
