@@ -11,7 +11,7 @@ import {
   getDialogueDocuments,
   isDialogueClosed,
   mergeEventWithDialogueMeta,
-} from '../src/lib/supabase/dialogues'
+} from '../src/types/dialogues'
 
 test('contactFormSchema validates valid submissions and enforces consent', () => {
   const validData = {

@@ -22,7 +22,7 @@ import {
 import {
   DialogueAttachment,
   getDialogueDocuments,
-} from '@/lib/supabase/dialogues'
+} from '@/types/dialogues'
 import DialogueJoinForm from '@/components/events/DialogueJoinForm'
 import DialogueProposalForm from '@/components/events/DialogueProposalForm'
 

@@ -18,6 +18,8 @@ import { formatDateTime } from '@/lib/utils/formatters'
 export interface ContactMessageItem {
   id: string
   name: string
+  organization?: string | null
+  constituency?: string | null
   email: string
   phone?: string | null
   subject: string
@@ -198,13 +200,27 @@ export default function ContactManager({
                 </span>
               </div>
 
-              <p className="text-sm sm:text-sm text-[#3b4d41] leading-relaxed mb-4 bg-[#f6f9f6] p-4 rounded-md border border-[#e2ebe4]/70">
+              <p className="text-sm sm:text-sm text-[#3b4d41] leading-relaxed mb-4 bg-[#f6f9f6] p-4 rounded-md border border-[#e2ebe4]/70 whitespace-pre-line">
                 {msg.message}
               </p>
 
               <div className="flex flex-wrap items-center justify-between gap-3 text-sm pt-2 border-t border-[#e2ebe4]/60">
                 <div className="flex flex-wrap items-center gap-3 text-[#5c6f62]">
                   <span className="font-bold text-[#0f1d14]">{msg.name}</span>
+                  {msg.organization && (
+                    <>
+                      <span>•</span>
+                      <span className="font-medium text-[#175432]">{msg.organization}</span>
+                    </>
+                  )}
+                  {msg.constituency && (
+                    <>
+                      <span>•</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-[#f0f6f1] text-[#175432] font-semibold">
+                        {msg.constituency}
+                      </span>
+                    </>
+                  )}
                   <span>•</span>
                   <a
                     href={`mailto:${msg.email}`}

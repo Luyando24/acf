@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import ContactManager, { ContactMessageItem } from '@/components/admin/ContactManager'
 
+export const dynamic = 'force-dynamic'
+
 const DEFAULT_MESSAGES: ContactMessageItem[] = [
   {
     id: '99999999-9999-9999-9999-999999999901',

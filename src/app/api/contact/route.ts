@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { contactFormSchema } from '@/lib/validations/forms'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { sendEmail } from '@/lib/email/mailer'
 import { escapeHtml } from '@/lib/content/richText'
 import { allowRequest, clientIp, verifyTurnstile } from '@/lib/security/requests'
@@ -17,15 +18,28 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, organization, constituency, email, phone, subject, message, consent_given, honeypot, turnstile_token } =
-      validation.data
+    const {
+      name,
+      organization,
+      constituency,
+      email,
+      phone,
+      subject,
+      message,
+      consent_given,
+      honeypot,
+      turnstile_token,
+    } = validation.data
 
     if (honeypot) {
       return NextResponse.json({ success: true, message: 'Message sent' })
     }
 
     if (!allowRequest(`contact:${clientIp(request)}`)) {
-      return NextResponse.json({ error: 'Too many messages. Please try again later.' }, { status: 429 })
+      return NextResponse.json(
+        { error: 'Too many messages. Please try again later.' },
+        { status: 429 }
+      )
     }
 
     const turnstileError = await verifyTurnstile(turnstile_token, clientIp(request))
@@ -33,10 +47,15 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: turnstileError }, { status: 400 })
     }
 
-    const supabase = await createClient()
+    let dbClient: any
+    try {
+      dbClient = createAdminClient()
+    } catch {
+      dbClient = await createClient()
+    }
 
-    // 1. Store submission in database
-    const { error: dbError } = await supabase.from('contact_messages').insert({
+    // 1. Store submission in database (with fallback if organization/constituency columns aren't migrated yet)
+    const fullPayload = {
       name,
       organization: organization || null,
       constituency: constituency || null,
@@ -46,7 +65,28 @@ export async function POST(request: Request) {
       message,
       consent_given,
       is_read: false,
-    } as any)
+    }
+
+    let { error: dbError } = await dbClient.from('contact_messages').insert(fullPayload)
+
+    if (dbError) {
+      const metaLines: string[] = []
+      if (organization) metaLines.push(`Organization: ${organization}`)
+      if (constituency) metaLines.push(`Constituency / Sector: ${constituency}`)
+      const fallbackMessage =
+        metaLines.length > 0 ? `${metaLines.join(' | ')}\n\n${message}` : message
+
+      const retry = await dbClient.from('contact_messages').insert({
+        name,
+        email,
+        phone: phone || null,
+        subject,
+        message: fallbackMessage,
+        consent_given,
+        is_read: false,
+      })
+      dbError = retry.error
+    }
 
     if (dbError) {
       console.error('Contact message database error:', dbError)
@@ -62,24 +102,28 @@ export async function POST(request: Request) {
         'info@acfzambia.org',
       ]
 
-    await sendEmail({
-      to: recipients,
-      subject: `[ACF Website Enquiry] ${subject}`,
-      html: `
-        <h2>New Contact Enquiry from ACF Website</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Organization:</strong> ${escapeHtml(organization || 'Not provided')}</p>
-        <p><strong>Constituency:</strong> ${escapeHtml(constituency || 'Not provided')}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Phone:</strong> ${escapeHtml(phone || 'Not provided')}</p>
-        <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-        <p><strong>Message:</strong></p>
-        <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #175432;">
-          ${escapeHtml(message).replace(/\n/g, '<br/>')}
-        </blockquote>
-        <p><small>Submitted at: ${new Date().toUTCString()} (Consent verified under Zambian Data Protection Act)</small></p>
-      `,
-    })
+    try {
+      await sendEmail({
+        to: recipients,
+        subject: `[ACF Website Enquiry] ${subject}`,
+        html: `
+          <h2>New Contact Enquiry from ACF Website</h2>
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Organization:</strong> ${escapeHtml(organization || 'Not provided')}</p>
+          <p><strong>Constituency:</strong> ${escapeHtml(constituency || 'Not provided')}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Phone:</strong> ${escapeHtml(phone || 'Not provided')}</p>
+          <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
+          <p><strong>Message:</strong></p>
+          <blockquote style="background:#f4f4f4;padding:12px;border-left:4px solid #175432;">
+            ${escapeHtml(message).replace(/\n/g, '<br/>')}
+          </blockquote>
+          <p><small>Submitted at: ${new Date().toUTCString()} (Consent verified under Zambian Data Protection Act)</small></p>
+        `,
+      })
+    } catch {
+      // Non-fatal email dispatch error
+    }
 
     return NextResponse.json({
       success: true,

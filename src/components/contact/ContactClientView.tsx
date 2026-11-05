@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/types/pageContent'
-import { SiteSettings } from '@/lib/supabase/settings'
+import type { SiteSettings } from '@/lib/supabase/settings'
 import TurnstileBox from '@/components/forms/TurnstileBox'
 
 interface ContactClientViewProps {

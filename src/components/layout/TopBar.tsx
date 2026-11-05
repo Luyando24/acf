@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { SiteSettings } from '@/lib/supabase/settings'
+import type { SiteSettings } from '@/lib/supabase/settings'
 
 interface TopBarProps {
   settings: SiteSettings

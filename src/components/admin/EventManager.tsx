@@ -31,7 +31,7 @@ import {
   DialogueRegistration,
   getDialogueDocuments,
   isDialogueClosed,
-} from '@/lib/supabase/dialogues'
+} from '@/types/dialogues'
 
 export interface EventItem {
   id: string

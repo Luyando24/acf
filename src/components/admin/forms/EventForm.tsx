@@ -20,7 +20,7 @@ import {
 import { EventItem } from '@/components/admin/EventManager'
 import FileUpload from '@/components/admin/FileUpload'
 import RichTextEditor from '@/components/admin/RichTextEditor'
-import { DialogueAttachment } from '@/lib/supabase/dialogues'
+import { DialogueAttachment } from '@/types/dialogues'
 
 interface EventFormProps {
   initialData?: EventItem
