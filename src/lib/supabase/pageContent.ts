@@ -9,6 +9,7 @@ import {
   DEFAULT_ABOUT_PAGE_CONTENT,
   DEFAULT_CONTACT_PAGE_CONTENT,
   DEFAULT_MEMBERSHIP_PAGE_CONTENT,
+  DEFAULT_OUR_WORK_PAGE_CONTENT,
 } from '@/types/pageContent'
 
 // ============================================================================
@@ -21,6 +22,7 @@ export async function getPageContent<T>(slug: string): Promise<T> {
 
   if (slug === 'home') defaultContent = DEFAULT_HOME_PAGE_CONTENT
   else if (slug === 'about') defaultContent = DEFAULT_ABOUT_PAGE_CONTENT
+  else if (slug === 'our-work') defaultContent = DEFAULT_OUR_WORK_PAGE_CONTENT
   else if (slug === 'contact') defaultContent = DEFAULT_CONTACT_PAGE_CONTENT
   else if (slug === 'membership') defaultContent = DEFAULT_MEMBERSHIP_PAGE_CONTENT
 

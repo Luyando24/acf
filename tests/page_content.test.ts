@@ -5,6 +5,7 @@ import {
   DEFAULT_ABOUT_PAGE_CONTENT,
   DEFAULT_CONTACT_PAGE_CONTENT,
   DEFAULT_MEMBERSHIP_PAGE_CONTENT,
+  DEFAULT_OUR_WORK_PAGE_CONTENT,
 } from '../src/lib/supabase/pageContent'
 
 test('DEFAULT_HOME_PAGE_CONTENT conforms to structured section requirements', () => {
@@ -74,4 +75,14 @@ test('DEFAULT_MEMBERSHIP_PAGE_CONTENT defines benefits and stakeholder directive
   assert.ok(Array.isArray(DEFAULT_MEMBERSHIP_PAGE_CONTENT.why_join.benefits))
   assert.strictEqual(DEFAULT_MEMBERSHIP_PAGE_CONTENT.why_join.benefits.length, 3)
   assert.ok(DEFAULT_MEMBERSHIP_PAGE_CONTENT.cta.contact_email)
+})
+
+test('DEFAULT_OUR_WORK_PAGE_CONTENT combines pillars, thematic programmes, and projects on a single page', () => {
+  assert.ok(DEFAULT_OUR_WORK_PAGE_CONTENT.header.title)
+  assert.ok(DEFAULT_OUR_WORK_PAGE_CONTENT.header.description)
+  assert.strictEqual(DEFAULT_OUR_WORK_PAGE_CONTENT.pillars_section.pillars.length, 4)
+  assert.strictEqual(DEFAULT_OUR_WORK_PAGE_CONTENT.thematic_section.items.length, 4)
+  assert.strictEqual(DEFAULT_OUR_WORK_PAGE_CONTENT.projects_section.projects.length, 3)
+  assert.ok(DEFAULT_OUR_WORK_PAGE_CONTENT.cta_section.title)
+  assert.ok(DEFAULT_OUR_WORK_PAGE_CONTENT.cta_section.primary_btn_url)
 })

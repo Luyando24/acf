@@ -35,16 +35,7 @@ export default function Header({ settings }: HeaderProps) {
         { label: 'Secretariat', href: '/about/secretariat', desc: 'Executive leadership and operational staff' },
       ],
     },
-    {
-      label: 'Our Work',
-      key: 'work',
-      dropdown: [
-        { label: 'Thematic Programmes', href: '/our-work', desc: 'Policy advocacy, dialogue, and climate' },
-        { label: 'Policy Advocacy & Reform', href: '/our-work/policy-advocacy', desc: 'Engaging national policymakers' },
-        { label: 'Research & Evidence', href: '/our-work/research-and-evidence', desc: 'Data-driven analysis' },
-        { label: 'Climate Resilience', href: '/our-work/climate-resilience', desc: 'Sustainable smallholder systems' },
-      ],
-    },
+    { label: 'Our Work', href: '/our-work' },
     { label: 'Policy Dialogues', href: '/events' },
     { label: 'Knowledge Hub', href: '/publications' },
     { label: 'News', href: '/news' },

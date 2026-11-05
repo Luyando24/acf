@@ -61,6 +61,20 @@ const PAGES: PageConfig[] = [
     borderColor: 'border-emerald-600/20',
   },
   {
+    slug: 'our-work',
+    title: 'Our Work & Programmes',
+    subtitle: 'Unified Thematic Programmes & Projects Page',
+    description:
+      'Manage the combined Our Work page: mandate header, core advocacy pillars, thematic focus areas (Policy Advocacy, Research, Climate Resilience), completed projects, and engagement CTAs.',
+    publicUrl: '/our-work',
+    icon: Layers,
+    badge: 'Programmes',
+    sections: ['Mandate Header', 'Core Advocacy Pillars', 'Thematic Programmes', 'Completed Projects', 'Engagement CTA'],
+    color: 'text-[#1e7e48]',
+    bg: 'bg-[#eef6f1]',
+    borderColor: 'border-[#1e7e48]/20',
+  },
+  {
     slug: 'contact',
     title: 'Contact & Secretariat',
     subtitle: 'Public Inquiries & Office Channels',

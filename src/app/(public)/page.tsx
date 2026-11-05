@@ -285,7 +285,7 @@ export default async function HomePage() {
 
                 <div className="pt-4 mt-2 border-t border-[#f4f8f5]">
                   <Link
-                    href={`/our-work/${prog.slug}`}
+                    href={`/our-work#${prog.slug}`}
                     className="inline-flex items-center gap-1 text-xs font-bold text-[#1e7e48] group-hover:text-[#2e9e5b]"
                   >
                     <span>Read Details</span>

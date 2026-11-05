@@ -241,6 +241,79 @@ export interface MembershipPageContent {
   }
 }
 
+// ----------------------------------------------------------------------------
+// OUR WORK PAGE CONTENT SCHEMA (Combined Single Page)
+// ----------------------------------------------------------------------------
+export interface OurWorkPillarItem {
+  num: string
+  title: string
+  description: string
+  icon?: string
+}
+
+export interface OurWorkThematicItem {
+  slug: string
+  title: string
+  subtitle: string
+  summary: string
+  body: string
+  icon?: string
+  cover_image?: string
+}
+
+export interface OurWorkProjectItem {
+  slug: string
+  acronym: string
+  title: string
+  description: string
+  details?: string
+  icon?: string
+}
+
+export interface OurWorkPageContent {
+  header: {
+    badge: string
+    title: string
+    description: string
+  }
+
+  pillars_section: {
+    badge: string
+    title: string
+    description: string
+    pillars: OurWorkPillarItem[]
+  }
+
+  thematic_section: {
+    badge: string
+    title: string
+    description: string
+    items: OurWorkThematicItem[]
+  }
+
+  projects_section: {
+    badge: string
+    title: string
+    description: string
+    projects: OurWorkProjectItem[]
+  }
+
+  dossiers_section: {
+    title: string
+    description: string
+  }
+
+  cta_section: {
+    badge: string
+    title: string
+    description: string
+    primary_btn_text: string
+    primary_btn_url: string
+    secondary_btn_text: string
+    secondary_btn_url: string
+  }
+}
+
 // ============================================================================
 // Default Fallbacks (Guarantee CSS & Layout Integrity)
 // ============================================================================
@@ -579,5 +652,156 @@ export const DEFAULT_MEMBERSHIP_PAGE_CONTENT: MembershipPageContent = {
     description: 'Submit an online application or contact our Secretariat membership desk for onboarding assistance.',
     apply_btn_text: 'Submit Online Application',
     contact_email: 'membership@acfzambia.org',
+  },
+}
+
+export const DEFAULT_OUR_WORK_PAGE_CONTENT: OurWorkPageContent = {
+  header: {
+    badge: 'Our Mandate & Practice',
+    title: "Advancing Zambia's Agricultural Agenda",
+    description:
+      'The distinctive competence of the Forum lies in our absolute neutrality, high-level convening power, and trusted relationships across the entire agricultural landscape. Unlike individual interest groups, we do not lobby for a single agenda; instead, we build national consensus. Our unique ability to bring agricultural stakeholders (private sector, public sector, agribusiness farmer representatives, private public sector partnerships) and international donors ensures that the policies we influence are both practical on the ground and viable at the macroeconomic level.',
+  },
+
+  pillars_section: {
+    badge: 'Core Pillars',
+    title: 'Core Advocacy Pillars',
+    description:
+      'The four strategic anchors steering all ACF consultations, policy submissions, and stakeholder mobilisation.',
+    pillars: [
+      {
+        num: '01',
+        title: 'Policy Advocacy and Reform',
+        description:
+          'We identify policy bottlenecks, analyze legislative impacts, and advocate for regulatory reforms that improve the agricultural business environment.',
+        icon: 'Scale',
+      },
+      {
+        num: '02',
+        title: 'Multi-Stakeholder Dialogue',
+        description:
+          'We convene national and regional forums, workshops, and roundtables to build consensus on critical agricultural issues.',
+        icon: 'Users',
+      },
+      {
+        num: '03',
+        title: 'Evidence-Based Policy Analysis',
+        description:
+          'We generate data-driven insights and policy briefs to guide government decision-making and private sector investments.',
+        icon: 'BookOpen',
+      },
+      {
+        num: '04',
+        title: 'Capacity Building',
+        description:
+          'We strengthen the analytical and advocacy capacities of farmer organizations, civil society groups, and local value-chain actors.',
+        icon: 'GraduationCap',
+      },
+    ],
+  },
+
+  thematic_section: {
+    badge: 'Thematic Programmes',
+    title: 'Thematic Programmes & Focus Areas',
+    description:
+      'Comprehensive policy advocacy, empirical research, multi-stakeholder dialogue, and climate resilience programmes driving sustainable transformation across Zambia.',
+    items: [
+      {
+        slug: 'policy-advocacy',
+        title: 'Policy Advocacy & Reform',
+        subtitle: 'Engaging national policymakers',
+        summary:
+          'Mobilising multi-stakeholder consultations and empirical evidence to influence national agricultural policy formulation, budget allocations, and regulatory implementation in Zambia.',
+        body: 'The Agricultural Consultative Forum (ACF) facilitates high-level policy advocacy that connects grassroots smallholder farmer experiences with national policymakers in Lusaka. We conduct regular policy roundtables with the Ministry of Agriculture, parliamentary committees, and donor working groups to advance equitable agricultural legislation, efficient input support, and open regional trade regimes.',
+        icon: 'Scale',
+        cover_image: '/photos/fosta-stakeholders-dialogue.jpg',
+      },
+      {
+        slug: 'research-and-evidence',
+        title: 'Research & Evidence Generation',
+        subtitle: 'Data-driven analysis',
+        summary:
+          'Generating credible empirical data, analytical policy briefs, and sector performance reviews to guide public decision-making and private agricultural investments.',
+        body: 'Sound policies require rigorous evidence. ACF works closely with agricultural research institutes, universities, and technical experts to conduct independent studies on national agricultural budget performance, input subsidy delivery, grain markets, livestock export corridors, and agricultural financing across Zambia.',
+        icon: 'BookOpen',
+        cover_image: '/photos/agricultural-budget-analysis.jpg',
+      },
+      {
+        slug: 'climate-resilience',
+        title: 'Climate Resilience & Sustainable Systems',
+        subtitle: 'Sustainable smallholder systems',
+        summary:
+          'Advocating for climate-smart agriculture, drought adaptation advisories, soil health conservation, and resilient rural farming systems across Zambia.',
+        body: 'In the wake of recurrent El Niño droughts and climate variability, ACF champions sustainable smallholder farming systems that build long-term resilience across all ten provinces of Zambia. Our initiatives span early-warning disaster management templates, water security memorandums, conservation agriculture, and crop diversification.',
+        icon: 'Sprout',
+        cover_image: '/photos/beef-report-workshop.jpg',
+      },
+      {
+        slug: 'land-rights-tenure',
+        title: "Land Tenure & Women's Rights",
+        subtitle: 'Equitable customary land governance',
+        summary:
+          'Advocating for secure customary land tenure, equitable resource governance, and equal land rights for women and small-scale farming households.',
+        body: 'ACF actively participates in national land policy advocacy, working alongside traditional authorities, civil society coalitions, and legal aid partners to promote documented tenure security as a cornerstone for long-term farm investment, food sovereignty, and rural poverty reduction.',
+        icon: 'ShieldCheck',
+        cover_image: '/photos/budget-proposal-workshop.jpg',
+      },
+    ],
+  },
+
+  projects_section: {
+    badge: 'Project Archive',
+    title: 'Featured Completed Projects',
+    description:
+      'Major collaborative research initiatives and multi-country frameworks facilitated by the Agricultural Consultative Forum.',
+    projects: [
+      {
+        slug: 'gcrf-africap',
+        acronym: 'GCRF AFRICAP',
+        title: 'Agricultural and Food-system Resilience: Increasing Capacity and Advisories',
+        description:
+          'Conducted comprehensive climate modeling, policy stress-testing, and scenario planning for resilient Zambian agricultural livelihoods.',
+        details:
+          'Implemented in collaboration with national and international research partners, GCRF AFRICAP assessed climate change impacts on Zambian crop and livestock systems and formulated evidence-based policy pathways for national adaptation.',
+        icon: 'ShieldCheck',
+      },
+      {
+        slug: 'climber',
+        acronym: 'CliMBER',
+        title: 'Building Systemic Resilience against Climate Variability',
+        description:
+          'Supported smallholder adaptation pathways, hydro-meteorological early-warning advisories, and climate-smart agronomic interventions.',
+        details:
+          'CliMBER strengthened institutional coordination between meteorological services, extension officers, and rural producer organisations to transform climate risk data into actionable advisories for smallholder farmers.',
+        icon: 'Sprout',
+      },
+      {
+        slug: 'fosta',
+        acronym: 'FoSTA',
+        title: 'Food Systems Transformation in Africa',
+        description:
+          'Convened multi-stakeholder health, nutrition, and agricultural policy dialogues to transform national food supply chains.',
+        details:
+          'FoSTA evaluated the nutritional, environmental, and socioeconomic trade-offs of agricultural diversification in Zambia, generating actionable policy recommendations for sustainable food systems transformation.',
+        icon: 'Layers',
+      },
+    ],
+  },
+
+  dossiers_section: {
+    title: 'Additional Thematic Dossiers & Working Groups',
+    description:
+      'Active policy dossiers and ongoing multi-stakeholder consultation working groups managed by the Secretariat.',
+  },
+
+  cta_section: {
+    badge: 'Stakeholder Participation',
+    title: 'Engage in Our Thematic Working Groups',
+    description:
+      'Participate in our multi-stakeholder consultations, access empirical research briefs in our Knowledge Hub, or apply to join an ACF policy working group.',
+    primary_btn_text: 'Join a Working Group',
+    primary_btn_url: '/membership/apply',
+    secondary_btn_text: 'Explore Knowledge Hub',
+    secondary_btn_url: '/publications',
   },
 }

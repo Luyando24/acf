@@ -3,7 +3,7 @@ import { canEditPages } from '@/lib/auth/permissions'
 import { requireStaff } from '@/lib/auth/session'
 import { getPageContent, savePageContent } from '@/lib/supabase/pageContent'
 
-const PAGE_SLUGS = new Set(['home', 'about', 'contact', 'membership'])
+const PAGE_SLUGS = new Set(['home', 'about', 'our-work', 'contact', 'membership'])
 
 export async function GET(request: Request) {
   try {

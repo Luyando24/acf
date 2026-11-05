@@ -1,7 +1,91 @@
 import { NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { canAccessEntity } from '@/lib/auth/permissions'
 import { requireStaff } from '@/lib/auth/session'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { DEFAULT_OUR_WORK_PAGE_CONTENT, OurWorkPageContent } from '@/types/pageContent'
+
+async function syncProgrammeToOurWorkPage(adminClient: any, savedItem: any) {
+  if (!savedItem || !savedItem.slug) return
+  try {
+    const fromTable = (name: string) => (adminClient.from as (table: string) => any)(name)
+    const { data } = await fromTable('site_settings')
+      .select('value')
+      .eq('key', 'page_our-work')
+      .maybeSingle()
+
+    const current: OurWorkPageContent = {
+      ...DEFAULT_OUR_WORK_PAGE_CONTENT,
+      ...((data?.value as any) || {}),
+    }
+
+    let changed = false
+
+    const updatedThematic = (current.thematic_section?.items || []).map((item) => {
+      if (item.slug === savedItem.slug) {
+        changed = true
+        return {
+          ...item,
+          title: savedItem.title || item.title,
+          summary: savedItem.summary || item.summary,
+          body: savedItem.body || item.body,
+          icon: savedItem.icon || item.icon,
+          cover_image: savedItem.cover_image ?? item.cover_image,
+        }
+      }
+      return item
+    })
+
+    const updatedPillars = (current.pillars_section?.pillars || []).map((pillar) => {
+      const pillarSlug = pillar.title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '')
+      if (pillarSlug === savedItem.slug) {
+        changed = true
+        return {
+          ...pillar,
+          title: savedItem.title || pillar.title,
+          description: savedItem.summary || pillar.description,
+          icon: savedItem.icon || pillar.icon,
+        }
+      }
+      return pillar
+    })
+
+    const updatedProjects = (current.projects_section?.projects || []).map((proj) => {
+      if (proj.slug === savedItem.slug) {
+        changed = true
+        return {
+          ...proj,
+          title: savedItem.title || proj.title,
+          description: savedItem.summary || proj.description,
+          icon: savedItem.icon || proj.icon,
+        }
+      }
+      return proj
+    })
+
+    if (changed) {
+      await fromTable('site_settings').upsert(
+        {
+          key: 'page_our-work',
+          value: {
+            ...current,
+            thematic_section: { ...current.thematic_section, items: updatedThematic },
+            pillars_section: { ...current.pillars_section, pillars: updatedPillars },
+            projects_section: { ...current.projects_section, projects: updatedProjects },
+          },
+          description: 'Editable page content for our-work page',
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'key' }
+      )
+    }
+  } catch {
+    // Non-fatal sync error
+  }
+}
 
 const TABLE_MAP: Record<string, string> = {
   publications: 'publications',
@@ -123,6 +207,12 @@ export async function POST(
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
     }
 
+    if (table === 'programmes') {
+      await syncProgrammeToOurWorkPage(adminClient, data?.[0] || itemData)
+      revalidatePath('/our-work')
+      revalidatePath('/')
+    }
+
     return NextResponse.json({ success: true, item: data?.[0] || itemData })
   } catch (err) {
     return failure(err, 'Failed to save entity.')
@@ -160,6 +250,12 @@ export async function PATCH(
 
     if (error) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
+    }
+
+    if (table === 'programmes') {
+      await syncProgrammeToOurWorkPage(adminClient, data?.[0] || payload)
+      revalidatePath('/our-work')
+      revalidatePath('/')
     }
 
     return NextResponse.json({ success: true, item: data?.[0] || payload })
@@ -200,6 +296,11 @@ export async function DELETE(
 
     if (error) {
       return NextResponse.json({ success: false, error: error.message }, { status: 400 })
+    }
+
+    if (table === 'programmes') {
+      revalidatePath('/our-work')
+      revalidatePath('/')
     }
 
     return NextResponse.json({ success: true, id })

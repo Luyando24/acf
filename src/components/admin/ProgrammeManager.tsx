@@ -107,17 +107,27 @@ export default function ProgrammeManager({
             Thematic Programmes (Our Work)
           </h1>
           <p className="text-sm text-[#5c6f62] mt-0.5">
-            Manage institutional strategic programmes, thematic pillars, and research agendas.
+            Manage institutional strategic programmes, thematic pillars, and research agendas displayed on the single Our Work page.
           </p>
         </div>
 
-        <Link
-          href="/admin/programmes/new"
-          className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2"
-        >
-          <Plus size={16} />
-          <span>Add Programme Area</span>
-        </Link>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            href="/admin/pages/our-work"
+            className="px-4 py-2.5 bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] border border-[#175432]/20 text-sm font-bold rounded-md transition-colors flex items-center gap-2"
+          >
+            <Edit size={15} />
+            <span>Edit Our Work Page Sections</span>
+          </Link>
+
+          <Link
+            href="/admin/programmes/new"
+            className="px-4 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2"
+          >
+            <Plus size={16} />
+            <span>Add Programme Area</span>
+          </Link>
+        </div>
       </div>
 
       {/* Search & Filters */}

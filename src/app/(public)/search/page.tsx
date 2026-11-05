@@ -30,7 +30,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const groups = [
     { label: 'News', href: (slug: string) => `/news/${slug}`, rows: news?.data || [] },
     { label: 'Publications', href: (slug: string) => `/publications/${slug}`, rows: publications?.data || [] },
-    { label: 'Our Work', href: (slug: string) => `/our-work/${slug}`, rows: programmes?.data || [] },
+    { label: 'Our Work', href: (slug: string) => `/our-work#${slug}`, rows: programmes?.data || [] },
     { label: 'Events', href: (slug: string) => `/events/${slug}`, rows: events?.data || [] },
   ]
   const total = groups.reduce((sum, group) => sum + group.rows.length, 0)

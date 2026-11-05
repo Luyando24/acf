@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { getPageContent } from '@/lib/supabase/pageContent'
 import HomeSectionEditor from '@/components/admin/pages/HomeSectionEditor'
 import AboutSectionEditor from '@/components/admin/pages/AboutSectionEditor'
+import OurWorkSectionEditor from '@/components/admin/pages/OurWorkSectionEditor'
 import ContactSectionEditor from '@/components/admin/pages/ContactSectionEditor'
 import MembershipSectionEditor from '@/components/admin/pages/MembershipSectionEditor'
 
@@ -9,7 +10,7 @@ interface AdminPageSlugProps {
   params: Promise<{ slug: string }>
 }
 
-const VALID_SLUGS = ['home', 'about', 'contact', 'membership']
+const VALID_SLUGS = ['home', 'about', 'our-work', 'contact', 'membership']
 
 export default async function AdminPageSlugEditor({ params }: AdminPageSlugProps) {
   const { slug } = await params
@@ -26,6 +27,10 @@ export default async function AdminPageSlugEditor({ params }: AdminPageSlugProps
 
   if (slug === 'about') {
     return <AboutSectionEditor initialContent={initialContent} />
+  }
+
+  if (slug === 'our-work') {
+    return <OurWorkSectionEditor initialContent={initialContent} />
   }
 
   if (slug === 'contact') {

@@ -395,7 +395,7 @@ export default function ProgrammeForm({ initialData }: ProgrammeFormProps) {
               </p>
 
               <div className="pt-2 border-t border-[#e2ebe4] flex items-center justify-between text-[11px] text-[#5c6f62]">
-                <span className="font-mono">/our-work/{formData.slug || 'slug'}</span>
+                <span className="font-mono">/our-work#{formData.slug || 'slug'}</span>
                 <span className="capitalize font-semibold text-[#175432]">{formData.status}</span>
               </div>
             </div>
