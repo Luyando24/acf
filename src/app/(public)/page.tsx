@@ -118,8 +118,8 @@ export default async function HomePage() {
     'Food and Agriculture Organization (FAO)': '/partners/fao.svg',
   }
 
-  // Feedback 2: Re-enable homepage statistics strip below hero with strategic targets
-  const SHOW_HOMEPAGE_STATS = true
+  // Stats + constituencies strip below the hero; admins can hide it from the page editor
+  const SHOW_HOMEPAGE_STATS = pageContent?.show_stats !== false
 
   const defaultConstituencies = [
     { title: 'Farmer organisations' },

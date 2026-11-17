@@ -20,6 +20,8 @@ import {
   FileText,
   Target,
   Megaphone,
+  Eye,
+  EyeOff,
 } from 'lucide-react'
 import FileUpload from '@/components/admin/FileUpload'
 import type { HomePageContent, HeroSlideItem, StatItem, StrategicObjectiveItem } from '@/types/pageContent'
@@ -373,20 +375,36 @@ export default function HomeSectionEditor({ initialContent }: HomeSectionEditorP
       ===================================================================== */}
       {activeTab === 'stats' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex items-center justify-between">
+          <div className="bg-white p-6 sm:p-8 rounded-lg border border-[#e2ebe4] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-[#0f1d14]">Key Impact Statistics Strip</h2>
               <p className="text-sm text-[#5c6f62] mt-0.5">
                 These numbers display in the floating stats card directly underneath the hero carousel.
               </p>
             </div>
-            <button
-              onClick={handleAddStat}
-              className="px-4 py-2 rounded-md bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-sm font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
-            >
-              <Plus size={14} />
-              <span>Add Stat</span>
-            </button>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() =>
+                  updateContent((prev) => ({ ...prev, show_stats: !(prev.show_stats !== false) }))
+                }
+                className={`px-4 py-2 rounded-md text-sm font-bold transition-colors flex items-center gap-1.5 border cursor-pointer ${
+                  content.show_stats !== false
+                    ? 'bg-[#f0f6f1] border-[#e2ebe4] text-[#175432] hover:bg-[#e2ebe4]'
+                    : 'bg-amber-50 border-amber-300 text-amber-800 hover:bg-amber-100'
+                }`}
+                title={content.show_stats !== false ? 'Hide the stats strip from the home page' : 'Show the stats strip on the home page'}
+              >
+                {content.show_stats !== false ? <Eye size={14} /> : <EyeOff size={14} />}
+                <span>{content.show_stats !== false ? 'Visible on Site' : 'Hidden from Site'}</span>
+              </button>
+              <button
+                onClick={handleAddStat}
+                className="px-4 py-2 rounded-md bg-[#f0f6f1] hover:bg-[#e2ebe4] text-[#175432] text-sm font-bold transition-colors flex items-center gap-1.5 border border-[#e2ebe4]"
+              >
+                <Plus size={14} />
+                <span>Add Stat</span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

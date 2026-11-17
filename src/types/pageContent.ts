@@ -65,6 +65,9 @@ export interface HomePageContent {
   // Stats Strip
   stats: StatItem[]
 
+  // Whether the stats + constituencies strip renders below the hero (defaults to visible)
+  show_stats?: boolean
+
   // Core Constituencies Ticker / Overview
   core_constituencies?: ConstituencyItem[]
 
@@ -357,6 +360,8 @@ export const DEFAULT_HOME_PAGE_CONTENT: HomePageContent = {
     { label: 'Years of Policy Dialogue Coordination', value: '20+', order: 2 },
     { label: 'Key Stakeholder Constituencies Engaged', value: '5', order: 3 },
   ],
+
+  show_stats: true,
 
   core_constituencies: [
     { title: 'Farmer organisations' },
