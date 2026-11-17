@@ -1,6 +1,8 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import JsonLd from '@/components/seo/JsonLd'
 import { getSiteSettings } from '@/lib/supabase/settings'
+import { organizationSchema, websiteSchema } from '@/lib/utils/structuredData'
 
 export default async function PublicLayout({
   children,
@@ -22,6 +24,7 @@ export default async function PublicLayout({
         {children}
       </main>
       <Footer settings={settings} />
+      <JsonLd data={[organizationSchema(settings), websiteSchema(settings)]} />
     </div>
   )
 }

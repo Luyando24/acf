@@ -14,8 +14,11 @@ import {
   UserPlus,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
+import { getPublishedEvent } from '@/lib/supabase/publicContent'
 import { formatDateTime } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { breadcrumbSchema, eventSchema } from '@/lib/utils/structuredData'
+import JsonLd from '@/components/seo/JsonLd'
 import { renderRichText } from '@/lib/content/richText'
 import {
   fetchDialogueRegistrations,
@@ -63,22 +66,15 @@ const FALLBACK_DIALOGUES: Record<string, any> = {
 
 export async function generateMetadata({ params }: EventDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
-  const { data: evt } = await supabase
-    .from('events')
-    .select('title, description')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-
-  const evtItem = (evt as any) || FALLBACK_DIALOGUES[slug]
+  const evtItem = ((await getPublishedEvent(slug)) as any) || FALLBACK_DIALOGUES[slug]
   if (!evtItem) {
-    return constructMetadata({ title: 'Policy Dialogue' })
+    return constructMetadata({ title: 'Policy Dialogues', pathname: '/events', noIndex: true })
   }
 
   return constructMetadata({
-    title: `${evtItem.title} | Policy Dialogues`,
-    description: evtItem.description,
+    title: evtItem.seo_title || `${evtItem.title} | Policy Dialogues`,
+    description: evtItem.seo_description || evtItem.description,
+    image: evtItem.featured_image,
     pathname: `/events/${slug}`,
   })
 }
@@ -87,13 +83,8 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
   const { slug } = await params
   const supabase = await createClient()
 
-  const [{ data: rawEvt }, metaMap, registrations] = await Promise.all([
-    supabase
-      .from('events')
-      .select('*')
-      .eq('slug', slug)
-      .eq('status', 'published')
-      .maybeSingle(),
+  const [rawEvt, metaMap, registrations] = await Promise.all([
+    getPublishedEvent(slug),
     getDialogueEventMetaMap(supabase),
     fetchDialogueRegistrations(supabase),
   ])
@@ -294,6 +285,26 @@ export default async function EventDetailPage({ params }: EventDetailProps) {
           </div>
         )}
       </div>
+
+      <JsonLd
+        data={[
+          eventSchema({
+            name: evt.title,
+            description: evt.description,
+            image: evt.featured_image,
+            pathname: `/events/${evt.slug}`,
+            startsAt: evt.starts_at,
+            endsAt: evt.ends_at,
+            venue: evt.venue,
+            virtualUrl: evt.virtual_url,
+          }),
+          breadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Policy Dialogues', url: '/events' },
+            { name: evt.title },
+          ]),
+        ]}
+      />
     </div>
   )
 }

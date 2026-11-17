@@ -6,6 +6,7 @@ export const metadata = constructMetadata({
   title: 'Search',
   description: 'Search published ACF news, publications, programmes, and events.',
   pathname: '/search',
+  noIndex: true,
 })
 
 interface SearchPageProps {

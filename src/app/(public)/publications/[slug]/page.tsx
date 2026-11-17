@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, BookOpen, Download, FileText } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { ArrowLeft, Download, FileText } from 'lucide-react'
+import { getPublishedPublication } from '@/lib/supabase/publicContent'
 import { formatDate, formatFileSize } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { articleSchema, breadcrumbSchema } from '@/lib/utils/structuredData'
+import JsonLd from '@/components/seo/JsonLd'
 import { isServableDocumentPath } from '@/lib/uploads/policy'
 
 interface PublicationDetailProps {
@@ -12,36 +14,26 @@ interface PublicationDetailProps {
 
 export async function generateMetadata({ params }: PublicationDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
-  const { data: pub } = await supabase
-    .from('publications')
-    .select('title, summary')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-
-  const pubItem = pub as any
+  const pubItem = (await getPublishedPublication(slug)) as any
   if (!pubItem) {
-    return constructMetadata({ title: 'Publication' })
+    return constructMetadata({ title: 'Publications', pathname: '/publications', noIndex: true })
   }
 
   return constructMetadata({
     title: `${pubItem.title} | Publications`,
     description: pubItem.summary,
+    image: pubItem.cover_image,
     pathname: `/publications/${slug}`,
+    type: 'article',
+    publishedTime: pubItem.published_on,
+    modifiedTime: pubItem.updated_at,
   })
 }
 
 export default async function PublicationDetailPage({ params }: PublicationDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
 
-  const { data: rawPub } = await supabase
-    .from('publications')
-    .select('*, publication_categories(name)')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
+  const rawPub = await getPublishedPublication(slug)
 
   if (!rawPub) {
     notFound()
@@ -125,6 +117,26 @@ export default async function PublicationDetailPage({ params }: PublicationDetai
           </div>
         </div>
       </div>
+
+      <JsonLd
+        data={[
+          articleSchema({
+            type: 'ScholarlyArticle',
+            headline: pub.title,
+            description: pub.summary,
+            image: pub.cover_image,
+            pathname: `/publications/${pub.slug}`,
+            publishedAt: pub.published_on,
+            modifiedAt: pub.updated_at,
+            section: (pub.publication_categories as any)?.name || 'Publications',
+          }),
+          breadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Knowledge Hub', url: '/publications' },
+            { name: pub.title },
+          ]),
+        ]}
+      />
     </div>
   )
 }

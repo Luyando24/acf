@@ -2,9 +2,11 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
-import { createClient } from '@/lib/supabase/server'
+import { getPublishedNews } from '@/lib/supabase/publicContent'
 import { formatDate } from '@/lib/utils/formatters'
-import { constructMetadata } from '@/lib/utils/seo'
+import { constructMetadata, absoluteUrl } from '@/lib/utils/seo'
+import { articleSchema, breadcrumbSchema } from '@/lib/utils/structuredData'
+import JsonLd from '@/components/seo/JsonLd'
 import { renderRichText } from '@/lib/content/richText'
 import ContentImage from '@/components/ui/ContentImage'
 
@@ -14,36 +16,26 @@ interface NewsDetailProps {
 
 export async function generateMetadata({ params }: NewsDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
-  const { data: news } = await supabase
-    .from('news_posts')
-    .select('title, excerpt')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-
-  const newsItem = news as any
-  if (!newsItem) {
-    return constructMetadata({ title: 'Article' })
+  const article = (await getPublishedNews(slug)) as any
+  if (!article) {
+    return constructMetadata({ title: 'News & Updates', pathname: '/news', noIndex: true })
   }
 
   return constructMetadata({
-    title: `${newsItem.title} | News & Updates`,
-    description: newsItem.excerpt,
+    title: article.seo_title || `${article.title} | News & Updates`,
+    description: article.seo_description || article.excerpt,
+    image: article.featured_image || article.image_url,
     pathname: `/news/${slug}`,
+    type: 'article',
+    publishedTime: article.published_at,
+    modifiedTime: article.updated_at,
   })
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
 
-  const { data: rawArticle } = await supabase
-    .from('news_posts')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
+  const rawArticle = await getPublishedNews(slug)
 
   if (!rawArticle) {
     notFound()
@@ -51,6 +43,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
 
   const article = rawArticle as any
   const featuredImg = article.image_url || article.featured_image || '/photos/fosta-stakeholders-dialogue.jpg'
+  const shareUrl = absoluteUrl(`/news/${article.slug}`)
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -106,7 +99,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
             <div className="flex items-center gap-2">
               <a
                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                  `https://acfzambia.org/news/${article.slug}`
+                  shareUrl
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -118,7 +111,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
               <a
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                   article.title
-                )}&url=${encodeURIComponent(`https://acfzambia.org/news/${article.slug}`)}`}
+                )}&url=${encodeURIComponent(shareUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-[#eef6f1] text-[#1e7e48] hover:bg-[#1e7e48] hover:text-white transition-colors"
@@ -128,7 +121,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
               </a>
               <a
                 href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
-                  `https://acfzambia.org/news/${article.slug}`
+                  shareUrl
                 )}&title=${encodeURIComponent(article.title)}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -141,6 +134,26 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
           </div>
         </div>
       </div>
+
+      <JsonLd
+        data={[
+          articleSchema({
+            type: 'NewsArticle',
+            headline: article.title,
+            description: article.excerpt,
+            image: featuredImg,
+            pathname: `/news/${article.slug}`,
+            publishedAt: article.published_at,
+            modifiedAt: article.updated_at,
+            section: article.category || 'Sector News',
+          }),
+          breadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'News & Updates', url: '/news' },
+            { name: article.title },
+          ]),
+        ]}
+      />
     </div>
   )
 }

@@ -1,16 +1,16 @@
 import { MetadataRoute } from 'next'
+import { siteUrl } from '@/lib/utils/seo'
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://acfzambia.org'
-
   return {
     rules: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/'],
+        disallow: ['/admin/', '/api/', '/search'],
       },
     ],
-    sitemap: `${siteUrl}/sitemap.xml`,
+    sitemap: `${siteUrl()}/sitemap.xml`,
+    host: siteUrl(),
   }
 }

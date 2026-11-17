@@ -25,10 +25,21 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: '*.supabase.co', pathname: '/storage/v1/object/public/**' },
     ],
   },
-  async rewrites() {
+  async redirects() {
+    // Permanent (308) consolidation of retired and alias URLs so search
+    // engines pass equity to the live route instead of juggling duplicates.
     return [
-      { source: '/dialogues', destination: '/events' },
-      { source: '/knowledge-hub', destination: '/publications' },
+      { source: '/dialogues', destination: '/events', permanent: true },
+      { source: '/knowledge-hub', destination: '/publications', permanent: true },
+      { source: '/board', destination: '/about/board', permanent: true },
+      { source: '/staff', destination: '/about/secretariat', permanent: true },
+      { source: '/management', destination: '/about/secretariat', permanent: true },
+      { source: '/about/management', destination: '/about/secretariat', permanent: true },
+      { source: '/about/staff', destination: '/about/secretariat', permanent: true },
+      { source: '/climate-resilience', destination: '/our-work#climate-resilience', permanent: true },
+      { source: '/policy-advocacy', destination: '/our-work#policy-advocacy', permanent: true },
+      { source: '/research-and-evidence', destination: '/our-work#research-and-evidence', permanent: true },
+      { source: '/our-work/:slug', destination: '/our-work#:slug', permanent: true },
     ]
   },
   async headers() {

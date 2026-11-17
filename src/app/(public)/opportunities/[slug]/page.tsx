@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Clock, AlertCircle, Mail, Globe, CheckCircle2 } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { ArrowLeft, AlertCircle, Mail, Globe, CheckCircle2 } from 'lucide-react'
+import { getPublishedOpportunity } from '@/lib/supabase/publicContent'
 import { formatDate, isOpportunityClosed } from '@/lib/utils/formatters'
 import { constructMetadata } from '@/lib/utils/seo'
+import { breadcrumbSchema } from '@/lib/utils/structuredData'
+import JsonLd from '@/components/seo/JsonLd'
 import OpportunityApplicationForm from '@/components/opportunities/OpportunityApplicationForm'
 
 interface OpportunityDetailProps {
@@ -12,36 +14,23 @@ interface OpportunityDetailProps {
 
 export async function generateMetadata({ params }: OpportunityDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
-  const { data: opp } = await supabase
-    .from('opportunities')
-    .select('title, description')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
-
-  const oppItem = opp as any
+  const oppItem = (await getPublishedOpportunity(slug)) as any
   if (!oppItem) {
-    return constructMetadata({ title: 'Opportunity' })
+    return constructMetadata({ title: 'Opportunities', pathname: '/opportunities', noIndex: true })
   }
 
   return constructMetadata({
     title: `${oppItem.title} | Opportunities`,
     description: oppItem.description,
     pathname: `/opportunities/${slug}`,
+    modifiedTime: oppItem.updated_at,
   })
 }
 
 export default async function OpportunityDetailPage({ params }: OpportunityDetailProps) {
   const { slug } = await params
-  const supabase = await createClient()
 
-  const { data: rawOpp } = await supabase
-    .from('opportunities')
-    .select('*')
-    .eq('slug', slug)
-    .eq('status', 'published')
-    .single()
+  const rawOpp = await getPublishedOpportunity(slug)
 
   if (!rawOpp) {
     notFound()
@@ -176,6 +165,14 @@ export default async function OpportunityDetailPage({ params }: OpportunityDetai
           )}
         </div>
       </div>
+
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Opportunities', url: '/opportunities' },
+          { name: opp.title },
+        ])}
+      />
     </div>
   )
 }
