@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import {
   Download,
@@ -11,6 +11,10 @@ import {
   AlertCircle,
   UserCheck,
   UserX,
+  Upload,
+  FileSpreadsheet,
+  X,
+  Loader2,
 } from 'lucide-react'
 import { formatDate } from '@/lib/utils/formatters'
 
@@ -34,9 +38,18 @@ export default function NewsletterManager({
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'subscribed' | 'unsubscribed' | 'pending'>('ALL')
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
 
+  // Excel Upload State
+  const [showImportPanel, setShowImportPanel] = useState(false)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [defaultStatus, setDefaultStatus] = useState<'subscribed' | 'pending'>('subscribed')
+  const [defaultSource, setDefaultSource] = useState('excel_upload')
+  const [isImporting, setIsImporting] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   const showNotification = (message: string, type: 'success' | 'error' = 'success') => {
     setNotification({ type, message })
-    setTimeout(() => setNotification(null), 4000)
+    setTimeout(() => setNotification(null), 5000)
   }
 
   const toggleStatus = async (sub: SubscriberItem) => {
@@ -67,6 +80,73 @@ export default function NewsletterManager({
     } catch {
       setSubscribers((prev) => prev.filter((item) => item.id !== id))
       showNotification('Subscriber deleted.')
+    }
+  }
+
+  const handleDownloadSampleTemplate = () => {
+    const csv = [
+      'Email,Status,Source',
+      'farmer.union@znfu.org.zm,subscribed,excel_upload',
+      'policy.desk@agribusiness.co.zm,subscribed,event_registration',
+      'research.fellow@iapri.org.zm,pending,partner_referral',
+    ].join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'acf_newsletter_import_template.csv'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
+  const handleExcelImport = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedFile) {
+      showNotification('Please select an Excel (.xlsx, .xls) or CSV (.csv) file first.', 'error')
+      return
+    }
+
+    setIsImporting(true)
+    const formData = new FormData()
+    formData.append('file', selectedFile)
+    formData.append('defaultStatus', defaultStatus)
+    formData.append('defaultSource', defaultSource)
+
+    try {
+      const res = await fetch('/api/admin/newsletter/import', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to import Excel subscribers.')
+      }
+
+      if (Array.isArray(data.subscribers) && data.subscribers.length > 0) {
+        setSubscribers(data.subscribers)
+      }
+
+      const skippedNote =
+        data.invalidOrSkippedCount > 0 || data.duplicateInFileCount > 0
+          ? ` (${data.duplicateInFileCount} duplicate, ${data.invalidOrSkippedCount} skipped)`
+          : ''
+
+      showNotification(
+        `Successfully imported ${data.importedCount} newsletter subscriber${
+          data.importedCount === 1 ? '' : 's'
+        } from "${selectedFile.name}"${skippedNote}.`,
+        'success'
+      )
+      setSelectedFile(null)
+      setShowImportPanel(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    } catch (err: any) {
+      showNotification(err.message || 'Error importing Excel file.', 'error')
+    } finally {
+      setIsImporting(false)
     }
   }
 
@@ -106,6 +186,15 @@ export default function NewsletterManager({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowImportPanel((prev) => !prev)}
+            className="px-4 py-2.5 bg-[#f0f6f1] text-[#175432] hover:bg-[#e2ebe4] border border-[#175432]/20 text-sm font-bold rounded-md transition-colors flex items-center gap-2 cursor-pointer"
+          >
+            <FileSpreadsheet size={16} />
+            <span>Upload Excel</span>
+          </button>
+
           <a
             href="/api/admin/export/newsletter"
             download
@@ -124,6 +213,183 @@ export default function NewsletterManager({
           </Link>
         </div>
       </div>
+
+      {/* Collapsible Excel Bulk Upload Panel */}
+      {showImportPanel && (
+        <form
+          onSubmit={handleExcelImport}
+          className="bg-white p-6 rounded-xl border-2 border-[#175432]/30 shadow-md space-y-5 animate-in fade-in duration-150"
+        >
+          <div className="flex items-start justify-between gap-4 border-b border-[#e2ebe4] pb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#f0f6f1] text-[#175432] flex items-center justify-center shrink-0">
+                <FileSpreadsheet size={20} />
+              </div>
+              <div>
+                <h2 className="text-base font-black text-[#0f1d14]">
+                  Bulk Upload Subscribers from Excel (.xlsx, .xls, .csv)
+                </h2>
+                <p className="text-xs text-[#5c6f62] mt-0.5">
+                  Upload an Excel workbook or CSV spreadsheet containing subscriber email addresses (and optional Status / Source columns). Existing emails are automatically deduplicated.
+                </p>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setShowImportPanel(false)}
+              className="p-1.5 text-[#5c6f62] hover:text-[#0f1d14] rounded-md hover:bg-gray-100 cursor-pointer"
+              title="Close import panel"
+            >
+              <X size={18} />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            {/* Dropzone */}
+            <div className="lg:col-span-2">
+              {selectedFile ? (
+                <div className="p-4 rounded-xl bg-[#f6f9f6] border border-[#bbf7d0] flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-100 text-[#175432] flex items-center justify-center shrink-0">
+                      <FileSpreadsheet size={20} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-bold text-[#0f1d14] truncate">
+                        {selectedFile.name}
+                      </div>
+                      <div className="text-xs text-[#5c6f62]">
+                        {(selectedFile.size / 1024).toFixed(1)} KB · Ready to import
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedFile(null)
+                      if (fileInputRef.current) fileInputRef.current.value = ''
+                    }}
+                    className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-md cursor-pointer"
+                    title="Remove file"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  onDragOver={(e) => {
+                    e.preventDefault()
+                    setIsDragging(true)
+                  }}
+                  onDragLeave={() => setIsDragging(false)}
+                  onDrop={(e) => {
+                    e.preventDefault()
+                    setIsDragging(false)
+                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                      setSelectedFile(e.dataTransfer.files[0])
+                    }
+                  }}
+                  onClick={() => fileInputRef.current?.click()}
+                  className={`p-7 border-2 border-dashed rounded-xl flex flex-col items-center justify-center text-center cursor-pointer transition-all ${
+                    isDragging
+                      ? 'border-[#175432] bg-[#f0f6f1]'
+                      : 'border-[#d0ded3] bg-[#fafcfa] hover:border-[#175432] hover:bg-[#f6f9f6]'
+                  }`}
+                >
+                  <Upload size={24} className="text-[#175432] mb-2" />
+                  <div className="text-sm font-bold text-[#0f1d14]">
+                    Click to select or drag & drop an Excel file here
+                  </div>
+                  <div className="text-xs text-[#5c6f62] mt-1">
+                    Supports Microsoft Excel (<strong>.xlsx</strong>, <strong>.xls</strong>) and <strong>.csv</strong> files up to 15MB
+                  </div>
+                </div>
+              )}
+
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".xlsx,.xls,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv"
+                className="hidden"
+                onChange={(e) => {
+                  if (e.target.files && e.target.files[0]) {
+                    setSelectedFile(e.target.files[0])
+                  }
+                }}
+              />
+            </div>
+
+            {/* Import Settings */}
+            <div className="space-y-3 bg-[#f6f9f6] p-4 rounded-xl border border-[#e2ebe4]">
+              <div>
+                <label className="block text-xs font-bold text-[#0f1d14] mb-1">
+                  Default Subscription Status
+                </label>
+                <select
+                  value={defaultStatus}
+                  onChange={(e) => setDefaultStatus(e.target.value as 'subscribed' | 'pending')}
+                  className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] bg-white text-xs font-bold text-[#0f1d14]"
+                >
+                  <option value="subscribed">Active (Subscribed)</option>
+                  <option value="pending">Pending Double Opt-In</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-[#0f1d14] mb-1">
+                  Default Source Channel
+                </label>
+                <select
+                  value={defaultSource}
+                  onChange={(e) => setDefaultSource(e.target.value)}
+                  className="w-full px-3 py-2 rounded-md border border-[#e2ebe4] bg-white text-xs font-semibold text-[#0f1d14]"
+                >
+                  <option value="excel_upload">Excel Bulk Upload</option>
+                  <option value="event_registration">Policy Dialogue Attendance</option>
+                  <option value="partner_referral">Stakeholder / Partner List</option>
+                  <option value="admin_portal">Admin Portal Import</option>
+                </select>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleDownloadSampleTemplate}
+                className="w-full text-left text-xs font-bold text-[#175432] hover:underline flex items-center gap-1.5 pt-1 cursor-pointer"
+              >
+                <Download size={13} />
+                <span>Download sample template (.csv)</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-2 border-t border-[#e2ebe4]">
+            <button
+              type="button"
+              onClick={() => setShowImportPanel(false)}
+              className="px-4 py-2 rounded-md border border-[#e2ebe4] text-xs font-bold text-[#5c6f62] hover:bg-gray-50 cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={!selectedFile || isImporting}
+              className="px-5 py-2.5 bg-[#175432] hover:bg-[#114227] text-white text-xs font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+            >
+              {isImporting ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" />
+                  <span>Importing Subscribers...</span>
+                </>
+              ) : (
+                <>
+                  <Upload size={14} />
+                  <span>Upload & Import Subscribers</span>
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      )}
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

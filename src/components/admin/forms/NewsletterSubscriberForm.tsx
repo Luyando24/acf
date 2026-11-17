@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
@@ -10,13 +10,18 @@ import {
   AlertCircle,
   Mail,
   UserCheck,
-  Globe,
-  Tag,
   ShieldCheck,
+  FileSpreadsheet,
+  Upload,
+  Loader2,
+  X,
 } from 'lucide-react'
 
 export default function NewsletterSubscriberForm() {
   const router = useRouter()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const [mode, setMode] = useState<'single' | 'excel'>('single')
 
   const [formData, setFormData] = useState({
     email: '',
@@ -25,6 +30,7 @@ export default function NewsletterSubscriberForm() {
     notes: '',
   })
 
+  const [excelFile, setExcelFile] = useState<File | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isSaving, setIsSaving] = useState(false)
   const [notification, setNotification] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
@@ -42,6 +48,55 @@ export default function NewsletterSubscriberForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (mode === 'excel') {
+      if (!excelFile) {
+        setNotification({
+          type: 'error',
+          message: 'Please select an Excel (.xlsx, .xls) or CSV (.csv) file to upload.',
+        })
+        return
+      }
+
+      setIsSaving(true)
+      setNotification(null)
+
+      const body = new FormData()
+      body.append('file', excelFile)
+      body.append('defaultStatus', formData.status)
+      body.append('defaultSource', formData.source || 'excel_upload')
+
+      try {
+        const res = await fetch('/api/admin/newsletter/import', {
+          method: 'POST',
+          body,
+        })
+        const data = await res.json()
+        if (!res.ok || !data.success) {
+          throw new Error(data.error || 'Failed to import Excel subscribers.')
+        }
+
+        setNotification({
+          type: 'success',
+          message: `Imported ${data.importedCount} subscriber${
+            data.importedCount === 1 ? '' : 's'
+          } from "${excelFile.name}".`,
+        })
+        setTimeout(() => {
+          router.push('/admin/newsletter')
+          router.refresh()
+        }, 900)
+      } catch (err: any) {
+        setNotification({
+          type: 'error',
+          message: err.message || 'Error importing Excel file.',
+        })
+      } finally {
+        setIsSaving(false)
+      }
+      return
+    }
+
     if (!validate()) {
       setNotification({
         type: 'error',
@@ -112,10 +167,10 @@ export default function NewsletterSubscriberForm() {
                 Newsletter Subscribers
               </Link>
               <span>/</span>
-              <span className="text-[#175432]">New Subscriber</span>
+              <span className="text-[#175432]">Enrol Subscribers</span>
             </div>
             <h1 className="text-xl font-black text-[#0f1d14] mt-0.5">
-              Enrol Newsletter Subscriber
+              Enrol Newsletter Subscribers
             </h1>
           </div>
         </div>
@@ -132,10 +187,51 @@ export default function NewsletterSubscriberForm() {
             disabled={isSaving}
             className="px-5 py-2 bg-[#175432] hover:bg-[#114227] text-white text-sm font-bold rounded-md shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 cursor-pointer"
           >
-            <Save size={15} />
-            <span>{isSaving ? 'Enrolling...' : 'Enrol Subscriber'}</span>
+            {mode === 'excel' ? <Upload size={15} /> : <Save size={15} />}
+            <span>
+              {isSaving
+                ? mode === 'excel'
+                  ? 'Importing...'
+                  : 'Enrolling...'
+                : mode === 'excel'
+                ? 'Upload & Import Excel'
+                : 'Enrol Subscriber'}
+            </span>
           </button>
         </div>
+      </div>
+
+      {/* Mode Switcher */}
+      <div className="bg-white p-1.5 rounded-lg border border-[#e2ebe4] inline-flex items-center gap-1.5">
+        <button
+          type="button"
+          onClick={() => setMode('single')}
+          className={`px-4 py-2 rounded-md text-xs font-bold flex items-center gap-2 transition-colors cursor-pointer ${
+            mode === 'single'
+              ? 'bg-[#175432] text-white'
+              : 'text-[#5c6f62] hover:text-[#0f1d14]'
+          }`}
+        >
+          <Mail size={14} />
+          <span>Single Email Address</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMode('excel')
+            if (formData.source === 'admin_portal') {
+              setFormData((prev) => ({ ...prev, source: 'excel_upload' }))
+            }
+          }}
+          className={`px-4 py-2 rounded-md text-xs font-bold flex items-center gap-2 transition-colors cursor-pointer ${
+            mode === 'excel'
+              ? 'bg-[#175432] text-white'
+              : 'text-[#5c6f62] hover:text-[#0f1d14]'
+          }`}
+        >
+          <FileSpreadsheet size={14} />
+          <span>Bulk Excel Upload (.xlsx / .xls / .csv)</span>
+        </button>
       </div>
 
       {notification && (
@@ -157,36 +253,99 @@ export default function NewsletterSubscriberForm() {
         <div className="md:col-span-2 space-y-6">
           <div className="bg-white p-6 rounded-lg border border-[#e2ebe4] shadow-xs space-y-5">
             <h2 className="text-sm font-black text-[#0f1d14] uppercase tracking-wider flex items-center gap-2">
-              <Mail size={16} className="text-[#175432]" />
-              Subscriber Identity & Channel
+              {mode === 'excel' ? (
+                <>
+                  <FileSpreadsheet size={16} className="text-[#175432]" />
+                  <span>Excel Spreadsheet Upload</span>
+                </>
+              ) : (
+                <>
+                  <Mail size={16} className="text-[#175432]" />
+                  <span>Subscriber Identity & Channel</span>
+                </>
+              )}
             </h2>
 
-            <div className="space-y-1.5">
-              <label className="text-sm font-bold text-[#0f1d14]">
-                Stakeholder Email Address *
-              </label>
-              <div className="relative">
-                <Mail size={15} className="absolute left-3.5 top-3 text-[#5c6f62]" />
+            {mode === 'excel' ? (
+              <div className="space-y-3">
+                {excelFile ? (
+                  <div className="p-4 rounded-lg bg-[#f6f9f6] border border-[#bbf7d0] flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <FileSpreadsheet size={20} className="text-[#175432] shrink-0" />
+                      <div className="min-w-0">
+                        <div className="text-sm font-bold text-[#0f1d14] truncate">
+                          {excelFile.name}
+                        </div>
+                        <div className="text-xs text-[#5c6f62]">
+                          {(excelFile.size / 1024).toFixed(1)} KB
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setExcelFile(null)
+                        if (fileInputRef.current) fileInputRef.current.value = ''
+                      }}
+                      className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-md cursor-pointer"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="p-8 border-2 border-dashed border-[#d0ded3] hover:border-[#175432] bg-[#fafcfa] hover:bg-[#f6f9f6] rounded-lg flex flex-col items-center justify-center text-center cursor-pointer transition-all"
+                  >
+                    <Upload size={24} className="text-[#175432] mb-2" />
+                    <div className="text-sm font-bold text-[#0f1d14]">
+                      Click to select an Excel (.xlsx, .xls) or CSV (.csv) spreadsheet
+                    </div>
+                    <div className="text-xs text-[#5c6f62] mt-1">
+                      Spreadsheet rows will be scanned for valid email addresses and deduplicated automatically.
+                    </div>
+                  </div>
+                )}
                 <input
-                  type="email"
-                  required
-                  value={formData.email}
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx,.xls,.csv"
+                  className="hidden"
                   onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value })
-                    if (errors.email) setErrors((prev) => ({ ...prev, email: '' }))
+                    if (e.target.files && e.target.files[0]) {
+                      setExcelFile(e.target.files[0])
+                    }
                   }}
-                  placeholder="e.g. policy.specialist@cooperative.org.zm"
-                  className={`w-full pl-10 pr-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
-                    errors.email ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
-                  }`}
                 />
               </div>
-              {errors.email && (
-                <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
-                  <AlertCircle size={12} /> {errors.email}
-                </p>
-              )}
-            </div>
+            ) : (
+              <div className="space-y-1.5">
+                <label className="text-sm font-bold text-[#0f1d14]">
+                  Stakeholder Email Address *
+                </label>
+                <div className="relative">
+                  <Mail size={15} className="absolute left-3.5 top-3 text-[#5c6f62]" />
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value })
+                      if (errors.email) setErrors((prev) => ({ ...prev, email: '' }))
+                    }}
+                    placeholder="e.g. policy.specialist@cooperative.org.zm"
+                    className={`w-full pl-10 pr-4 py-2.5 rounded-md border text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none transition-all ${
+                      errors.email ? 'border-rose-400 bg-rose-50/20' : 'border-[#e2ebe4]'
+                    }`}
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-xs text-rose-600 font-semibold flex items-center gap-1 mt-1">
+                    <AlertCircle size={12} /> {errors.email}
+                  </p>
+                )}
+              </div>
+            )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
@@ -196,6 +355,7 @@ export default function NewsletterSubscriberForm() {
                   onChange={(e) => setFormData({ ...formData, source: e.target.value })}
                   className="w-full px-4 py-2.5 rounded-md border border-[#e2ebe4] text-sm focus:ring-2 focus:ring-[#175432] focus:outline-none bg-white font-medium"
                 >
+                  <option value="excel_upload">Excel Bulk Upload</option>
                   <option value="admin_portal">Admin Manual Enrollment</option>
                   <option value="website_footer">Public Website Footer</option>
                   <option value="event_registration">Policy Symposium Attendance</option>
@@ -235,23 +395,30 @@ export default function NewsletterSubscriberForm() {
           <div className="bg-gradient-to-br from-[#f6f9f6] to-[#edf4ee] p-6 rounded-lg border border-[#d6e5d8] space-y-4">
             <div className="flex items-center justify-between text-xs font-bold text-[#175432] uppercase tracking-wider">
               <span>Record Summary</span>
-              <span className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase ${
-                formData.status === 'subscribed'
-                  ? 'bg-emerald-100 text-emerald-800'
-                  : formData.status === 'pending'
-                  ? 'bg-amber-100 text-amber-800'
-                  : 'bg-gray-100 text-gray-700'
-              }`}>
+              <span
+                className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase ${
+                  formData.status === 'subscribed'
+                    ? 'bg-emerald-100 text-emerald-800'
+                    : formData.status === 'pending'
+                    ? 'bg-amber-100 text-amber-800'
+                    : 'bg-gray-100 text-gray-700'
+                }`}
+              >
                 {formData.status}
               </span>
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-[#e2ebe4] shadow-xs space-y-2.5">
               <div className="text-sm font-bold text-[#0f1d14] break-all">
-                {formData.email || 'recipient@domain.com'}
+                {mode === 'excel'
+                  ? excelFile?.name || 'Select Excel workbook (.xlsx)'
+                  : formData.email || 'recipient@domain.com'}
               </div>
               <div className="text-xs text-[#5c6f62]">
-                Source: <span className="font-semibold capitalize text-[#175432]">{formData.source.replace(/_/g, ' ')}</span>
+                Source:{' '}
+                <span className="font-semibold capitalize text-[#175432]">
+                  {formData.source.replace(/_/g, ' ')}
+                </span>
               </div>
               <div className="pt-2 border-t border-[#e2ebe4] flex items-center gap-1.5 text-[11px] text-[#5c6f62]">
                 <ShieldCheck size={12} className="text-[#175432]" />

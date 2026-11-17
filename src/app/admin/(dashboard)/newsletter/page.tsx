@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import NewsletterManager, { SubscriberItem } from '@/components/admin/NewsletterManager'
 
+export const dynamic = 'force-dynamic'
+
 const DEFAULT_SUBSCRIBERS: SubscriberItem[] = [
   {
     id: 'aaaa1111-1111-1111-1111-111111111101',
