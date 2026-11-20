@@ -50,13 +50,8 @@ function resolveIcon(name?: string | null) {
 export default async function OurWorkPage() {
   const supabase = await createClient()
 
-  const [pageContent, progRes, pubRes, newsRes] = await Promise.all([
+  const [pageContent, pubRes, newsRes] = await Promise.all([
     getPageContent<OurWorkPageContent>('our-work'),
-    supabase
-      .from('programmes')
-      .select('*')
-      .eq('status', 'published')
-      .order('order_index', { ascending: true }),
     supabase
       .from('publications')
       .select('*, publication_categories(name)')
@@ -80,9 +75,6 @@ export default async function OurWorkPage() {
   const projectsSection =
     pageContent?.projects_section ||
     DEFAULT_OUR_WORK_PAGE_CONTENT.projects_section
-  const dossiersSection =
-    pageContent?.dossiers_section ||
-    DEFAULT_OUR_WORK_PAGE_CONTENT.dossiers_section
   const ctaSection =
     pageContent?.cta_section || DEFAULT_OUR_WORK_PAGE_CONTENT.cta_section
 
@@ -101,24 +93,8 @@ export default async function OurWorkPage() {
       ? projectsSection.projects
       : DEFAULT_OUR_WORK_PAGE_CONTENT.projects_section.projects
 
-  const dbProgrammes = (progRes.data || []) as any[]
   const relatedPubs = (pubRes.data || []) as any[]
   const relatedNews = (newsRes.data || []) as any[]
-
-  // Exclude slugs already represented in Core Pillars, Thematic Areas, or Completed Projects
-  // so there is no duplication, while still displaying any additional programmes created in Admin > Programmes
-  const knownSlugs = new Set<string>([
-    'policy-advocacy-reform',
-    'multi-stakeholder-dialogue',
-    'evidence-based-policy-analysis',
-    'capacity-building',
-    ...thematicItems.map((i) => i.slug),
-    ...completedProjects.map((p) => p.slug),
-  ])
-
-  const additionalProgrammes = dbProgrammes.filter(
-    (p) => !knownSlugs.has(p.slug)
-  )
 
   return (
     <div className="bg-[#fdfdfd] pb-24">
@@ -354,58 +330,6 @@ export default async function OurWorkPage() {
             })}
           </div>
         </section>
-
-        {/* 5. Additional Published Programme Dossiers from CMS */}
-        {additionalProgrammes.length > 0 && (
-          <section id="active-dossiers" className="scroll-mt-36 space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#dbe6de] pb-4">
-              <div>
-                <h2 className="text-2xl font-bold text-[#122419]">
-                  {dossiersSection.title}
-                </h2>
-                <p className="text-xs text-[#526658] mt-1">
-                  {dossiersSection.description}
-                </p>
-              </div>
-              <span className="text-xs font-bold text-[#1e7e48] bg-[#eef6f1] px-3 py-1 rounded-full border border-[#dbe6de]">
-                {additionalProgrammes.length} Active Dossiers
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {additionalProgrammes.map((prog) => {
-                const Icon = resolveIcon(prog.icon)
-                return (
-                  <div
-                    key={prog.slug}
-                    id={prog.slug}
-                    className="scroll-mt-36 bg-white rounded-2xl p-6 border border-[#dbe6de] shadow-xs hover:border-[#1e7e48]/40 transition-all space-y-3"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#eef6f1] text-[#1e7e48] flex items-center justify-center shrink-0">
-                        <Icon size={20} />
-                      </div>
-                      <h3 className="text-lg font-bold text-[#122419]">
-                        {prog.title}
-                      </h3>
-                    </div>
-                    <p className="text-xs font-semibold text-[#2d3f33] leading-relaxed">
-                      {prog.summary}
-                    </p>
-                    {prog.body && prog.body !== `<p>${prog.summary}</p>` && (
-                      <div
-                        className="prose-acf text-xs text-[#526658] leading-relaxed pt-2 border-t border-[#f4f8f5]"
-                        dangerouslySetInnerHTML={{
-                          __html: renderRichText(prog.body),
-                        }}
-                      />
-                    )}
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-        )}
 
         {/* 6. Related Policy Briefs & Sector News */}
         {(relatedPubs.length > 0 || relatedNews.length > 0) && (
