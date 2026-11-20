@@ -137,42 +137,6 @@ export default async function OurWorkPage() {
         </div>
       </section>
 
-      {/* In-Page Quick Navigation Bar */}
-      <div className="bg-[#f4f8f5] border-b border-[#dbe6de] sticky top-20 z-20 shadow-2xs">
-        <div className="container mx-auto px-4 max-w-5xl py-3 flex items-center gap-2 overflow-x-auto no-scrollbar">
-          <span className="text-[11px] font-black uppercase tracking-wider text-[#526658] shrink-0 mr-1">
-            Jump to:
-          </span>
-          <a
-            href="#core-pillars"
-            className="px-3 py-1.5 rounded-full bg-white hover:bg-[#eef6f1] text-[#122419] hover:text-[#1e7e48] border border-[#dbe6de] text-xs font-bold transition-colors shrink-0"
-          >
-            {pillarsSection.title}
-          </a>
-          <a
-            href="#thematic-programmes"
-            className="px-3 py-1.5 rounded-full bg-white hover:bg-[#eef6f1] text-[#122419] hover:text-[#1e7e48] border border-[#dbe6de] text-xs font-bold transition-colors shrink-0"
-          >
-            {thematicSection.title}
-          </a>
-          {thematicItems.map((item) => (
-            <a
-              key={item.slug}
-              href={`#${item.slug}`}
-              className="px-3 py-1.5 rounded-full bg-white hover:bg-[#eef6f1] text-[#526658] hover:text-[#1e7e48] border border-[#dbe6de] text-xs font-semibold transition-colors shrink-0"
-            >
-              {item.title}
-            </a>
-          ))}
-          <a
-            href="#completed-projects"
-            className="px-3 py-1.5 rounded-full bg-white hover:bg-[#eef6f1] text-[#122419] hover:text-[#1e7e48] border border-[#dbe6de] text-xs font-bold transition-colors shrink-0"
-          >
-            {projectsSection.title}
-          </a>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div className="container mx-auto px-4 max-w-5xl pt-16 space-y-24">
         {/* 2. Core Advocacy Pillars */}

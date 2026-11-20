@@ -269,40 +269,19 @@ export default async function NewsPage({ searchParams }: NewsPageProps) {
           </div>
         )}
 
-        {/* Newsletter Signup & Social Live Stream Card */}
+        {/* Social Live Stream Card */}
         <section className="bg-gradient-to-br from-[#153e28] to-[#1e5c3a] text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-[#256c45] space-y-6">
           <div className="max-w-2xl space-y-2">
             <span className="text-[11px] font-black uppercase tracking-widest text-[#a3e6be] bg-white/10 px-3 py-1 rounded-full border border-white/15 inline-block">
               Communications Desk
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              Stay Informed on Zambian Agriculture
+              Follow Our Work in Real Time
             </h2>
             <p className="text-emerald-100/90 text-sm leading-relaxed">
-              Get timely empirical briefings, policy notifications, and invitations to national consultation roundtables.
+              Dialogue highlights, field updates, and announcements from the ACF Communications Desk.
             </p>
           </div>
-
-          <form action="/api/newsletter" method="POST" className="max-w-xl space-y-3">
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your official email address"
-                className="flex-grow px-5 py-3.5 rounded-full bg-white text-[#122419] text-xs sm:text-sm placeholder:text-[#526658] focus:outline-none focus:ring-2 focus:ring-[#a3e6be] shadow-inner"
-              />
-              <button
-                type="submit"
-                className="px-7 py-3.5 bg-[#2e9e5b] hover:bg-[#258249] text-white font-extrabold text-xs sm:text-sm rounded-full transition-all shadow-md shrink-0 cursor-pointer"
-              >
-                Subscribe
-              </button>
-            </div>
-            <p className="text-[11px] text-emerald-100/80">
-              By subscribing, you agree to receive agricultural policy communications pursuant to the Data Protection Act.
-            </p>
-          </form>
 
           <div className="pt-4 border-t border-white/15 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-emerald-100/90">
             <div className="flex items-center gap-2">

@@ -15,6 +15,7 @@ import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialI
 import { ContactPageContent, DEFAULT_CONTACT_PAGE_CONTENT } from '@/types/pageContent'
 import type { SiteSettings } from '@/lib/supabase/settings'
 import TurnstileBox from '@/components/forms/TurnstileBox'
+import NewsletterSignup from '@/components/newsletter/NewsletterSignup'
 
 interface ContactClientViewProps {
   initialContent?: ContactPageContent
@@ -404,6 +405,11 @@ export default function ContactClientView({ initialContent, settings }: ContactC
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
+        </div>
+
+        {/* Newsletter Signup */}
+        <div className="mt-16">
+          <NewsletterSignup />
         </div>
       </div>
     </div>
