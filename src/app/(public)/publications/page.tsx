@@ -130,9 +130,6 @@ export default async function KnowledgeHubPage({ searchParams }: PublicationsPag
       <div className="container mx-auto px-4 max-w-5xl pt-12 space-y-12">
         {/* Category Filters Pills */}
         <div>
-          <div className="text-xs font-bold uppercase tracking-wider text-[#526658] mb-3">
-            Filter by Resource Type:
-          </div>
           <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-[#dbe6de]">
             <Link
               href="/publications"
