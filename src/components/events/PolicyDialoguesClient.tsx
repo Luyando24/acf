@@ -77,7 +77,7 @@ export default function PolicyDialoguesClient({
     <div className="space-y-12">
       {/* Top Action & 2-Tab Navigation Bar */}
       <div className="bg-white rounded-3xl border border-[#dbe6de] p-4 sm:p-5 shadow-xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
-        {/* 2 Tabs: Active Dialogues vs Closed Dialogues */}
+        {/* 2 Tabs: Active Dialogues vs Past Dialogues */}
         <div
           role="tablist"
           aria-label="Policy Dialogues Tabs"
@@ -119,7 +119,7 @@ export default function PolicyDialoguesClient({
             }`}
           >
             <Lock size={15} />
-            <span>Closed Dialogues</span>
+            <span>Past Dialogues</span>
             <span
               className={`px-2 py-0.5 rounded-full text-[11px] font-black ${
                 activeTab === 'closed'
@@ -471,7 +471,7 @@ export default function PolicyDialoguesClient({
             <div className="bg-white rounded-3xl border border-[#dbe6de] p-12 text-center">
               <Lock size={36} className="mx-auto text-[#526658] mb-3 opacity-50" />
               <h3 className="text-lg font-bold text-[#122419] mb-1">
-                No Closed Dialogues Recorded Yet
+                No Past Dialogues Recorded Yet
               </h3>
               <p className="text-sm text-[#526658]">
                 Concluded dialogues and archived proceedings will appear in this tab.

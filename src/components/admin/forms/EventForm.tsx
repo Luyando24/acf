@@ -518,7 +518,7 @@ export default function EventForm({ initialData }: EventFormProps) {
                 <option value="auto">Automatic (Based on Event Date)</option>
               </select>
               <p className="text-[11px] text-[#5c6f62]">
-                Controls whether this dialogue appears under the <strong>Active Dialogues</strong> tab or the <strong>Closed Dialogues</strong> tab on <code>/events</code>.
+                Controls whether this dialogue appears under the <strong>Active Dialogues</strong> tab or the <strong>Past Dialogues</strong> tab on <code>/events</code>.
               </p>
             </div>
 

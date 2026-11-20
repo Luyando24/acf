@@ -172,7 +172,7 @@ export default function EventManager({
       )
       showToast(
         nextClosed
-          ? `Moved "${ev.title}" to Closed Dialogues tab`
+          ? `Moved "${ev.title}" to Past Dialogues tab`
           : `Moved "${ev.title}" to Active Dialogues tab`
       )
     } catch {
@@ -630,7 +630,7 @@ export default function EventManager({
                     title={
                       closed
                         ? 'Reopen and move to Active Dialogues tab'
-                        : 'Mark concluded and move to Closed Dialogues tab'
+                        : 'Mark concluded and move to Past Dialogues tab'
                     }
                   >
                     {closed ? <Unlock size={13} /> : <Lock size={13} />}
