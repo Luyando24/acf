@@ -7,7 +7,7 @@ import { constructMetadata } from '@/lib/utils/seo'
 export const metadata = constructMetadata({
   title: 'Knowledge Hub | Research, Tools & Advisories',
   description:
-    'Access our full depository of empirical data, templates, and policy statements from the Agricultural Consultative Forum.',
+    'Access our full repository of empirical data, templates, and policy statements from the Agricultural Consultative Forum.',
   pathname: '/publications',
 })
 
@@ -97,12 +97,7 @@ export default async function KnowledgeHubPage({ searchParams }: PublicationsPag
           <span className="text-xs font-bold uppercase tracking-widest text-white bg-white/15 px-3.5 py-1.5 rounded-full border border-white/20 inline-block">
             Knowledge Hub
           </span>
-          <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tight">
-            Research, Tools &amp; Advisories
-          </h1>
-          <p className="text-emerald-100/90 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-            Access our full depository of empirical data, templates, and policy statements.
-          </p>
+          <h1 className="sr-only">Research, Tools &amp; Advisories</h1>
 
           {/* Search Bar Form */}
           <form method="GET" action="/publications" className="pt-4 max-w-2xl mx-auto">
@@ -158,13 +153,13 @@ export default async function KnowledgeHubPage({ searchParams }: PublicationsPag
           </div>
         </div>
 
-        {/* Featured Depository Highlights (shown when no specific search query) */}
+        {/* Featured Repository Highlights (shown when no specific search query) */}
         {!q && !category && (
           <section className="bg-[#f4f8f5] p-6 sm:p-8 rounded-3xl border border-[#dbe6de] space-y-6">
             <div className="flex items-center gap-2">
               <Sparkles size={18} className="text-[#1e7e48]" />
               <h2 className="text-lg font-bold text-[#122419]">
-                Featured Depository Highlights
+                Featured Repository Highlights
               </h2>
             </div>
 
