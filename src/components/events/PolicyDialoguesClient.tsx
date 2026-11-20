@@ -12,12 +12,10 @@ import {
   Download,
   UserPlus,
   MessageSquarePlus,
-  CheckCircle2,
   Lock,
   Sparkles,
   Users,
   X,
-  ExternalLink,
 } from 'lucide-react'
 import {
   DialogueAttachment,
@@ -363,7 +361,7 @@ export default function PolicyDialoguesClient({
                           className="font-bold text-[#1e7e48] hover:underline inline-flex items-center gap-1.5 cursor-pointer"
                         >
                           <UserPlus size={13} />
-                          <span>Request to Join Working Group</span>
+                          <span>Request to Join a Consultative Meeting</span>
                         </button>
                       </div>
                     </div>
