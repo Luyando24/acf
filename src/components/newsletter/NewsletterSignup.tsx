@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { ArrowRight, CheckCircle2, AlertCircle, Shield } from 'lucide-react'
 
 export default function NewsletterSignup() {
@@ -17,7 +16,7 @@ export default function NewsletterSignup() {
 
     if (!consent) {
       setStatus('error')
-      setMessage('Please consent to receiving updates under the Data Protection Act.')
+      setMessage('Please confirm you want to receive updates.')
       return
     }
 
@@ -77,7 +76,7 @@ export default function NewsletterSignup() {
                 <input
                   type="email"
                   required
-                  placeholder="Enter your official email address"
+                  placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3.5 bg-white border border-[#dbe6de] rounded-xl text-[#122419] placeholder-[#526658]/70 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e7e48] transition-all shadow-2xs"
@@ -103,11 +102,7 @@ export default function NewsletterSignup() {
                 className="mt-1 h-4 w-4 rounded border-[#dbe6de] text-[#1e7e48] focus:ring-[#1e7e48]"
               />
               <label htmlFor="newsletter-consent" className="text-xs text-[#526658] leading-normal">
-                I consent to ACF processing my email address in accordance with Zambia&apos;s{' '}
-                <Link href="/privacy-policy" className="underline hover:text-[#1e7e48] font-semibold text-[#122419]">
-                  Data Protection Act, 2021
-                </Link>
-                . You may unsubscribe at any time.
+                I agree to receive policy updates and announcements from ACF. You may unsubscribe at any time.
               </label>
             </div>
 

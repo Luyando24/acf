@@ -42,27 +42,9 @@ export default async function BoardPage() {
         </div>
       </section>
 
-      {/* Two-Tab Navigation Switcher */}
+      {/* Personnel Grid */}
       <div className="container mx-auto px-4 max-w-5xl pt-10">
-        <div className="flex items-center justify-center">
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#eef6f1] border border-[#dbe6de] shadow-2xs gap-1.5">
-            <Link
-              href="/about/board"
-              className="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#1e7e48] text-white shadow-xs transition-all"
-            >
-              Board of Directors
-            </Link>
-            <Link
-              href="/about/secretariat"
-              className="px-6 py-2.5 rounded-xl text-xs font-bold text-[#526658] hover:text-[#122419] transition-all"
-            >
-              Secretariat
-            </Link>
-          </div>
-        </div>
-
-        {/* Personnel Grid */}
-        <div className="pt-10">
+        <div>
           {members.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {members.map((person) => (

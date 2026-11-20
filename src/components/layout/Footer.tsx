@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Clock } from 'lucide-react'
+import { Clock } from 'lucide-react'
 import { FacebookIcon, TwitterIcon, LinkedinIcon } from '@/components/ui/SocialIcons'
 import type { SiteSettings } from '@/lib/supabase/settings'
 
@@ -14,9 +14,9 @@ export default function Footer({ settings }: FooterProps) {
     <footer className="bg-[#f4f8f5] text-[#2d3f33] border-t border-[#dbe6de]">
       {/* Main Footer Links */}
       <div className="container mx-auto px-4 pt-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-16">
-          {/* Column 1: Institutional Brand & Mandate */}
-          <div className="lg:col-span-2 space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-16">
+          {/* Column 1: Logo */}
+          <div className="space-y-4">
             <Link href="/" className="inline-block py-1">
               <div className="bg-white rounded-xl p-2.5 inline-block border border-[#dbe6de] shadow-xs">
                 <img
@@ -26,10 +26,6 @@ export default function Footer({ settings }: FooterProps) {
                 />
               </div>
             </Link>
-
-            <p className="text-[#526658] text-sm leading-relaxed max-w-sm">
-              The Agricultural Consultative Forum is a multi-stakeholder platform championing evidence-based policy dialogue, sustainable food systems, and secure tenure rights for Zambian smallholders.
-            </p>
 
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
@@ -69,10 +65,10 @@ export default function Footer({ settings }: FooterProps) {
             </div>
           </div>
 
-          {/* Column 2: Navigation Links */}
+          {/* Column 2: Useful Links */}
           <div className="space-y-3">
             <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
-              Organisation
+              Useful Links
             </h3>
             <ul className="space-y-2 text-sm text-[#526658]">
               <li>
@@ -81,32 +77,8 @@ export default function Footer({ settings }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href="/about/board" className="hover:text-[#1e7e48] transition-colors">
-                  Board of Directors
-                </Link>
-              </li>
-              <li>
-                <Link href="/about/secretariat" className="hover:text-[#1e7e48] transition-colors">
-                  Secretariat
-                </Link>
-              </li>
-              <li>
-                <Link href="/partners" className="hover:text-[#1e7e48] transition-colors">
-                  Partners &amp; Networks
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Programmes & Knowledge */}
-          <div className="space-y-3">
-            <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
-              Programmes &amp; Work
-            </h3>
-            <ul className="space-y-2 text-sm text-[#526658]">
-              <li>
                 <Link href="/our-work" className="hover:text-[#1e7e48] transition-colors">
-                  All Thematic Areas
+                  Our Work
                 </Link>
               </li>
               <li>
@@ -116,53 +88,20 @@ export default function Footer({ settings }: FooterProps) {
               </li>
               <li>
                 <Link href="/news" className="hover:text-[#1e7e48] transition-colors">
-                  News &amp; Sector Updates
-                </Link>
-              </li>
-              <li>
-                <Link href="/events" className="hover:text-[#1e7e48] transition-colors">
-                  Policy Dialogues
-                </Link>
-              </li>
-              <li>
-                <Link href="/opportunities" className="hover:text-[#1e7e48] transition-colors">
-                  Opportunities &amp; Tenders
-                </Link>
-              </li>
-              <li>
-                <Link href="/facebook-posts" className="hover:text-[#1e7e48] transition-colors">
-                  Social Highlights
+                  News &amp; Updates
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Secretariat Contact */}
+          {/* Column 3: Working Hours */}
           <div className="space-y-3">
             <h3 className="text-xs font-black uppercase tracking-widest text-[#122419]">
-              Secretariat
+              Working Hours
             </h3>
-            <div className="space-y-2.5 text-xs text-[#526658] leading-relaxed">
-              <div className="flex items-start gap-2.5">
-                <MapPin size={15} className="text-[#1e7e48] shrink-0 mt-0.5" />
-                <span>{settings.address}</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Phone size={15} className="text-[#1e7e48] shrink-0" />
-                <a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="hover:text-[#1e7e48] transition-colors">
-                  {settings.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <Mail size={15} className="text-[#1e7e48] shrink-0" />
-                <a href={`mailto:${settings.email}`} className="hover:text-[#1e7e48] transition-colors">
-                  {settings.email}
-                </a>
-              </div>
-              <div className="flex items-start gap-2.5">
-                <Clock size={15} className="text-[#1e7e48] shrink-0 mt-0.5" />
-                <span>{settings.office_hours}</span>
-              </div>
+            <div className="flex items-start gap-2.5 text-xs text-[#526658] leading-relaxed">
+              <Clock size={15} className="text-[#1e7e48] shrink-0 mt-0.5" />
+              <span>{settings.office_hours}</span>
             </div>
           </div>
         </div>
